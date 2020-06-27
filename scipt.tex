@@ -33,21 +33,6 @@
 \usepackage{float}
 \usepackage{subcaption}
 
-% use svg image files
-%\usepackage{ifluatex}
-%\ifluatex
-%  \usepackage{pdftexcmds}
-%  \makeatletter
-%  \let\pdfstrcmp\pdf@strcmp
-%  \let\pdffilemoddate\pdf@filemoddate
-%  \makeatother
-%\fi
-
-\usepackage[T1]{fontenc}
-\usepackage{svg}
-\usepackage{relsize}
-%\usepackage{svg}
-
 % as it sais. Start the section counter from zero
 % instead of starting it at one
 \setcounter{section}{-1}
@@ -59,7 +44,7 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{comment}[theorem]{Comment}
-\newtheorem{example}[theorem]{Example}
+\newtheorem{example}[theorem]{Remark}
 
 % create a command to easyly add figure titles
 \newcommand*{\figuretitle}[1]{%
@@ -69,7 +54,7 @@
 }
 
 \title{Tropical Geometry of Deep Neural Networks}
-%\author{David Leatham}
+\author{David Leatham}
 
 % Start the document
 \begin{document}
@@ -154,7 +139,7 @@ For example, the fourth row in the triangle is represented be the following equa
 \begin{align*}
 (a \oplus b)^{3} &= 3 \max (a , b) \\
 &= \max (3a, 3b) = (a^{3} + b^{3}) \\
-&= \max (0 \odot a^{3} , 0 \odot a^{2} \odot b , 0 \odot a \odot b^{2} , 0 \odot b^{3}) with a, b \in \mathbb{T}
+&= \max (0 \odot a^{3} , 0 \odot a^{2} \odot b , 0 \odot a \odot b^{2} , 0 \odot b^{3}) \ with \ a, b \in \mathbb{T}
 \end{align*}
 You may say the Pascal's coefficients are four zeroes. The same applies to all cases
 \begin{align*}
@@ -410,7 +395,7 @@ vertices on its upper faces. If either (i) or (ii) is violated, then this become
 
 \section{Neural networks}
 
-Neural networks viewed as a topic, make for a very interesting field of interest in their own right. Historically the term "Neural Network" was introduced in attempts to describe the functionality of biological processes, in particular the nervous system and the brain, in an mathematical sense \cite{mcculloch1943logical, widrow1960adaptive, rumelhart1986learning}. Simplified the nervous system is a net of neurons, each having a soma and an axon. At any instant a neuron has some threshold, which excitation must exceed to initiate an impulse. This, except for the fact and the time of its occurrence, is determined by the neuron, not by the excitation. From the point of excitation the impulse is propagated to all parts of the neuron \cite{mcculloch1943logical}. Through synapses the axons are connected to further soma through with the impulse is passed on. Impulses passing through the nervous system partly consist of electrical impulses and chemical reactions \cite{palay1956synapses}.
+Neural networks viewed as a topic, make for a very interesting field of interest in their own right. Historically the term "Neural Network" was introduced in attempts to describe the functionality of biological processes, in particular the nervous system and the brain, in a mathematical sense \cite{mcculloch1943logical, widrow1960adaptive, rumelhart1986learning}. Simplified the nervous system is a net of neurons, each having a soma and an axon. At any instant a neuron has some threshold, which excitation must exceed to initiate an impulse. This, except for the fact and the time of its occurrence, is determined by the neuron, not by the excitation. From the point of excitation the impulse is propagated to all parts of the neuron \cite{mcculloch1943logical}. Through synapses the axons are connected to further soma through with the impulse is passed on to further neurons. Impulses passing through the nervous system partly consist of electrical impulses and chemical reactions \cite{palay1956synapses}. A collection of partially connected neurons, capable of carrying impulses, is called a biological neural network.
 
 
 \begin{figure}[H]
@@ -420,6 +405,63 @@ Neural networks viewed as a topic, make for a very interesting field of interest
 \caption{A representation of a neuron. The axon terminal attach to dendrite. This way impulses pass from neuron to neuron.}
 \label{fig:neuron}
 \end{figure}
+
+In reference to a biological neural network, an abstract neuronal network, in the following simply referenced as neuronal networks, are defined. As a biological neuron and especially a biological neural network is far more complex than this introduction may make it seem, biological realism would impose entirely unnecessary constraint. Boiling a biological neuronal network down to its quintessential features results in a weighted directed graph, where edges and vertices are weighted. Typically a weighted graph only has its edges weighted. To fit our model better we introduce them also with weighted vertices.
+
+\begin{definition}
+A graph is a pair $G = (V, E)$, where $V$ is a set whose elements are called vertices, and $E \subset \{ {x, y}|(x,y) \in v^{2} \}$ is a set of two-sets of vertices, whose elements are called edges.
+\end{definition}
+
+\begin{definition}
+A directed graph is a pair $G = (V, E)$, where $V$ is a set whose elements are called vertices, and $E \subset \{ (x, y)|(x,y) \in v^{2} \}$ is a set of edges which are ordered pairs of distinct vertices.
+\end{definition}
+
+\begin{definition}
+A weighted graph $G = (V, E)$ in our case is attributed by two functions $\psi : V \to \mathbb{K}$ and $\omega : E \to \mathbb{K}$ that assign a weight $\psi(v)$ and $\omega(e)$ to each edge $e \in E$ and weight $v \in V$, with $\mathbb{K}$ being a field.
+\end{definition}
+
+\begin{definition}
+Let $G = (V, E)$ be a Graph. We set $n(G) = |V|$ to be the cardinality of vertices and $m(G) = |E|$ the cardinality of edges.
+\end{definition}
+
+Graphs can represent a multitude of relations between objects. Like road maps of roads connecting cities. Or describe objects them selves like molecules.
+
+\begin{example}
+For instance the following weighted directed Graph could depict a road map with cities as nodes connected by roads that are weighted with the distance between cites and we want to find the minimal distance from any city to city A. \
+
+\begin{figure}[H]
+\centering
+\figuretitle{Min distance weighted graph}
+\includegraphics[scale=0.5]{graphics/weighted_directed_graph_2.png}
+\caption{Min distance weighted graph.}
+\label{fig:neuron}
+\end{figure}
+
+In a graph where we have a way to reach each node from the starting point, as our graph has this property, Dijkstra's algorithm gives us, for small graphs, an easy algorithm to compute the shortest path from node A to any other node by hand. At any point in the algorithm simply consider all reachable nodes from nodes that have their shortest path already computed by adding up the shortest paths length to the previous node and the path length of the path between the nodes. This way every reachable node by nodes with there shortest path already computed get at least one or multiple lengths of paths assigned to them. Pick the shortest path under all of these and repeat until all vertices have a path assigned. If there are multiple shortest paths, pick one of them. \\
+We will proof that this gives us a correct result through induction.
+\begin{proof} 
+For each node $v$, $dist(v)$ is the shortest distance from source to $v$ when traveling via visited nodes only, or infinity if no such path exists. (Note: we do not assume $dist(v)$ is the actual shortest distance for unvisited nodes.) \\
+The base case is when there is just one visited node, namely the initial node source, in which case the hypothesis is trivial. \\
+Otherwise, assume the hypothesis for $n-1$ visited nodes. In which case, we choose an edge $vu$ where $u$ has the least $dist(u)$ of any unvisited nodes and the edge $vu$ is such that $dist(u) = dist(v) + length(v,u)$. $dist(u)$ is considered to be the shortest distance from source to $u$ because if there were a shorter path, and if $w$ was the first unvisited node on that path then by the original hypothesis $dist(w) > dist(u)$ which creates a contradiction. Similarly if there were a shorter path to u without using unvisited nodes, and if the last but one node on that path were $w$, then we would have had $dist(u) = dist(w) + length(w,u)$, also a contradiction. \\
+After processing $u$ it will still be true that for each unvisited node $w$, $dist(w)$ will be the shortest distance from source to $w$ using visited nodes only, because if there were a shorter path that doesn't go by $u$ we would have found it previously, and if there were a shorter path using u we would have updated it when processing $u$. \\
+After all nodes are visited, the shortest path from source to any node $v$ consists only of visited nodes, therefore $dist(v)$ is the shortest distance.
+\end{proof}
+
+Now that we have understood Dijkstra's algorithm, to complete the remark, we will compute the shortest distance to vertex $C$ by terminating Dijkstra's algorithm as soon as we have computed the shortest path to $C$. \\
+From $A$ the shortest distance to adjacent vertices is the distance to vertex $B$ with length $5$. We set the shortest distance to $B$ to $5$ and repeat. This time we have to also consider the the distances to adjacent vertices to $B$ with the added shortest distance to $B$. So to consider are paths of length $20$ to $D$, $17$ to $C$ and $9$ to $H$ with is closely beaten by $8$ to $H$ from $A$. We mark $8$ to be the shortest distance to $H$. We describe one more step in detail and let the reader confirm if the calculated value for $C$ is correct. We have now computed the minimal distance to nodes $A$, $B$ and $H$. Reachable nodes at this point are $D$, $C$, $F$ and $E$ with path lengths of $20, 17, 15, 14$ and $9$. $9$ is the shortest, the shortest way to node $E$ is of length $9$. Next is node $F$ and then $C$ with length $14$.
+
+\end{example}
+
+------------------------------------ \\
+One more nice thing to do would be to elaborate and introduce a neural network, that does not have a specific input or out. For example no output. Right now I have no inspiration for this specific topic, so I will go on. \\
+------------------------------------
+
+Graph theory is a big field, but we are interested in modelling neural networks. In particular in those neural networks that have specific inputs and outputs. Our goal at this point is to get an insight of how to construct a neural network and define weights, so that our output stands in a predefined relation to our input.
+
+- These neural networks can be seen as circuits
+- Why can neural networks make every circuit?
+
+\cite{quine1955way}
 
 
 \begin{definition}
