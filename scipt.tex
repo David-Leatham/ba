@@ -3,6 +3,7 @@
 
 % allow useage of graphics 
 \usepackage[pdftex]{graphicx}
+\usepackage{wrapfig}
 %\usepackage[final]{graphicx}
 %\usepackage[dvipdfmx]{graphicx} 
 %\usepackage{bmpsize}
@@ -48,7 +49,7 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{comment}[theorem]{Comment}
-\newtheorem{example}[theorem]{Remark}
+\newtheorem{remark}[theorem]{Remark}
 
 % create a command to easyly add figure titles
 \newcommand*{\figuretitle}[1]{%
@@ -188,7 +189,7 @@ Multiplication by $- \infty$ annihilates $- \infty \odot x = - \infty \: \forall
 An essential feature of tropical arithmetics is that there is no subtraction. Take $a, b \in \mathbb{R} \cup \{- \infty \}$ with $a < b$ then the equation $a \oplus x=b$ has no solution x at all. \cite[p.~11]{maclagan2015introduction} \\ \\
 
 To get more familiar with the tropical arithmetics we will have a look at an arithemtical example, before we jump into tropical polynomials.
-\begin{example}
+\begin{remark}
 The tropical Pascal’s triangle, whose rows are the coefficients appearing in a binomial expansion, is very simple to remember. All its coefficients are Zero.
 For example, the fourth row in the triangle is represented be the following equation 
 \begin{align*}
@@ -211,7 +212,7 @@ And Pascal's triangle has the following form. \\ \\
 5 &&$0$&&$0$&&$0$&&$0$&&$0$&&$0$&\\
 6 &$0$&&$0$&&$0$&&$0$&&$0$&&$0$&&$0$.
 \end{tabular}
-\end{example}
+\end{remark}
 
 The goal of this first section and the following is to get to understand tropical rational functions and < maps, as the underlying objects are key to later relations between neural networks and Tropical Geometry. Linking these two field is  core to this thesis. \
 First, so that we can introduce multidimensional tropical polynomials properly a notion of monomials is needed.
@@ -230,7 +231,7 @@ $$ f(x)=c_1x^{\alpha_1} \oplus \dots \oplus c_rx^{\alpha_r}$$
 where $\alpha_i = (\alpha_{i1}, \dots , \alpha_{id}) \in \mathbb{N}^{d}$ and $c_i \in \mathbb{R} \cup \{- \infty \}$, $i = 1, \dots , r$. We will assume that a monomial of a given multiindex appears at most once in the sum, i.e. $\alpha_i \neq \alpha_j$ for any $i \neq j$.
 \end{definition}
 
-\begin{example}
+\begin{remark}
 We are going to examine tropical polynomials in one variable. Monomials in one variable are of the form $ c \odot x^{a}, \mathbb{T} \to \mathbb{T}$ where $c \in \mathbb{T}$ and $ a \in \mathbb{N} $. Meaning a tropical polynomial in one variable is of the form $f(x)=c_1x^{\alpha_1} \oplus \dots \oplus c_rx^{\alpha_r} \ with \ c_i \in \mathbb{T}, a_i \in \mathbb{N} \ for \ i=1, \dots , r$. \\
 For a quadratic tropical polynomial $f(x) = a \oplus bx \oplus cx^{2} with a,b,c \in \mathbb{T}$ linearity breaks at two points $b-c$ and $a-b$ if $b-c > a$, otherwise it only breaks at one point $(a-c):2$. Visualising two quadratic tropical functions gives a good intuition of the piecewise-linearity. \\
 The black colored parts of the followig figures one and two indicate the graph of the tropical polynomial.
@@ -263,7 +264,7 @@ We can see the degree of a tropical polynomial, defined the same as a degree of 
 \end{figure}
 
 
-\end{example}
+\end{remark}
 
 In multiple variables we can characterise tropical polynomials as functions from $\mathbb{R}^{n} \to \mathbb{R}$ that satisfy the following three properties.
 
@@ -363,10 +364,10 @@ As such, a tropical rational function $f \oslash g : \mathbb{T}^{d} \to \mathbb{
 \end{itemize}
 \end{comment}
 
-\begin{example}
+\begin{remark}
 The only thing missing to this section are some examples for tropical rational functions and tropical rational maps. \\
 !!! Expand by adding some examples !!!
-\end{example}
+\end{remark}
 
 \begin{definition}
 $R : \mathbb{R}^{d} \to \mathbb{R}^{p}, x = (x_1, \dots , x_d)\mapsto (f_1(x), \dots , f_p(x))$, is called a tropical polynomial map if each $f_i : \mathbb{R}^{d} \to \mathbb{R}$ is a tropical polynomial, $i = 1, \dots , p$, and a tropical rational map if $f_1, \dots , f_p$ are tropical rational functions. We will denote the set of tropical polynomial maps by $Pol(d, p)$ and the set of tropical rational maps by $Rat(d, p)$. So $Pol(d, 1) = \mathbb{T}[X_1, \dots , x_d]$ and $Rat(d, 1) = \mathbb{T}(x_1, \dots , x_d)$ \cite[p.~3]{zhang2018tropical}.
@@ -481,7 +482,7 @@ Let $G = (V, E)$ be a Graph. We set $n(G) = |V|$ to be the cardinality of vertic
 
 Graphs can represent a multitude of relations between objects. Like road maps of roads connecting cities. Or describe objects them selves like molecules.
 
-\begin{example}
+\begin{remark}
 For instance the following weighted directed Graph could depict a road map with cities as nodes connected by roads that are weighted with the distance between cites and we want to find the minimal distance from any city to city A. \
 
 \begin{figure}[H]
@@ -505,31 +506,95 @@ After all nodes are visited, the shortest path from source to any node $v$ consi
 Now that we understand Dijkstra's algorithm, to complete the remark, we will compute the shortest distance to vertex $C$, by terminating Dijkstra's algorithm as soon as we have computed the shortest path to $C$. \\
 From $A$ the shortest distance to adjacent vertices is the distance to vertex $B$ with length $5$. We set the shortest distance to $B$ to $5$ and repeat. This time we have to also consider the the distances to adjacent vertices to $B$ with the added shortest distance to $B$. So in this iteration paths of length $20$ to $D$, $17$ to $C$ and $9$ to $H$ with is closely beaten by $8$ to $H$ from $A$ are to be considered. We mark $8$ to be the shortest distance to $H$. We describe one more step in detail and let the reader confirm if the calculated value for $C$ is correct. We have now computed the minimal distance to nodes $A$, $B$ and $H$. Reachable nodes at this point are $D$, $C$, $F$ and $E$ with path lengths of $20, 17, 15, 14$ and $9$. $9$ is the shortest, the shortest way to node $E$ is of length $9$. Next is node $F$ and then $C$ with it's length being $14$.
 
-\end{example}
+\end{remark}
 
 ------------------------------------ \\
 One more nice thing to do would be to elaborate and introduce a neural network, that does not have a specific input or out. For example no output. Right now I have no inspiration for this specific topic, so I will go on. \\
 ------------------------------------
 
-Graph theory is a big field, but we are interested in modelling neural networks. In particular in those neural networks that have specific inputs and outputs. Our goal at this point is to get an insight of how to construct a neural network and define weights, so that our output stands in a predefined relation to our input.
+Graph theory is a big field, but we are interested in modelling neural networks. In particular in those neural networks that have specific input layers and output layers. Our goal at this point is to get an insight of how to construct a neural network and define weights, so that our output stands in a predefined relation to our input.
 In particular one of the most important neural networks is the L-layer feedforward neural network. \
 We will define and motivate L-layer feedforward neural networks using graphs at first and then abstract again to only their necessary features.
 
 \begin{definition}
-An $L$-layer feedforward neural network in graph form (G, $\sigma$) is a weighted graph $G$ with an activation function $\sigma$. The graph consists of $L$ sets $V^{(j)}$, $j = 1, \dots , L$ of vertices with $L-1$ corresponding sets of edges $E^{(i)} \subset \{(x,y)|x \in V^{(i)}; y \in V^{(i+1)}\}$, $i = 1, \dots , L-1$ which connect two consecutive layers.  The Graph of a $0$-layer feedforward neural network is an empty graph and of a $1$-layer feedforward neural network is a set of vertices without connecting edges. \\
-The first layer is called the input layer and the last ($L$-th) layer is called the output layer. All layers in between collectively are called hidden layers. \\
-A fully connected feedforward neural network $(G, \sigma)$ with $G = (V, E)$ is one where $E$ is the largest out of every possible set of $E$. This will give the unique solution, where $V^{(j)}$ and $V^{(j+1)}$ for each $j = 1, \dots , L-1$ will be fully connected.
+An $L$-layer feedforward neural network in graph form $(G, \sigma)$ is a weighted graph $G$ with an activation function $\sigma$. The graph consists of $L$ sets $V^{(j)}$, $j = 1, \dots , L$ of vertices with $L-1$ corresponding sets of edges $E^{(i)} \subset \{(x,y)|x \in V^{(i)}; y \in V^{(i+1)}\}$, $i = 1, \dots , L-1$ which connect two consecutive layers.  The Graph of a $0$-layer feedforward neural network is an empty graph and of a $1$-layer feedforward neural network is a set of vertices without connecting edges.
 \end{definition}
 
+\begin{remark}
+The first layer of an $L$-layer feedforward neural network is called the input layer and the last ($L$-th) layer is called the output layer. All layers in between collectively are called hidden layers.
+\end{remark}
+
+\begin{remark}
+A fully connected feedforward neural network $(G, \sigma)$ with $G = (V, E)$ is one where $E$ is the largest out of every possible set of $E$. This will give the unique solution, where $V^{(j)}$ and $V^{(j+1)}$ for each $j = 1, \dots , L-1$ will be fully connected.
+\end{remark}
+
+We are at an interesting point of this chapter. Inspired by biological neural networks, which are the core building blocks of animal brains, we have abstracted some of the essential features, given an introduction to graphs and used these as a mathematical buildingblock for neural networks.
+With the introduction of feed forward neural networks we have cast an sensible form of neural network with is able to store and also learn complex relations between input data and output data through forward and backward propagation. \\
+Forward propagation describes the process by which from an input vector the output vector is calculated. First we need to introduce the bias and weight vector $W^{(j)}$.
+
+\begin{remark}\label{standardGraphLabeling}
+Let $(G, \sigma)$ be a $L$-layer feedforward neural network where we fixate the elements from the sets $V^{(j)}$, by naming them $b_{j1}$ to $b_{j|V^{(j)}|}$, so that we can establish a correlating vector $b^{(j)} = (b_{j1}, \dots ,b_{j|V^{(j)}|})^{t}$, we call this vector the bias of layer $j$, with corresponds to the weights of vertices in $V^{(j)}$ for $j = 2, \dots , L$ and a matrix $W^{(j)}$ with the entries $W^{(j)}_{nm} = \omega((b_{j-1n}, b_{jm}))$ which correspond to the weights of edges connecting layer $j-1$ and $j$ where $j$ is still in range $j = 2, \dots , L$.
+\end{remark}
+
+We will label feedforward neural networks this way untill the definition of feedforward neural networks as functions. And are now in a position to define forward propagation.
+
+\begin{definition}(Forward Propagation)
+Let $(G, \sigma)$ be as in \ref{standardGraphLabeling}. A Forward Propagation of our $L$-layer feedforward neural network $(G, \sigma)$ and an input vector x, corresponds to the value of $a^{(j)}$, where $z^{(j)} = W^{(j)} a^{(j-1)} + b^{(j)}$, $a^{(j)} = \sigma(z^{(j)})$, for $j=2, \dots , L$ and $a^{(1)} = x$.
+\end{definition}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+\centering
+%\figuretitle{Min distance weighted graph}
+\includegraphics[scale=0.2]{graphics/Summary-of-the-common-Boolean-logic-gates-with-symbols-and-truth-tables.png}
+\caption{Bool Gates Trooth Tables}
+\label{fig:bool_gate}
+\end{wrapfigure}
+
+For the sake of proofing, that the feedforward neural network we have defined is able to be set up, so that for any specific input, any specific output can be obtained. We will view the infrastructure of the weights, bias and the function $\sigma$ together as a circuit. 
+
+\begin{remark}
+With circuits you have basic logical gates like AND, OR, and NOT gates and a lot more, that manipulate binary input as shown in figure \ref{fig:bool_gate}. A set of gates is called a Universal Logic Gates Set if with those gates any other logic or Boolean function can be created. After \cite{quine1955way} AND, OR and NOT define such a set. Meaning if we can reproduce these three gates in feedforward neural network form, any boolean logic can be created by these.
+%Then again NAND and NOR both can make a AND, OR and NOT gait, so ether of them are so called minimal universal logic gates, meaning they can make any other logic of Boolean function on their own. We will reproduce 
 
 
 
 
-- These neural networks can be seen as circuits
-- Why can neural networks make every circuit?
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{graphics/AND_gate.png}
+        \caption{AND gate}
+        \label{fig:AND}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{graphics/OR_gate.png}
+        \caption{OR gate}
+        \label{fig:OR}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{graphics/NOT_gate.png}
+        \caption{NOT gate}
+        \label{fig:NOT}
+    \end{subfigure}
+    \caption{Neural Logical Gates}\label{fig:neural_logic_gates}
+\end{figure}
 
-\cite{quine1955way}
+\end{remark}
 
+So now Backpropagation.
+
+\begin{definition}(Backpropagation)
+To be defined.
+\end{definition}
+
+\begin{remark}
+Give an example where backpropagation is used.
+Maybe give a code snipped, that does this and add some showcases, since back propagation is not really designed to be done by hand.
+\end{remark}
+
+This gives a way to train neural networks on a datapool. \\
+
+The last abstaction level of feedforward neural networks is to define them as function, witch enables to us to compare feedforward neural networds to tropical polynomials in Chapter $4$.
 
 \begin{definition}
 Viewed abstractly, an L-layer feedforward neural network is a map $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ given by a composition of functions
