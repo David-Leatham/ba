@@ -33,6 +33,10 @@
 \usepackage{float}
 \usepackage{subcaption}
 
+% use the tikz package, no clue why I need the positioning thing
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
 % as it sais. Start the section counter from zero
 % instead of starting it at one
 \setcounter{section}{-1}
@@ -75,6 +79,57 @@
 \newpage
 
 \section{Tropical Algebra}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzset{%
+  every neuron/.style={
+    circle,
+    draw,
+    minimum size=1cm
+  },
+  neuron missing/.style={
+    draw=none, 
+    scale=3,
+    text height=0.333cm,
+    execute at begin node=\color{black}$\vdots$
+  },
+}
+
+\begin{tikzpicture}[x=1.5cm, y=1.5cm, >=stealth]
+
+\foreach \m/\l [count=\y] in {1,2,3,missing,4}
+  \node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
+
+\foreach \m [count=\y] in {1,missing,2}
+  \node [every neuron/.try, neuron \m/.try ] (hidden-\m) at (2,2-\y*1.25) {};
+
+\foreach \m [count=\y] in {1,missing,2}
+  \node [every neuron/.try, neuron \m/.try ] (output-\m) at (4,1.5-\y) {};
+
+\foreach \l [count=\i] in {1,2,3,n}
+  \draw [<-] (input-\i) -- ++(-1,0)
+    node [above, midway] {$I_\l$};
+
+\foreach \l [count=\i] in {1,n}
+  \node [above] at (hidden-\i.north) {$H_\l$};
+
+\foreach \l [count=\i] in {1,n}
+  \draw [->] (output-\i) -- ++(1,0)
+    node [above, midway] {$O_\l$};
+
+\foreach \i in {1,...,4}
+  \foreach \j in {1,...,2}
+    \draw [->] (input-\i) -- (hidden-\j);
+
+\foreach \i in {1,...,2}
+  \foreach \j in {1,...,2}
+    \draw [->] (hidden-\i) -- (output-\j);
+
+\foreach \l [count=\x from 0] in {Input, Hidden, Ouput}
+  \node [align=center, above] at (\x*2,2) {\l \\ layer};
+
+\end{tikzpicture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Our basic object of study is the following object $( \mathbb{R} \cup \{- \infty \} , \oplus , \odot )$. As a set this is the real numbers $ \mathbb{R} $, together with an extra element $- \infty $ whitch represents minus infinity. In this (semiring) the tropical sum of real numbers is ther maximum and the tropical product of real numbers is their usual sum 
 $$ x \oplus y := \max(x,\ y) \quad \& \quad x \odot y := x+y$$
@@ -395,7 +450,7 @@ vertices on its upper faces. If either (i) or (ii) is violated, then this become
 
 \section{Neural networks}
 
-Neural networks viewed as a topic, make for a very interesting field of interest in their own right. Historically the term "Neural Network" was introduced in attempts to describe the functionality of biological processes, in particular the nervous system and the brain, in a mathematical sense \cite{mcculloch1943logical, widrow1960adaptive, rumelhart1986learning}. Simplified the nervous system is a net of neurons, each having a soma and an axon. At any instant a neuron has some threshold, which excitation must exceed to initiate an impulse. This, except for the fact and the time of its occurrence, is determined by the neuron, not by the excitation. From the point of excitation the impulse is propagated to all parts of the neuron \cite{mcculloch1943logical}. Through synapses the axons are connected to further soma through with the impulse is passed on to further neurons. Impulses passing through the nervous system partly consist of electrical impulses and chemical reactions \cite{palay1956synapses}. A collection of partially connected neurons, capable of carrying impulses, is called a biological neural network.
+Neural networks viewed as a topic, make for a very compelling field of interest in their own right. Historically the term "Neural Network" was introduced in attempts to describe the functionality of biological processes, in particular the nervous system and the brain, in a mathematical sense \cite{mcculloch1943logical, widrow1960adaptive, rumelhart1986learning}. Simplified the nervous system is a net of neurons, each having a soma and an axon. At any instant a neuron has some threshold, which excitation must exceed to initiate an impulse. This, except for the fact and the time of its occurrence, is determined by the neuron, not by the excitation. From the point of excitation the impulse is propagated to all parts of the neuron \cite{mcculloch1943logical}. Through synapses the axons are connected to further soma through with the impulse is passed on to further neurons. Impulses passing through the nervous system partly consist of electrical impulses and chemical reactions \cite{palay1956synapses}. A collection of partially connected neurons, capable of carrying impulses, is called a biological neural network.
 
 
 \begin{figure}[H]
@@ -447,8 +502,8 @@ After processing $u$ it will still be true that for each unvisited node $w$, $di
 After all nodes are visited, the shortest path from source to any node $v$ consists only of visited nodes, therefore $dist(v)$ is the shortest distance.
 \end{proof}
 
-Now that we have understood Dijkstra's algorithm, to complete the remark, we will compute the shortest distance to vertex $C$ by terminating Dijkstra's algorithm as soon as we have computed the shortest path to $C$. \\
-From $A$ the shortest distance to adjacent vertices is the distance to vertex $B$ with length $5$. We set the shortest distance to $B$ to $5$ and repeat. This time we have to also consider the the distances to adjacent vertices to $B$ with the added shortest distance to $B$. So to consider are paths of length $20$ to $D$, $17$ to $C$ and $9$ to $H$ with is closely beaten by $8$ to $H$ from $A$. We mark $8$ to be the shortest distance to $H$. We describe one more step in detail and let the reader confirm if the calculated value for $C$ is correct. We have now computed the minimal distance to nodes $A$, $B$ and $H$. Reachable nodes at this point are $D$, $C$, $F$ and $E$ with path lengths of $20, 17, 15, 14$ and $9$. $9$ is the shortest, the shortest way to node $E$ is of length $9$. Next is node $F$ and then $C$ with length $14$.
+Now that we understand Dijkstra's algorithm, to complete the remark, we will compute the shortest distance to vertex $C$, by terminating Dijkstra's algorithm as soon as we have computed the shortest path to $C$. \\
+From $A$ the shortest distance to adjacent vertices is the distance to vertex $B$ with length $5$. We set the shortest distance to $B$ to $5$ and repeat. This time we have to also consider the the distances to adjacent vertices to $B$ with the added shortest distance to $B$. So in this iteration paths of length $20$ to $D$, $17$ to $C$ and $9$ to $H$ with is closely beaten by $8$ to $H$ from $A$ are to be considered. We mark $8$ to be the shortest distance to $H$. We describe one more step in detail and let the reader confirm if the calculated value for $C$ is correct. We have now computed the minimal distance to nodes $A$, $B$ and $H$. Reachable nodes at this point are $D$, $C$, $F$ and $E$ with path lengths of $20, 17, 15, 14$ and $9$. $9$ is the shortest, the shortest way to node $E$ is of length $9$. Next is node $F$ and then $C$ with it's length being $14$.
 
 \end{example}
 
@@ -457,6 +512,18 @@ One more nice thing to do would be to elaborate and introduce a neural network, 
 ------------------------------------
 
 Graph theory is a big field, but we are interested in modelling neural networks. In particular in those neural networks that have specific inputs and outputs. Our goal at this point is to get an insight of how to construct a neural network and define weights, so that our output stands in a predefined relation to our input.
+In particular one of the most important neural networks is the L-layer feedforward neural network. \
+We will define and motivate L-layer feedforward neural networks using graphs at first and then abstract again to only their necessary features.
+
+\begin{definition}
+An $L$-layer feedforward neural network in graph form (G, $\sigma$) is a weighted graph $G$ with an activation function $\sigma$. The graph consists of $L$ sets $V^{(j)}$, $j = 1, \dots , L$ of vertices with $L-1$ corresponding sets of edges $E^{(i)} \subset \{(x,y)|x \in V^{(i)}; y \in V^{(i+1)}\}$, $i = 1, \dots , L-1$ which connect two consecutive layers.  The Graph of a $0$-layer feedforward neural network is an empty graph and of a $1$-layer feedforward neural network is a set of vertices without connecting edges. \\
+The first layer is called the input layer and the last ($L$-th) layer is called the output layer. All layers in between collectively are called hidden layers. \\
+A fully connected feedforward neural network $(G, \sigma)$ with $G = (V, E)$ is one where $E$ is the largest out of every possible set of $E$. This will give the unique solution, where $V^{(j)}$ and $V^{(j+1)}$ for each $j = 1, \dots , L-1$ will be fully connected.
+\end{definition}
+
+
+
+
 
 - These neural networks can be seen as circuits
 - Why can neural networks make every circuit?
