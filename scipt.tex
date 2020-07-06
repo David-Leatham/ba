@@ -15,6 +15,8 @@
 \usepackage{amsmath}
 % For double line element like R, C or Z
 \usepackage{amsfonts}
+% For double line element like 1, 2, ..
+\usepackage{dsfont}
 % For is defined as symbol (coloneqq)
 \usepackage{mathtools}
 % for Proof paragraphs
@@ -517,7 +519,7 @@ In particular one of the most important neural networks is the L-layer feedforwa
 We will define and motivate L-layer feedforward neural networks using graphs at first and then abstract again to only their necessary features.
 
 \begin{definition}
-An $L$-layer feedforward neural network in graph form $(G, \sigma)$ is a weighted graph $G$ with an activation function $\sigma$. The graph consists of $L$ sets $V^{(j)}$, $j = 1, \dots , L$ of vertices with $L-1$ corresponding sets of edges $E^{(i)} \subset \{(x,y)|x \in V^{(i)}; y \in V^{(i+1)}\}$, $i = 1, \dots , L-1$ which connect two consecutive layers.  The Graph of a $0$-layer feedforward neural network is an empty graph and of a $1$-layer feedforward neural network is a set of vertices without connecting edges.
+An $L$-layer feedforward neural network in graph form $(G, \sigma)$ is a weighted graph $G$ with an activation function $\sigma$. The graph consists of $L$ sets $V^{(j)}$, $j = 1, \dots , L$ of vertices $(G=\cup_{j=1}^{L}V^{(j)})$ with $L-1$ corresponding sets of edges $E^{(i)} \subset \{(x,y)|x \in V^{(i)}; y \in V^{(i+1)}\}$, $i = 1, \dots , L-1$ which connect two consecutive layers.  The Graph of a $0$-layer feedforward neural network is an empty graph and of a $1$-layer feedforward neural network is a set of vertices without connecting edges.
 \end{definition}
 
 \begin{remark}
@@ -546,17 +548,22 @@ Let $(G, \sigma)$ be as in \ref{standardGraphLabeling}. A Forward Propagation of
 \centering
 %\figuretitle{Min distance weighted graph}
 \includegraphics[scale=0.2]{graphics/Summary-of-the-common-Boolean-logic-gates-with-symbols-and-truth-tables.png}
-\caption{Bool Gates Trooth Tables}
+\caption{Boolean Gates Truth Tables}
 \label{fig:bool_gate}
 \end{wrapfigure}
 
-For the sake of proofing, that the feedforward neural network we have defined is able to be set up, so that for any specific input, any specific output can be obtained. We will view the infrastructure of the weights, bias and the function $\sigma$ together as a circuit. 
+Often binary inputs, as for example black and white pictures, are fed in to neural networks and binary outputs, like dog or cat are expected. For the sake of proving, that the feedforward neural networks we have defined are able to be set up, so that for any specific binary input, any binary specific output can be obtained. We will view the infrastructure of the weights, bias and the function $\sigma$ together as a circuit. 
 
 \begin{remark}
-With circuits you have basic logical gates like AND, OR, and NOT gates and a lot more, that manipulate binary input as shown in figure \ref{fig:bool_gate}. A set of gates is called a Universal Logic Gates Set if with those gates any other logic or Boolean function can be created. After \cite{quine1955way} AND, OR and NOT define such a set. Meaning if we can reproduce these three gates in feedforward neural network form, any boolean logic can be created by these.
-%Then again NAND and NOR both can make a AND, OR and NOT gait, so ether of them are so called minimal universal logic gates, meaning they can make any other logic of Boolean function on their own. We will reproduce 
-
-
+Binary circuits are defined by basic logical gates like AND, OR, and NOT gates and a lot more, that manipulate binary input as shown in figure \ref{fig:bool_gate}. A set of gates is called a Universal Logic Gates Set if with those gates any other logic or Boolean function can be created. After \cite{quine1955way} AND, OR and NOT define such a set. Meaning if we can reproduce these three gates in form of feedforward neural networks, any boolean logic can be created by these. For that we set $\omega=\mathds{1}$, the weights of edges to one and
+\[ \sigma(x) = 
+  \begin{cases}
+    1       & \quad \text{if } x > 0\\
+    0  		& \quad \text{if } x \leq 0.
+  \end{cases}
+\]
+%Then again NAND and NOR both can make a AND, OR and NOT gait, so ether of them are so called minimal universal logic gates, meaning they can make any other logic of Boolean function on their own.
+Usually the output of a neural network is non binary, but is trained so that the higher the output value is, the higher the probabillity of the specific outcome and the lower the output the lower the probabillity, with zero beeing neutral. To skip this interpretation $\sigma$ is defined to immediately produce a binary output. Now we will define three different $2$-layer feedforward neural nets with this sigma.
 
 
 \begin{figure}[H]
@@ -578,6 +585,33 @@ With circuits you have basic logical gates like AND, OR, and NOT gates and a lot
     \end{subfigure}
     \caption{Neural Logical Gates}\label{fig:neural_logic_gates}
 \end{figure}
+The first, motivated by figure \ref{fig:neural_logic_gates} (a), defies our AND gate. It is defined with the graph $G=(E, V)$, $V=\{ b_{11}, b_{12}, b_{21}, b_{31} \}$, $E=\{ (b_{11}, b_{21}), (b_{12}, b_{21}), (b_{21}, b_{31})\}$ a fully connected neural network with weights 
+$$\psi(b_{11})=\psi(b_{12})=\psi(b_31)=0, \ \psi(b_{21})=-1 \ and \ W^{(1)}=\begin{pmatrix}1\\1\end{pmatrix}, \ W^{(2)}=\begin{pmatrix}1\end{pmatrix}.$$
+Lets compare the the boolean output with the truth table. Inputs $\{(x, y)|x, y \in \{0, 1\}\}$ with
+$$z^{(1)}=(1, 1)\begin{pmatrix}x\\y\end{pmatrix}-1 \ \to \ z^{(2)} = (1)(\sigma(x+y-1))+0 = \sigma(x+y-1)$$
+\begin{align*}
+for \ (0, 0) \ yield \ z^{(2)}&=\sigma(-1)=0 \\
+for \ (1, 0), (0, 1) \ yield \ z^{(2)}&=\sigma(0)=0 \\
+and \ for \ (1, 1) \ yield \ z^{(2)}&=\sigma(1)=1.
+\end{align*}
+The same graph with weights
+$$\psi(b_{11})=\psi(b_{12})=\psi(b_31)=0, \ \psi(b_{21})=-1 \ and \ W^{(1)}=\begin{pmatrix}2\\2\end{pmatrix}, \ W^{(2)}=\begin{pmatrix}1\end{pmatrix}$$
+makes an OR gate:
+$$z^{(1)}=(2, 2)\begin{pmatrix}x\\y\end{pmatrix}-1 \ \to \ z^{(2)} = (1)(\sigma(2x+2y-1))+0 = \sigma(2x+2y-1)$$
+\begin{align*}
+for \ (0, 0) \ yield \ z^{(2)}&=\sigma(-1)=0 \\
+for \ (1, 0), (0, 1) \ yield \ z^{(2)}&=\sigma(2)=1 \\
+and \ for \ (1, 1) \ yield \ z^{(2)}&=\sigma(4)=1.
+\end{align*}
+And last but not least the graph of the NOT gate is different, in that it only has one input. Therefore the graph also changes to $G=(E, V)$, $V=\{ b_{11}, b_{21}, b_{31} \}$, $E=\{ (b_{11}, b_{21}), (b_{21}, b_{31})\}$ also a fully connected $2$ feedforward neural network. With weights
+$$\psi(b_{11})=\psi(b_31)=0, \ \psi(b_{21})=1 \ and \ W^{(1)}=(-1), \ W^{(2)}=(1)$$
+that define a NOT gate:
+\begin{align*}
+for \ (0) \ yield \ z^{(2)}&= z^{(1)} = 1 \\
+and \ for \ (1) \ yield \ z^{(2)}&= z^{(1)} = 0.
+\end{align*}
+
+We have proven, that any binary input can create any binary output. This also means, that by scaling the input and output weights it is possible from any specific input to create any specific output.
 
 \end{remark}
 
