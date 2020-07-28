@@ -69,7 +69,7 @@
 
 \maketitle
 
-\newpage
+	\newpage
   
 \tableofcontents
 
@@ -377,7 +377,36 @@ $R : \mathbb{R}^{d} \to \mathbb{R}^{p}, x = (x_1, \dots , x_d)\mapsto (f_1(x), \
 
 \newpage
 
+\section{Valuations and tropicalisation}
+
+\begin{definition}\cite[p.~57]{maclagan2015introduction}
+Let $\mathbb{K}$ be a field. We denote by $K^{*}$ the nonzero elements of K. A valuation on $\mathbb{K}$ is a function $val: \mathbb{K} \to \mathbb{R} \cup \{\infty\}$ satisfying the following three axioms:
+\begin{align*}
+1. \ &val(a) = \infty \ \text{if and only if} \ a = 0, \\
+2. \ &val(ab) = val(a) + val(b) \ \text{and} \ \\
+3. \ &val(a + b) \geq \min\{val(a), val(b)\} \ \text{for all} \ a, b \in K^{*}
+\end{align*}
+The image of the valuation map is denoted $\Gamma_{val}$. This is an additive subgroup of the real numbers $\mathbb{R}$ which is called the value group.
+\end{definition}
+\begin{lemma}
+Let $a, b \in \mathbb{K}$. If $val(a) \neq val(b)$ then $val(a+b) = min(val(a), val(b))$.
+\cite[p.~57]{maclagan2015introduction}
+\end{lemma}
+\begin{proof}
+Let $a,b \in \mathbb{K}$. Without loss of generality we may assume that $val(b) > val(a)$. When evaluating $1\in \mathbb{K}$ we observe
+$$val(1)=val(1^{2})=val(1) + val(1)$$
+it follows, that $val(1)=0$, and so $-(1)^{2}$ implies $val(-1)=0$. But with the valuation of $-1$ being zero
+$$val(-b) = val(-1) + val(b) = val(b) \ \text{for all} \ b \in \mathbb{K}$$
+the sign is irrelevant to valuation. The third axiom implies
+$$val(a) \geq \min(a+b), val(-b)) = min(val(a+b), val(b)),$$
+and therefore $val(a) \geq val(a + b)$. But we also have
+$$val(a + b) \geq \min(val(a), val(b)) = val(a),$$
+and hence $val(a + b) = val(a)$ as desired.
+\end{proof}
+\newpage
+
 \section{Tropical hypersurfaces}
+
 
 \begin{definition}
 The tropical hypersurface of a tropical polynomial $f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ is 
@@ -519,7 +548,7 @@ In particular one of the most important neural networks is the L-layer feedforwa
 We will define and motivate L-layer feedforward neural networks using graphs at first and then abstract again to only their necessary features.
 
 \begin{definition}
-An $L$-layer feedforward neural network in graph form $(G, \sigma)$ is a weighted graph $G$ with an activation function $\sigma$. The graph consists of $L$ sets $V^{(j)}$, $j = 1, \dots , L$ of vertices $(G=\cup_{j=1}^{L}V^{(j)})$ with $L-1$ corresponding sets of edges $E^{(i)} \subset \{(x,y)|x \in V^{(i)}; y \in V^{(i+1)}\}$, $i = 1, \dots , L-1$ which connect two consecutive layers.  The Graph of a $0$-layer feedforward neural network is an empty graph and of a $1$-layer feedforward neural network is a set of vertices without connecting edges.
+An $L$-layer feedforward neural network in graph form $(G, \sigma)$ is a weighted graph $G=(V, E)$ with an activation function $\sigma$. The graph consists of $L$ sets $V^{(j)}$, $j = 1, \dots , L$ of vertices $(V=\cup_{j=1}^{L}V^{(j)})$ with $L-1$ corresponding sets of edges $E^{(i)} \subset \{(x,y)|x \in V^{(i)}; y \in V^{(i+1)}\}$, $i = 1, \dots , L-1$ which connect two consecutive layers.  The Graph of a $0$-layer feedforward neural network is an empty graph and of a $1$-layer feedforward neural network is a set of vertices without connecting edges.
 \end{definition}
 
 \begin{remark}
@@ -541,7 +570,7 @@ Let $(G, \sigma)$ be a $L$-layer feedforward neural network where we fixate the 
 We will label feedforward neural networks this way untill the definition of feedforward neural networks as functions. And are now in a position to define forward propagation.
 
 \begin{definition}(Forward Propagation)
-Let $(G, \sigma)$ be as in \ref{standardGraphLabeling}. A Forward Propagation of our $L$-layer feedforward neural network $(G, \sigma)$ and an input vector x, corresponds to the value of $a^{(j)}$, where $z^{(j)} = W^{(j)} a^{(j-1)} + b^{(j)}$, $a^{(j)} = \sigma(z^{(j)})$, for $j=2, \dots , L$ and $a^{(1)} = x$.
+Let $(G, \sigma)$ be as in \ref{standardGraphLabeling}. A Forward Propagation of our $L$-layer feedforward neural network $(G, \sigma)$ and an input vector x, corresponds to the value of $a^{(L)}$, where $z^{(j)} = W^{(j)} a^{(j-1)} + b^{(j)}$, $a^{(j)} = \sigma(z^{(j)})$, for $j=2, \dots , L$ and $a^{(1)} = x$.
 \end{definition}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
@@ -615,19 +644,6 @@ We have proven, that any binary input can create any binary output. This also me
 
 \end{remark}
 
-So now Backpropagation.
-
-\begin{definition}(Backpropagation)
-To be defined.
-\end{definition}
-
-\begin{remark}
-Give an example where backpropagation is used.
-Maybe give a code snipped, that does this and add some showcases, since back propagation is not really designed to be done by hand.
-\end{remark}
-
-This gives a way to train neural networks on a datapool. \\
-
 The last abstaction level of feedforward neural networks is to define them as function, witch enables to us to compare feedforward neural networds to tropical polynomials in Chapter $4$.
 
 \begin{definition}
@@ -639,14 +655,99 @@ layer by $n_l, l = 1, \dots , L-1$. We set $n_0 := d$ and $n_L := p$, respective
 $$\nu = \sigma^{(l)} \circ \rho^{(l)} \circ \sigma^{(l-1)} \circ \rho^{(l-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}$$
 i.e., it is a map $\nu^{(l)} : \mathbb{R}^{d} \to \mathbb{R}^{n_l}$. For convenience, we assume $\nu^{(0)}(x) := x$. \\
 The affine function $\nu^{(l)} : \mathbb{R}^{n_{l-1}} \to \mathbb{R}^{n_{l}}$ is given by a weight matrix $A^{(l)} \in \mathbb{Z}^{n_l \times n_{l-1}} $ and a bias vector $b^{(l)} \in \mathbb{R}^{n_l}$:
-$$ \rho^{(l)}(\nu^{(l-1)}) := A^{(l)} \nu{(l-1)} + b{(l)}. $$
+$$ \rho^{(l)}(\nu^{(l-1)}) := A^{(l)} \nu{(l-1)} + b^{(l)}. $$
 The $(i, j)$th coordinate of $A^{(l)}$ will be denoted $a^{l}_{ij}$ and the $i$th coordinate of $b^{(l)}$ by $b^{(l)}_{i}$. Collectively they form the parameters of the $l$th layer
 \end{definition}
+
+This way forward propagation corresponds to evaluation of the neural network.
 
 \begin{comment}
 For a vector input $x \in \mathbb{R}^{n_l}, \sigma^{(l)}(x)$ is understood to be in coordinatewise sense; so $\sigma : \mathbb{R}^{n_l} \to \mathbb{R}^{n_l}$. We assume the
 final output of a neural network $\nu(x)$ is fed into a score function $s : \mathbb{R}^{p} \to \mathbb{R}^{m}$ that is application specific.
 \end{comment}
+
+Now we will give a brief introduction to backpropagation of neural networks. The underlying analytics for the small section of backpropagation will not be introduced extensively, rather they'll be required as prerequisite knowledge from the reader.
+
+Backpropagation is best explained by viewing a neural feedforward neural network as a function or a concatenation of functions, with we can extend to a Cost function and perform gradient descent on.
+In the following we may refer to $A^{(l)}$ as $w^{(l)}$ the weight matrices and $b^{(l)}$ simply as the bias vectors.
+
+\begin{remark}
+For a multi-variate function $F(X)$ that is defined and differentiable in a neighborhood of a point $a$, then $F$ increases in point $a$ fastest in value in the direction of the gradient $\Delta F(a)$.
+\end{remark}\label{rem:gradient}
+This motivates the following definition.
+
+\begin{definition}(Gradient descent)
+From remark \ref{rem:gradient} follows for a defined, differentiable function $F: \mathbb{R} \to \mathbb{R}$ if 
+$$a_{n+1}=a_{n}-\epsilon \Delta F(a_{n})$$
+for $\epsilon \in \mathbb{R}_{+}$ small enough and $a_{n} \in R$. Then $F(a_{n}) \geq F(a_{n+1})$. With this observation in mind, one starts with a guess $x_{0} \in \mathbb{R}$ for a local minimum of $F$, defines the sequence $(x_{n})_{n\in\mathbb{N}}$ as above ($c_{n+1}=c_{n}-\epsilon \Delta F(x_{n})$) and with epsilon small enough $x_{n}$ will eventually end up close to a local minimum. Setting up and calculating the sequence $x_{n}$ to step towards local minima is called Gradient descent.
+\end{definition}
+
+We will use gradient descent with a cost function that we want to optimize the neural network on. To optimize a feedforward neural network to give sensible outputs relative to the inputs, we define the cost function.
+
+\begin{definition}(Cost function)
+\label{def:cost_fct}
+Let $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ be a $L$-layer feedworward neural network. The cost function for $\nu$ to a specific input $x$ and desired output $y$ is $C_{x}$ or $C_{x}(\nu(x), y)$ being an differentiable extension of $\nu$ dependant on the weights and biases of $\nu$. Notice that the input-output pair $(x, y)$ are fixed, where the weights $w^{(l)}$ and biases $b^{(l)}$ are variable. \\
+The cost function of a finite set $\mathcal{X}$ of input vectors is then the average $$C=\frac{1}{|\mathcal{X}|}\sum_{x \in \mathcal{X}}C_{x}$$
+over cost functions $C_{x}$ for individual training examples, x.
+\end{definition}
+
+Backpropagation is an algorithm to tweak weights of a neural network to minimize the cost function on a training set, containing input vectors and the corresponding desired outputs. \\
+For backpropagation only we limit the $\sigma$'s of feedforward neural networks to differentiable.
+
+\begin{definition}(Backpropagation)
+Let $\nu$ be an $L$-layer feedwordward neural network, $\mu \in \mathbb{R}$ a learning rate and $C$ be a cost function over $\nu$ as in \ref{def:cost_fct}. Application of backpropagation to $\nu$ is calculating $\Delta_{w^{(i)}} C$ the gradient of the weights and $\Delta_{b^{(i)}} C$ the gradient of the biases of the cost function for $i = 1, \dots , L$ and applying changes to the to the weights and biases of the neural network $\nu$ as follows:
+\begin{align*}
+w^{(i)} &\to (w^{(i)})' = w^{(i)}-\mu \Delta_{w^{(i)}} C \\
+b^{(i)} &\to (b^{(i)})' = b^{(i)}-\mu \Delta_{b^{(i)}} C \ \text{for} \ i = 1, \dots, L. 
+\end{align*}
+\end{definition}
+
+Repeated application of backpropagation is a gradient descent algorithm and therefore optimize the cost function and approaches local minima. This gives a way to train a neural network on a datapool efficiently.
+
+\begin{comment}
+\label{com:back_prop_madness}
+Essentially, backpropagation evaluates the expression for the derivative of the cost function as a product of derivatives between each layer from left to right – "backwards" – with the gradient of $\sigma$'s between each layer being a simple modification of the partial products (the "backwards propagated error").
+Given an input–output pair $(x,y)$, the loss is:
+$$C_{x}(\sigma^{(L)} \circ \rho^{(L)} \circ \sigma^{(L-1)} \circ \rho^{(L-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}(x), y).$$
+The gradient $\Delta$ is the transpose of the derivative of the output in terms of the input and with the chain rule the following holds.
+\begin{align*}
+\frac{\mathrm d C_{x}}{\mathrm d x} &= \frac{\mathrm d C_{x}}{\mathrm d \sigma^{(L)}} \cdot \frac{\mathrm d \sigma^{(L)}}{\mathrm d \rho^{(L)}} \cdot \frac{d \rho^{(L)}}{d \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{d \rho^{(1)}} \cdot \frac{d \rho^{(1)}}{dx}\\
+\Delta_{x} C_{x} &= \left(\frac{dC}{dx}\right)^{t}
+\end{align*}
+The affine linear functions $\rho^{(l)}$ for $l=L, \dots , 1$ can be written unambiguously as it's weight matrix $w^{(l)}$ and bias vector $b^{(l)}, \rho^{(l)} = x^{(l)} x + b^{(l)}$. Each derivative 
+$$\frac{d \rho^{(l)}}{d \sigma^{(l-1)}}, \ \text{for} \ l=L, \dots, 2$$ therefore consists of the derivative 
+$$\frac{d \rho^{(l)}}{d \sigma^{(l-1)}} = \frac{d w^{(l)}}{d b^{(l)}} \cdot \frac{d b^{(l)}}{\sigma^{(l-1)}}.$$ 
+The same holds for $l = 1$ in relation to $x$. We get
+$$\frac{\mathrm d C_{x}}{\mathrm d x} = \frac{\mathrm d C_{x}}{\mathrm d \sigma^{(L)}} \cdot \frac{\mathrm d \sigma^{(L)}}{\mathrm d w^{(L)}} \cdot \frac{\mathrm d w^{(L)}}{\mathrm d b^{(L)}} \cdot \frac{d b^{(L)}}{d \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{d w^{(1)}} \cdot \frac{d w^{(1)}}{d b^{(1)}} \cdot \frac{d b^{(1)}}{dx}.$$
+This way we set
+\begin{align*}
+\delta^{(L)}_{w} &= \frac{d C}{d \sigma^{(L)}} \cdot \frac{d \sigma^{(L)}}{d w^{(L)}} \\
+\delta^{(L)}_{b} &= \delta^{(L)}_{w} \cdot \frac{d w^{(L)}}{d b^{(L)}} \\
+\delta^{(l-1)}_{w} &= \delta^{(l)}_{b} \frac{d b^{(l)}}{d \sigma^{(l)}} \cdot \frac{d \sigma^{(l)}}{d b^{(l-1)}}, \ \text{and} \\
+\delta^{(l-1)}_{b} &= \delta^{(l-1)}_{w} \cdot \frac{d w^{(l-1)}}{b^{(l-1)}} \ \text{for} \ l=L-1, \dots, 2 \\
+\delta^{(0)} &= \delta^{(1)}_{b} \cdot \frac{d b^{(1)}}{x}
+\end{align*}
+Which depending on the choice of sigma gives an easy to calculate algorithm for
+\begin{align*}
+\Delta_{w^{(l)}}C_{x} &= (\delta_{w}^{(l)})^{t}, \ \text{and} \\
+\Delta_{b^{(l)}}C_{x} &= (\delta_{b}^{(l)})^{t} \ \text{for} \ i=1,\dots , L.
+\end{align*}
+In contrast to calculating the $\delta$'s by forward propagating.
+\begin{align*}
+\delta^{(0)} &= \frac{\mathrm d C_{x}}{\mathrm d \sigma^{(L)}} \cdot \frac{\mathrm d \sigma^{(L)}}{\mathrm d w^{(L)}} \cdot \frac{\mathrm d w^{(L)}}{\mathrm d b^{(L)}} \cdot \frac{d b^{(L)}}{d \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{d w^{(1)}} \cdot \frac{d w^{(1)}}{d b^{(1)}} \cdot \frac{d b^{(1)}}{dx} \\
+&\vdots \\
+\delta^{(L)}_{w} &= \frac{d C}{d \sigma^{(L)}} \cdot \frac{d \sigma^{(L)}}{d w^{(L)}}.
+\end{align*}
+
+\end{comment}
+
+
+%\begin{remark}
+%With a neural network as in \ref{com:back_prop_madness}, setting $\sigma^{(l)} = id$ and $\rho^{(l)} = w^{(l)} x$ a linear function for a weight matrix $w^{(l)}$. The Gradient derivative
+%$fraq$
+%\end{remark}
+
+This gives a way to train neural networks on a datapool. \\
 
 \begin{comment}
 We will make the following mild assumptions
@@ -669,55 +770,87 @@ Henceforth all neural networks in our subsequent discussions will be assumed to 
 \section{Tropical algebra of neural networks}\label{sec:trop_netw}
 
 \begin{comment}
+\label{com:trop_char_ind_beg}
 Consider the output from the first layer in a neural network
 $$ \nu(x) = \max \{ Ax+b, t \}; $$
-where $A \in \mathbb{Z}^{p \times d}, b \in \mathbb{R}^{p}$, and $t \in (\mathbb{R} \cup \{ Ax + b, t \})$. We will
+where $A \in \mathbb{Z}^{p \times d}, b \in \mathbb{R}^{p}$, and $t \in (\mathbb{R} \cup \{ - \infty \}^{p})$. We will
 decompose A as a difference of two nonnegative integervalued matrices, $A = A_{+} - A_{-}$ with $A_{+},A_{-} \in \mathbb{N}^{p \times d}$; e.g., in the standard way with entries
 $$ a^{+}_{ij} := \max \{ a_{ij}, 0 \}, \ a^{-}_{ij} := \max \{ -a_ij , 0\} $$
 respectively. Since
-$$ \max \{ Ax + b, t \} = \max \{ A_{+}x+b, A_{-}x+t \} - A_{-x},$$
+$$ \max \{ Ax + b, t \} = \max \{ A_{+}x+b, A_{-}x+t \} - A_{-x}$$
+and
+$$\max \{ A_{+}x+b, A_{-}x+t \} - A_{-x} = 
+ \begin{pmatrix}
+  \max\{a_{1,1}x_{1} + \dots + a_{1d}x_{d} + b_1\} - \max\{t_{1},-\infty\}  \\
+  \vdots \\
+  \max\{a_{p,1}x_{1} + \dots + a_{pd}x_{d} + b_p\} - \max\{t_{p},-\infty\}  \\ 
+ \end{pmatrix},$$
 we see that every coordinate of one-layer neural network
-is a difference of two tropical polynomials.
+is a difference of two tropical polynomials, witch means the first layer of a neural network can be described through a tropical rational map.
 \end{comment}
 
-For networks with more layers, we apply this decomposition recursively to obtain the following result
-
-\begin{proposition}
-Let $A \in \mathbb{Z}^{m \times n}, b \in \mathbb{R}^{m}$ be the parameters of the $(l+1)$th layer, and let $t \in (\mathbb{R} \cup {- \infty})^{m}$ be the threshold vector in the $(l+1)$th layer. If the nodes of the $l$th
-layer are given by tropical rational functions,
-$$ \nu^{(l)}(x) = F^{(l)}(x) \oslash G^{(l)}(x) = F^{(l)}(x)-G^{(l)}(x),$$
-i.e., each coordinate of $f^{(l)}$ and $G^{(l)}$ is a tropical polynomial in $x$, then the outputs of the preactivation and of the $(l+1)$th layer are given by tropical rational functions
-\begin{align*}
-\rho^{(l+1)} \circ \nu^{(l)}(x) &= H^{(l+1)}(x) - G^{(l+1)}(x), \\
-\nu^{(l+1)}(x) = \sigma \circ \rho^{(l+1)} \circ \nu^{(l)}(x) &= F^{(l+1)}(x) - G^{(l+1)}(x),
-\end{align*}
-respectively, where
-\begin{align*}
-F^{(l+1)}(x) &= \max \{ H^{(l+1)}(x), G{(l+^)}(x) +t \}, \\
-G^{(l+1)}(x) &= A_{x}G^{(l)}(x) + A_{-}F^{(l)}(x), \\
-H^{(l+1)}(x) &= A_{+}F^{(l)}(x) + A_{-}G{(l)}(x) +b.
-\end{align*}
-\end{proposition}
-
-Induction yields the following.
+For networks with more layers, we apply this decomposition recursively to obtain the following result.
 
 \begin{theorem}
+\label{teo:trop_char_of_neur_net}
 (Tropical characterization of neural networks). \\
 A feedforward neural network under assumptions (a)–(c)
 is a function $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ whose coordinates are tropical rational functions of the input, i.e.,
 $$ \nu(x) = F(x) \oslash G(x) = F(x) - G(x) $$
 where $F$ and $G$ are tropical polynomial maps. Thus $\nu$ is a tropical rational map.
 \end{theorem}
+\begin{proof}
+Let $A \in \mathbb{Z}^{m \times n}, b \in \mathbb{R}^{m}$ be the parameters of the $(l+1)$th layer, and let $t \in (\mathbb{R} \cup {- \infty})^{m}$ be the threshold vector in the $(l+1)$th layer. If the nodes of the $l$th layer are given by a tropical rational map,
+$$ \nu^{(l)}(x) = F^{(l)}(x) \oslash G^{(l)}(x) = F^{(l)}(x)-G^{(l)}(x),$$
+i.e., each coordinate of $f^{(l)}$ and $G^{(l)}$ is a tropical polynomial in $x$. We want to show, that then $\nu^{(l+1)}$ is also a rational map. We begin by calculating
+\begin{align*}
+\rho^{(l+1)} \circ \nu^{(l)}(x)
+&= A^{(l+1)} \nu^{(l)} + b^{(l)} \\
+&= A^{(l+1)}(F^{(l)}(x) - G^{(l)}(x)) + b^{(l+1)} \\
+&=(A^{(l+1)}_{+} - A^{(l+1)}_{-})(F^{(l)}(x) - G^{(l)}(x)) + b^{(l+1)} \\
+&=A_{+}^{(l+1)}F^{(l)}(x) + A_{-}^{(l+1)}G^{(l)}(x) + b^{(l+1)} - (A_{+}^{(l+1)}G^{(l)}(x) + A_{-}^{(l+1)}F^{(l)})\\
+&:=  H^{(l+1)}(x) - G^{(l+1)}(x), \\
+\end{align*}
+with
+\begin{align*}
+H^{(l+1)}(x) &:= A_{+}F^{(l)}(x) + A_{-}G{(l)}(x) +b, \\
+G^{(l+1)}(x) &:= A_{x}G^{(l)}(x) + A_{-}F^{(l)}(x).
+\end{align*}
+is a ration map, since when we write $g_{i}^{(l)}$ and $h_{i}^{(l)}$ for the $i$th coordinate of $G^{(l)}$ and $H^{(l)}$ respectively. In tropical arithmetic, the recurrence above takes the form
+\begin{align*}
+g_{i}^{(l+1)} &= [\odot^{n}_{j=1}(g_j^{(l)})^{a_{ij}^{+}}] \odot [\odot^{n}_{j=1}(f_j^{(l)})^{a_{ij}^{-}}] \in \mathbb{T}(x), \\
+h_{i}^{(l+1)} &= [\odot^{n}_{j=1}(f_j^{(l)})^{a_{ij}^{+}}] \odot [\odot^{n}_{j=1}(g_j^{(l)})^{a_{ij}^{-}}] \odot b_{i} \in \mathbb{T}(x),
+\end{align*}
+On this basis it is easy to show that $\nu$
+\begin{align*}
+\nu^{(l+1)}(x) 
+&= \sigma^{(l+1)} \circ \rho^{(l+1)} \circ \nu^{(l)}(x) \\
+&= \sigma^{(l+1)} (H^{(l+1)}(x) - G^{(l+1)}(x)) \\
+&= \max\{ H^{(l+1)}(x) - G^{(l+1)}(x), t\} \\
+&= \max\{ H^{(l+1)}(x), t + G^{(l+1)}(x)\} - G^{(l+1)}(x) \\
+&:= F^{(l+1)}(x) - G^{(l+1)}(x),
+\end{align*}
+with
+$$F^{(l+1)}(x) := \max\{ H^{(l+1)}(x), t + G^{(l+1)}(x)\}$$
+is a tropical rational map considering, with $f_{i}$ denoting the $i$th coordinate of $F^{(l)}$
+$$f_{i}^{(l+1)} = h_{i}^{(l+1)} \oplus (g_{i}^{(l+1)} \odot t_{i}) \in \mathbb{T}(x)$$
+$f_{i}^{(l+1)}$ is a tropical rational function.
+
+We have shown the induction step, that with Comment \ref{com:trop_char_ind_beg} as induction beginning ends the proof.
+\end{proof}
 
 \begin{comment}
-Note that the tropical rational functions above have real coefficients, not integer coefficients. The integer weights $A^(l) \in \mathbb{Z}^{n_l \times n_{l-1}}$ have gone into the powers of tropical monomials in $f$ and $g$, which is why we require our weights to be integer-valued, although as we have explained, this requirement imposes little loss of generality
+Note that the tropical rational functions above have real coefficients, not integer coefficients. The integer weights $A^{(l)} \in \mathbb{Z}^{n_l \times n_{l-1}}$ have gone into the powers of tropical monomials in $f$ and $g$, which is why we require our weights to be integer-valued, although as we have explained, this requirement imposes little loss of generality
 \end{comment}
 
 By setting $t^{(1)} = \dots = t^{(L-1)} = 0$ and $t^{(l)} = - \infty$, we obtain the following corollary.
 
 \begin{corollary}
+\label{cor:relu_trop_rat_fkt}
 Let $\nu : \mathbb{R}^{d} \to \mathbb{R}$ be an ReLU activated feedforward neural network with integer weights and linear output. Then $\nu$ is a tropical rational function.
 \end{corollary}
+
+A more remarkable fact is the converse of Corollary \ref{cor:relu_trop_rat_fkt}.
 
 \begin{theorem}
 (Equivalence of neural networks and tropical
@@ -731,6 +864,42 @@ $$ L \leq \max \{ \lceil \log_2 r_f \rceil, \lceil \log_2 r_g \rceil \} + 2,$$
 where $r_f$ and $r_g$ are the number of monomials in the tropical polynomials $f$ and $g$ respectively.
 \end{itemize}
 \end{theorem}
+\begin{proof}
+That a feedforward neural network under assumptions (a)-(c) is a tropical polynomial map has been shown in Theorem \ref{teo:trop_char_of_neur_net}. Now with relu activations we want to show the opposite implication. As with \ref{teo:trop_char_of_neur_net}, we will show this by induction. Setting $\sigma_{t} := \max \{ x, t\}$ our base case is $\nu (x) = b_{i} x^{\alpha_{i}}$ a tropical tropical monomial. Considering
+$$b_{i}x^{\alpha_{i}} = (\sigma_{- \infty} \circ \rho_{i})(x) = \max \{ a_{i}^{t}x + b_{i}, -\infty \}$$
+$\nu$ is a feedforward neural network under assumtions (a)-(c). \
+As induction step we observe two tropical polynomials $p$ and $q$ with are represented as neural networks with $l_{p}$ and $l_{q}$ layers respectively,
+\begin{align*}
+p(x) &= (\sigma_{- \infty} \circ \ \rho_{p}^{(l_{p})} \circ \sigma_{0} \circ \dots \circ \sigma_{0} \circ \rho_{p}^{(1)})(x), \\
+q(x) &= (\sigma_{- \infty} \circ \ \rho_{q}^{(l_{q})} \circ \sigma_{0} \circ \dots \circ \sigma_{0} \circ \rho_{q}^{(1)})(x)
+\end{align*}
+Here all sigma are set to $\sigma_{0}$ except the last one to $\sigma_{- \infty}$ as prerequisite. We will write $p \oplus q$ as a neural network.
+\begin{align*}
+(p \oplus q)(x) 
+&= \min \{ p(x), q(x) \} \\
+&= \sigma_{- \infty }( \min \{ p(x), q(x) \} ) \\
+&= \sigma_{- \infty }( \min(p(x)-q(x), 0) + \min(q(x), 0) - \min(-q(x), 0)) \\
+&= \sigma_{- \infty }(\begin{pmatrix} 1 & 1 & -1 \end{pmatrix} \sigma_{0}(\rho(y(x)) + \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix})
+\end{align*}
+where $y:\mathbb{R}^{d} \to \mathbb{R}^{2}$ is given by $y(x)=(p(x),q(x))$ and $\rho_{i}:\mathbb{R}^{2} \to \mathbb{R}, \ i=1,2, 3,$ are linear functions defined by
+$$\rho_{1}(y)=y_{1}-y_{2}, \ \rho_{2}(y)=y_{2}, \ \rho_{3}(y)= -y_{2}.$$
+The function $y(x)$ is a $\max \{ l_{p}, l_{q} \}$ layer feedforward neural network. This is easily seen, by extending the shorter neural network $p$ or $q$ with identity $\rho$'s, say w.l.o.g. $l_{p} < l_{q}$, then $\rho^{(i)}_{p} = id$ for $i = l_{p} + 1, \dots , l_{q}$. Then $y(x)=(\sigma_{- \infty} \circ \ \rho^{(l_{p})} \circ \sigma_{0} \circ \dots \circ \sigma_{0} \circ \rho^{(1)})(x)$ with $\rho^{(i)}(x) = (\rho_{p}^{(i)}(x), \rho_{q}^{(i)}(x))$.
+By removing the last irrelevant sigma $\sigma_{- \infty}$ off of $p$ and $q$ and since composition of affine linear functions are affine linear, $(p\oplus q)$ is a neural network with $\max \{ l_{p}, l_{q} \} + 1$ layers. Thus, by induction, any tropical polynomial can be written as a neural network with ReLU activation. \\
+Observe also that if a tropical polynomial is the tropical sum of $r$ monomials, then it can be written as a neural network with no more than
+$\lceil \log_{2} r \rceil + 1$ layers. Now one more time we will write $p \oslash q$, where $p$ and $q$ are tropical polynomials as a neural network. Under the same assumptions as above and with
+\begin{align*}
+(p \oslash q)(x)
+&= \sigma_{0}(p(x)) - \sigma_{0}(-p(x)) + \sigma_{0}(-q(x)) - \sigma_{0}(q(x))
+&= \sigma_{- \infty }(\begin{pmatrix} 1 & -1 & 1 & -1 \end{pmatrix} \sigma_{0}(\rho(y(x)))
+\end{align*}
+where $\rho_{i}:\mathbb{R}^{2} \to \mathbb{R}^{1}, \ i=4,5,6,7,$ are linear functions defined by
+$$\rho_{4}(y)=y_{1}, \rho_{5}(y)=-y_{1}, \rho_{6}(y)=-y_{2}, \rho_{7}(y)=y_{2}.$$
+The same argumentation as above shows, $p \oslash q$ is also a neural network with at most $\max \{ l_{p}, l_{q} \}$ layers. \\
+Finally, if $f$ and $g$ are tropical polynomials that are respectively tropical sums of $r_{f}$ and $r_{g}$ monomials, then the discussions
+above show that $(f \oslash g) = f(x) - g(x)$ is a neural network with at most $\max \{ \lceil \log_{2}r_{f} \rceil + 1, \lceil \log_{2}r_g \rceil + 1 \} + 1 = \max \{ \lceil \log_{2}r_{f} \rceil, \lceil \log_{2}r_g \rceil \} + 2$ layers.
+
+
+\end{proof}
 
 \begin{proposition}
 Let $\nu : \mathbb{R}^{d} \to \mathbb{R}$. Then $\nu$ is a continuous piecewise linear function with integer coefficients if and only if $\nu$ is a tropical rational function.
