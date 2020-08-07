@@ -77,64 +77,24 @@
 
 
 % Create a new 0th level heading named Intruduction
-\section{Introduction}
+\section{Introduction} 
+\leavevmode
+\\
+Warren McCulloch and Walter Pitts opened the subject of Neural Networks in 1943, by creating a computational model for neural networks. In the following years one of the next big steps towards nowadays state of the art neural networks, in the early 60's the underlying concepts of backpropagation, began being reseached. Backpropagation is a algorithms escibing a key concept of training neural networks. Starting $2010$ to this day neural networks are experiencing a massive boost in popularity, with is due to hardware improvements, like GPU's, making backpropagation feasable, large amounts of data and the bettering of underlying understanding, as of works by Andrew Yan-Tak Ng and Jeff Dean who in 2012 created a network that learned to recognize higher-level concepts, such as cats, only from watching unlabeled images \cite{DBLP:journals/corr/abs-1112-6209}. Nowadays neural networks help solve challenging problems in computer science and software engineering and in particular are key to self driving cars and image recognition. \\
+Tropical geometry on the other hand is a field of interest in mathematics, whos underlying analythical ideas have been around some years before $1990$, but only sine then have there been basic efforts to consolidate the basic deffinitions as reseach increased. Tropical geometry is the study of polynomials under tropical multiplication and addition, where tropical multiplication is usual addition and tropical multiplication of two elements returns the minimal element. One spectrum of use cases is in cumputer science and this work is a very good example for that, as in this thesis we describe a fundamental mathematical connection between tropical geometry and deep neural networks. \\
+
+Concerning the structure of the thesis we start by introducing the reader to the nessessary theories of tropical geometry in chapter \ref{sec:trop_algebra} and the theory of neural networks in chapter \ref{sec:neural_networks}, but also extend the exploration of the topics beyond the scope need for the fundamental Theorems in this thesis to give a more rounded introduction to the topics them selves when needed. Chapter \ref{sec:trop_netw} uses the knowledge of these two chapters to demonstrate a fundamental link between neural networks and the difference between two tropical polynomials, called tropical rational functions, whitch is the core insight of the thesis.
+Then, to put this knowledge to use, we formulate statements about decision boundaries of neural networks in chapter  5 with tropical geometry, concrete the link between neural networks and tropical rational functions. This needs fundamental knowledge of tropical hypersurfaces with leads us to to chapter \ref{sec:tropical_hypersurfaces} in which these get introduced. \\
+
+This thesis follows the underlying paper \cite{maclagan2015introduction} very closely, in that all main statements may be reordered and rewritten, but come directly out of \cite{maclagan2015introduction} and are cited accordingly.
 
 \newpage
 
 \section{Tropical Algebra}
+\label{sec:trop_algebra}
+We begin by introducing the theory of tropical algebra. Every other chapter will build upon chapter \ref{sec:trop_algebra} without exception. We will introduce tropical function, up to tropical rational maps formally. \\
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\tikzset{%
-  every neuron/.style={
-    circle,
-    draw,
-    minimum size=1cm
-  },
-  neuron missing/.style={
-    draw=none, 
-    scale=3,
-    text height=0.333cm,
-    execute at begin node=\color{black}$\vdots$
-  },
-}
-
-\begin{tikzpicture}[x=1.5cm, y=1.5cm, >=stealth]
-
-\foreach \m/\l [count=\y] in {1,2,3,missing,4}
-  \node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
-
-\foreach \m [count=\y] in {1,missing,2}
-  \node [every neuron/.try, neuron \m/.try ] (hidden-\m) at (2,2-\y*1.25) {};
-
-\foreach \m [count=\y] in {1,missing,2}
-  \node [every neuron/.try, neuron \m/.try ] (output-\m) at (4,1.5-\y) {};
-
-\foreach \l [count=\i] in {1,2,3,n}
-  \draw [<-] (input-\i) -- ++(-1,0)
-    node [above, midway] {$I_\l$};
-
-\foreach \l [count=\i] in {1,n}
-  \node [above] at (hidden-\i.north) {$H_\l$};
-
-\foreach \l [count=\i] in {1,n}
-  \draw [->] (output-\i) -- ++(1,0)
-    node [above, midway] {$O_\l$};
-
-\foreach \i in {1,...,4}
-  \foreach \j in {1,...,2}
-    \draw [->] (input-\i) -- (hidden-\j);
-
-\foreach \i in {1,...,2}
-  \foreach \j in {1,...,2}
-    \draw [->] (hidden-\i) -- (output-\j);
-
-\foreach \l [count=\x from 0] in {Input, Hidden, Ouput}
-  \node [align=center, above] at (\x*2,2) {\l \\ layer};
-
-\end{tikzpicture}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Our basic object of study is the following object $( \mathbb{R} \cup \{- \infty \} , \oplus , \odot )$. As a set this is the real numbers $ \mathbb{R} $, together with an extra element $- \infty $ whitch represents minus infinity. In this (semiring) the tropical sum of real numbers is ther maximum and the tropical product of real numbers is their usual sum 
+Our basic object of study is the object $( \mathbb{R} \cup \{- \infty \} , \oplus , \odot )$. As a set this corresponds to the real numbers $ \mathbb{R} $, together with an extra element $- \infty $ whitch represents minus infinity. In this (semiring) the tropical sum of real numbers is ther maximum and the tropical product of real numbers is their usual sum 
 $$ x \oplus y := \max(x,\ y) \quad \& \quad x \odot y := x+y$$
 --------------------------------------------------- \\
 In Tropical Geometry often infinity instead of minus infinity and $\min$ in stead of $\max$ are used. This does not change any of the underlying theories of tropical algebra, as the the two semirings are tropically Isomorph. Meaning 
@@ -144,7 +104,7 @@ $$( \mathbb{R} \cup \{- \infty \} , \oplus := \max, \odot ) \to ( \mathbb{R} \cu
 \end{cases}$$\\
 is a tropical Isomorpism. \\
 --------------------------------------------------- \\
-First we will introduce the the tropical semiring and with it a usual semiring formally.
+To be in a position to understand the properties of $( \mathbb{R} \cup \{- \infty \} , \oplus , \odot )$. We define a semiring formally.
 \begin{definition}
 A semiring is a set $R$ equipped with two binary operations $+$ and $\cdot$, called addition and multiplication, such that (Wikipedia.en Semiring)
 \begin{outline}
@@ -375,46 +335,79 @@ The only thing missing to this section are some examples for tropical rational f
 $R : \mathbb{R}^{d} \to \mathbb{R}^{p}, x = (x_1, \dots , x_d)\mapsto (f_1(x), \dots , f_p(x))$, is called a tropical polynomial map if each $f_i : \mathbb{R}^{d} \to \mathbb{R}$ is a tropical polynomial, $i = 1, \dots , p$, and a tropical rational map if $f_1, \dots , f_p$ are tropical rational functions. We will denote the set of tropical polynomial maps by $Pol(d, p)$ and the set of tropical rational maps by $Rat(d, p)$. So $Pol(d, 1) = \mathbb{T}[X_1, \dots , x_d]$ and $Rat(d, 1) = \mathbb{T}(x_1, \dots , x_d)$ \cite[p.~3]{zhang2018tropical}.
 \end{definition}
 
+As a logical continuation of chapter \ref{sec:trop_algebra} we choose to introduce tropical hypersurfaces as the \ref{sec:tropical_hypersurfaces}'s chapter. Tropical hypersurfaces will be needed in chapter in chapter \ref{sec:tropical_geometry_of_neural_networks} and the end of \ref{sec:trop_netw} exclusively, leading to the fact, that there will be a nessesarry logical gap.
+
 \newpage
 
-\section{Valuations and tropicalisation}
-
-\begin{definition}\cite[p.~57]{maclagan2015introduction}
-Let $\mathbb{K}$ be a field. We denote by $K^{*}$ the nonzero elements of K. A valuation on $\mathbb{K}$ is a function $val: \mathbb{K} \to \mathbb{R} \cup \{\infty\}$ satisfying the following three axioms:
-\begin{align*}
-1. \ &val(a) = \infty \ \text{if and only if} \ a = 0, \\
-2. \ &val(ab) = val(a) + val(b) \ \text{and} \ \\
-3. \ &val(a + b) \geq \min\{val(a), val(b)\} \ \text{for all} \ a, b \in K^{*}
-\end{align*}
-The image of the valuation map is denoted $\Gamma_{val}$. This is an additive subgroup of the real numbers $\mathbb{R}$ which is called the value group.
-\end{definition}
-\begin{lemma}
-Let $a, b \in \mathbb{K}$. If $val(a) \neq val(b)$ then $val(a+b) = min(val(a), val(b))$.
-\cite[p.~57]{maclagan2015introduction}
-\end{lemma}
-\begin{proof}
-Let $a,b \in \mathbb{K}$. Without loss of generality we may assume that $val(b) > val(a)$. When evaluating $1\in \mathbb{K}$ we observe
-$$val(1)=val(1^{2})=val(1) + val(1)$$
-it follows, that $val(1)=0$, and so $-(1)^{2}$ implies $val(-1)=0$. But with the valuation of $-1$ being zero
-$$val(-b) = val(-1) + val(b) = val(b) \ \text{for all} \ b \in \mathbb{K}$$
-the sign is irrelevant to valuation. The third axiom implies
-$$val(a) \geq \min(a+b), val(-b)) = min(val(a+b), val(b)),$$
-and therefore $val(a) \geq val(a + b)$. But we also have
-$$val(a + b) \geq \min(val(a), val(b)) = val(a),$$
-and hence $val(a + b) = val(a)$ as desired.
-\end{proof}
-\newpage
+%\section{Valuations and tropicalisation}
+%
+%\begin{definition}\cite[p.~57]{maclagan2015introduction}
+%Let $\mathbb{K}$ be a field. We denote by $K^{*}$ the nonzero elements of K. A valuation on $\mathbb{K}$ is a function $val: \mathbb{K} \to \mathbb{R} \cup \{\infty\}$ satisfying the following three axioms:
+%\begin{align*}
+%1. \ &val(a) = \infty \ \text{if and only if} \ a = 0, \\
+%2. \ &val(ab) = val(a) + val(b) \ \text{and} \ \\
+%3. \ &val(a + b) \geq \min\{val(a), val(b)\} \ \text{for all} \ a, b \in K^{*}
+%\end{align*}
+%The image of the valuation map is denoted $\Gamma_{val}$. This is an additive subgroup of the real numbers $\mathbb{R}$ which is called the value group.
+%\end{definition}
+%\begin{lemma}
+%Let $a, b \in \mathbb{K}$. If $val(a) \neq val(b)$ then $val(a+b) = min(val(a), val(b))$.
+%\cite[p.~57]{maclagan2015introduction}
+%\end{lemma}
+%\begin{proof}
+%Let $a,b \in \mathbb{K}$. Without loss of generality we may assume that $val(b) > val(a)$. When evaluating $1\in \mathbb{K}$ we observe
+%$$val(1)=val(1^{2})=val(1) + val(1)$$
+%it follows, that $val(1)=0$, and so $-(1)^{2}$ implies $val(-1)=0$. But with the valuation of $-1$ being zero
+%$$val(-b) = val(-1) + val(b) = val(b) \ \text{for all} \ b \in \mathbb{K}$$
+%the sign is irrelevant to valuation. The third axiom implies
+%$$val(a) \geq \min(a+b), val(-b)) = min(val(a+b), val(b)),$$
+%and therefore $val(a) \geq val(a + b)$. But we also have
+%$$val(a + b) \geq \min(val(a), val(b)) = val(a),$$
+%and hence $val(a + b) = val(a)$ as desired.
+%\end{proof}
+%\newpage
 
 \section{Tropical hypersurfaces}
+\label{sec:tropical_hypersurfaces}
 
-
+In this chapter we will start viewing tropical polynomials as geometric figures with a surface area, that is peace wise linear and boundaries for the number of these linear areas. We hop right in by defining the tropical hypersurface of a tropical polynial. 
+ 
 \begin{definition}
 The tropical hypersurface of a tropical polynomial $f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ is 
-$$\Gamma(f) := \{ x \in \mathbb{R}^{d} : c_i x^{\alpha_i} = c_j x^{\alpha_j} = f(x) for some \alpha_i \neq \alpha_j \}$$
+$$\Gamma(f) := \{ x \in \mathbb{R}^{d} : c_i x^{\alpha_i} = c_j x^{\alpha_j} = f(x) \ \text{for some} \ \alpha_i \neq \alpha_j \}$$
 i.e., the set of points x at which the value of f at x is attained by two or more monomials in f \cite[p.~3]{zhang2018tropical}.
 \end{definition}
 
-\begin{comment}
+To understand the geometry of tropical polynomials, tropical ration function, tropical polynomial maps and tropical rational maps better we will show the 
+ity of each of these.
+
+\begin{definition}
+A function $f : K^{m} \to K^{n}$ with $n, m \in \mathbb{N}$ and $K = \mathbb{T}$ or $K = \mathbb{T}$ is piecewise linear if there exist closed sets $(P_{i})_{i \in \mathbb{N}} \subset K^{n}$ with $f : P_{i} \to K^{n}$ linear and $\cup_{i}P_{i} = K^{m}$.
+\end{definition}
+
+\begin{lemma}
+Tropical polynomials and tropical rational functions are piecewise linear functions. Tropical polynomial maps, as tropical rational maps are piecewise linear maps.
+\end{lemma}
+\begin{proof}
+Let $f(x)=c_{1}x^{\alpha_1} \oplus \dots \oplus c_{r}x^{\alpha_r}, f:\mathbb{T}^{n} \to \mathbb{T}$ as in \ref{tropPolyn}. Then for every monomial $c_{i}x^{\alpha_{i}}$ for $i=1, \dots , r$ in $f$ we define $U_{i} := \{x \ | \ f(x) = c_ix^{\alpha_{i}}\} \subset \mathbb{T}^{n}$. Therefore $f(x) = c_ix^{\alpha_i}$ is linear on $U_{i}$ and   $\cup_{j=1}^{r} U_{i} = \mathbb{T}^{n}$. $\oslash$ is a linear transformation, therefore the tropical rational maps are peace wise linear two. Now this means that tropical rational maps and tropical polynomial maps are also piecewise linear and the notion of linear regions applies.
+\end{proof}
+
+\begin{definition}
+A linear region of $F \in Rat(d, m)$ is a maximal connected subset of the domain on which $F$ is linear. The number of linear regions of $F$ is denoted $\mathcal{N}(f)$ \cite[p.~4]{zhang2018tropical}.
+\end{definition}
+
+The linearity of a tropical polynomial per definition will be broken on its hypersurface and linear everywhere else. Therefore the tropical hypersurface $\Gamma(f)$ of a tropical polynomial $f$ devides the domain of f into cenvex cells on each of witch f is linear.
+
+\begin{definition}
+Tropical hypersurfaces of polynomials in two variables are called tropical curves.
+\end{definition}
+
+\begin{definition}
+The Newton polygon of a tropical polynomial $f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$  is the convex hull of $\alpha_1 , \dots , \alpha_r \in \mathbb{N}^{d}$, regarded as points in $\mathbb{R}^{d}$,
+$$ \Delta(f) := Conv{\alpha_i \in \mathbb{R}^{d} : c_i \neq -\infty , i = 1, \dots ,r } $$ \cite[p.~3]{zhang2018tropical}.
+\end{definition}
+
+\begin{comment}\cite[p.~3]{zhang2018tropical}
 A tropical polynomial $f$ determines a dual subdivision of
 $\delta (f)$, constructed as follows. First, lift each $\alpha_i$ from $\mathbb{R}^d$ into $\mathbb{R}^{d+1}$ by appending $c_i$ as the last coordinate. Denote the convex hull of the lifted $\alpha_1, \dots , \alpha_r$ as
 $$\mathcal{P}(f):= Conv{(\alpha_i, c_i) \in \mathbb{R}^{d} \times \mathbb{R} : i = 1, \dots , r}. (1)$$
@@ -425,16 +418,9 @@ $$\delta(f) := {\pi(p) \subset \mathbb{R}^{d} : p \in UF( \mathcal{P}(f))}.$$.
 $\delta (f)$ forms a polyhedral complex with support $\delta (f)$. By \cite{maclagan2015introduction}, the tropical hypersurface $\mathcal{T}(f)$ is the $(d - 1)$-skeleton of the polyhedral complex dual to $ \delta(f)$. This means that each vertex in $ \delta(f)$ corresponds to one "cell" in $R^{d}$ where the function f is linear. Thus, the number of vertices in $\mathcal{P}(f)$ provides an upper bound on the number of linear regions of $f$.
 \end{comment}
 
-\begin{definition}
-The Newton polygon of a tropical polynomial $f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$  is the convex hull of $\alpha_1 , \dots , \alpha_r \in \mathbb{N}^{d}$, regarded as points in $\mathbb{R}^{d}$,
-$$ \Delta(f) := Conv{\alpha_i \in \mathbb{R}^{d} : c_i \neq -\infty , i = 1, \dots ,r } $$ \cite[p.~3]{zhang2018tropical}.
-\end{definition}
-
-\begin{definition}
-A linear region of $F \in Rat(d, m)$ is a maximal connected subset of the domain on which $F$ is linear. The number of linear regions of $F$ is denoted $\mathcal{N}(f)$ \cite[p.~4]{zhang2018tropical}.
-\end{definition}
-
-\subsection{Transformations of tropical polynomial}
+Our analysis of neural networks will require figuring out
+how the polytope $\mathcal(P)(f)$ transforms under tropical power,
+sum, and product.
 
 \begin{proposition}
 Let $f$ be a tropical polynomial and let $a \in \mathbb{N}$. Then
@@ -442,7 +428,18 @@ $$ \mathcal{P}(f^{a}) = a \mathcal{P}(f) $$.
 $a \mathcal{P}(f) = \{ax : x \in \mathcal{P}(f) \} \subset \mathbb{R}^{d + 1}$ is a scaled version of $\mathcal{P}(f)$ with the same shape but different volume \cite[p.~4]{zhang2018tropical}.
 \end{proposition}
 \begin{proof}
+Let $f(x)=c_{1}x^{\alpha_1} \oplus \dots \oplus c_{r}x^{\alpha_r}, f:\mathbb{T}^{n} \to \mathbb{T}$, as in \ref{tropPolyn}. Then with $\mathcal{P}(f) = Conv\{(\alpha_{i}, c_{i}) \in \mathbb{R}^{d} \times \mathbb{R}, i= 1, \dots , r and c_{i} \neq - \infty \}$.
+\begin{align*}
+f^{a} &= (c_{1}x^{\alpha_{1}} \oplus \dots \oplus c_{r} x^{\alpha_{r}})^{a} \\
+&= a \cdot (c_{1}x^{\alpha_{1}} \oplus \dots \oplus c_{r} x^{\alpha_{r}}) \\
+&= a \cdot (c_{1}x^{\alpha_{1}}) \oplus \dots \oplus a \cdot (c_{r} x^{\alpha_{r}}) \\
+&= (a \cdot c_{1})x^{a \cdot \alpha_{1}} \oplus \dots \oplus (a \cdot c_{r}) x^{a \cdot \alpha_{r}}
+\end{align*}
+and therefore
+$$\mathcal{P}(f^{a}) = Conv\{(a \cdot \alpha_{i}, a \cdot c_{i}) \in \mathbb{R}^{d} \times \mathbb{R}, i = 1, \dots, r \ \text{and} \ c_{i} \neq - \infty \} = a\mathcal{P}(f)$$.
 \end{proof}
+
+A generalisation of normal summation, now on sets is the Minkowski sum.
 
 \begin{definition}
 The Minkowski sum of two sets $P_1$ and $P_2$ in $\mathbb{R}^{d}$ is the set
@@ -451,19 +448,63 @@ and for $\lambda_1 , \lambda_2 \geq 0$, their weighted Minkowski sum is
 $$ \lambda_1 P_1 + \lambda_2 P_2 := \{ \lambda_1 x_1 + \lambda_2 x_2 \in \mathbb{R}^{d} : x_1 \in P_1 , x_2 \in P_2 \} $$ \cite[p.~4]{zhang2018tropical}.
 \end{definition}
 
+One important example for an Minkowski sum is a zonotope. For that we need notion that: 
+\begin{definition}
+A subset $A \subset \mathbb{V}$ of a vector field $\mathbb{V}$ is a line segment, if $A=\{\lambda x + \lambda (1-y) \ | \ \lambda \in [0,1]\subset \mathbb{K}\}$ with $\mathbb{K}$ being the scalar field of $\mathbb{V}$.
+\end{definition}
+
+\begin{definition}
+The Minkowski sum of line segments is called a zonotope.
+\end{definition}
+
+\begin{definition}
+\label{def:dot_sym}
+Let $A \subset \mathbb{R}^{n}$ be a set. A is dot symmetric around $b \in A$ if for $a \in A$ follows $a + 2(b-a)=2b-a \in A$
+\end{definition}
+
+Obviously for $A$ and $b$ as in \ref{def:dot_sym} and $A$ is convex, then $b \in A$ the symmetry point must lie in $A$. We get an intuition of zonotopes by proving the following statement.
+
+\begin{lemma}
+\label{lem:zon_sym_conv}
+A zonotope over $\mathbb{R}^{n}$ is dot symmetric and convex.
+\end{lemma}
+\begin{proof}
+We proof a zootope is dot symmetric by induction. As base case let $P \subset \mathbb{R}^{n}$ be a line segment in between $x, y \in \mathbb{R}^{n}$ then $P$ is obviously dot symmetric around $b=0.5(x+y) \in \mathbb{R}^{n}$. For the induction step let $A \subset \mathbb{R}^{n}$ be dot symmetric around $b \in \mathbb{R}^{n}$ and let $P = \{ \lambda x + (1- \lambda) y | \lambda \in [0,1] \subset \mathbb{R}^{n} \}$ for $x, y \in \mathbb{R}^{n}$. Then the Minkowski sum of the tow set is
+\begin{align*}
+A + P 
+&= \{ a + p | a \in A \ \text{and} \ p \in P \} \\
+&= \{ a + \lambda x + (1- \lambda) y | a \in A \ \text{and} \ \lambda \in [0,1] \}
+\end{align*}
+It follows that $a_{A+P} \in A+P$ has the form $a_{A+P}=a + \lambda x + (1- \lambda)y$ for $a\in A$ and $\lambda \in [0,1]$. We set $b_{A+P}=(0.5)(x+y) + b$. Then
+\begin{align*}
+a_{A+P} + &2(b_{A+P} - a_{A+P}) \\
+&= a + \lambda x + (1- \lambda)y + 2( 0.5(x+y) + b - (a + \lambda x + (1-\lambda)y)) \\
+&= 2b-a + (1- \lambda) x + \lambda y \in A+P
+\end{align*}
+since $2b-a \in A$ and $(1- \lambda) x + \lambda y \ in P$. Therefore a zonotope is symmetric.
+\end{proof}
+
+Let $\mathcal{V}$ denote the set of vertices of a polytope $P$. Clearly, the Minkowski sum of two polytopes is given by the convex hull of the Minkowski sum of their vertex sets, i.e., $P_{1} + P_{2} = Conv(\mathcal{V}(P1) + \mathcal{V}(P2))$. With this observation, the
+following is immediate.
+
 \begin{proposition} \cite[p.~4]{zhang2018tropical}
 Let $f, g \in Pol(d, 1) = \mathbb{T}[x_1, \dots , x_d]$ be tropical polynomials. Then
 \begin{align*}
-\mathcal{P}(f \odot g) &= \mathcal{P}(f) + \mathcal{P}(g),
+\mathcal{P}(f \odot g) &= \mathcal{P}(f) + \mathcal{P}(g), \\
 \mathcal{P}(f \oplus g) &= Conv(\mathcal{V}(\mathcal{P}(f)) \cup \mathcal{V}( \mathcal{P}(g))).
 \end{align*}
 \end{proposition}
 
+We reproduce below part of \cite[Theorem 2.1.20]{gritzmann1993minkowski} and derive a corollary for bounding the number of verticies on the upper faces of a zonotope.
+
 \begin{theorem}
+\label{theo:gritzmann_sturmfels}
 (Gritzmann-Sturmfels). Let $P_1, \dots , P_k$ be polytopes in $\mathbb{R}^{d}$ and let m denote the total number of nonparallel edges of $P_1, \dots , P_k$. Then the number of vertices of $P_1 + \dots + P_k$ does not exceed
 $$\sum_{j=0}^{d-1} \binom{m-1}{j}.$$
 The upper bound is attained if all $P_i$'s are zonotopes and all their generating line segments are in general positions. \cite{gritzmann1993minkowski}
 \end{theorem}
+
+And now we come to the main corollary of this chapter, core to chapter \ref{sec:tropical_geometry_of_neural_networks}.
 
 \begin{corollary}
 Let $\mathcal{P} \in \mathbb{R}^{d+1}$ be a zonotope generated by m line segments $P_1 , \dots , P_m$. Let $\pi : \mathbb{R}^{d} \times \mathbb{R} \to \mathbb{R}^{d}$ be the projection. Suppose $P$ satisfies:
@@ -477,11 +518,27 @@ Then $P$ has
 $$ \sum_{j=0}^{d} \binom{m}{j} $$
 vertices on its upper faces. If either (i) or (ii) is violated, then this becomes an upper bound. \cite[p.~4]{zhang2018tropical}
 \end{corollary}
+\begin{proof}
+Let $V_{1}$ be the vertices of the upper and $V_{2}$ the vertices of the lower face of P in relation to the projection $\pi$. As a consequence of (i), $P_{1}, \dots , P_{k}$ are nonparallel and with \ref{theo:gritzmann_sturmfels} follows the number of vertices of $\mathcal{P}$ is 
+$$n_{1} = 2 \sum^{d}_{j=0} \binom{m-1}{j}.$$ 
+Because a zonotope is convex \ref{lem:zon_sym_conv} the upper and lower faces of P must already be all faces and $|V_{1} \cup V_{2}| = n_{1}$ holds. Also because of \ref{lem:zon_sym_conv} zonotopes are symmetric and therefore $|V_{1}| = |V_{2}|$ the upper and lower faces are of same cardinality. Let $P' := \pi (P)$ be the projection of $P$ in $\mathbb{R}^{d}$. (ii) would not hold if $\pi(P_{1}), \dots , \pi(P_{2})$ where not in general position and therefore $P'$ is generated by m line segments and $P'$ has 
+$$n_{2}=2 \sum^{d-1}_{j=0} \binom{m-1}{j}$$
+vertices, since the dimension has gone one lower. For any vertex $v \in P$, if $v \in V_{1} \setminus V_{2} \cup V_{2} \setminus V_{1}$ then $v$ can not be a vertex of $P'$ since all of these get dropped by the projection. On the other hand $v \in (V_{1} \cup V_{2}) \setminus (V_{1} \setminus V_{2} \cup V_{2} \setminus V_{1}) = V_{1} \cap v_{2}$ can not get dropped by the projection of $P$ and therefore the number of vertices on $P'$ equals $|V_{1} \cap V_{2}|$, thus $n_{2} = |V_{1} \cap V_{2}|$ and we can calculate the number of vertices on the upper face of $P$:
+\begin{align*}
+|V_{2}|
+&= 0.5(|V_{1} \cup V_{2}| - |V_{1} \cap V_{2}|) + |V_{1} \cap V_{2}| \\
+&= 0.5(n_{1} - n_{2}) + n_{2} \\
+&= 0.5(2 \sum^{d}_{j=0} \binom{m-1}{j} - 2 \sum^{d-1}_{j=0} \binom{m-1}{j}) + 2 \sum^{d-1}_{j=0} \binom{m-1}{j} \\
+&= \binom{m-1}{d} + 2 \sum^{d-1}_{j=0} \binom{m-1}{j} \\
+&= \sum^{d}_{j=0}(\binom{m-1}{j} + \binom{m-1}{j-1}) \\
+&= \sum^{d}_{j=0} \binom{m}{j}
+\end{align*}
+\end{proof}
 
 \newpage
 
 \section{Neural networks}
-
+\label{sec:neural_networks}
 Neural networks viewed as a topic, make for a very compelling field of interest in their own right. Historically the term "Neural Network" was introduced in attempts to describe the functionality of biological processes, in particular the nervous system and the brain, in a mathematical sense \cite{mcculloch1943logical, widrow1960adaptive, rumelhart1986learning}. Simplified the nervous system is a net of neurons, each having a soma and an axon. At any instant a neuron has some threshold, which excitation must exceed to initiate an impulse. This, except for the fact and the time of its occurrence, is determined by the neuron, not by the excitation. From the point of excitation the impulse is propagated to all parts of the neuron \cite{mcculloch1943logical}. Through synapses the axons are connected to further soma through with the impulse is passed on to further neurons. Impulses passing through the nervous system partly consist of electrical impulses and chemical reactions \cite{palay1956synapses}. A collection of partially connected neurons, capable of carrying impulses, is called a biological neural network.
 
 
@@ -920,6 +977,64 @@ neural networks satisfying assumptions (a)-(c).
 \begin{proposition}
 Every feedforward neural network with ReLU activation is a tropical rational signomial map.
 \end{proposition}
+\newpage
+
+\section{Tropical geometry of neural networks}
+\label{sec:tropical_geometry_of_neural_networks}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzset{%
+  every neuron/.style={
+    circle,
+    draw,
+    minimum size=1cm
+  },
+  neuron missing/.style={
+    draw=none, 
+    scale=3,
+    text height=0.333cm,
+    execute at begin node=\color{black}$\vdots$
+  },
+}
+
+\begin{tikzpicture}[x=1.5cm, y=1.5cm, >=stealth]
+
+\foreach \m/\l [count=\y] in {1,2,3,missing,4}
+  \node [every neuron/.try, neuron \m/.try] (input-\m) at (0,2.5-\y) {};
+
+\foreach \m [count=\y] in {1,missing,2}
+  \node [every neuron/.try, neuron \m/.try ] (hidden-\m) at (2,2-\y*1.25) {};
+
+\foreach \m [count=\y] in {1,missing,2}
+  \node [every neuron/.try, neuron \m/.try ] (output-\m) at (4,1.5-\y) {};
+
+\foreach \l [count=\i] in {1,2,3,n}
+  \draw [<-] (input-\i) -- ++(-1,0)
+    node [above, midway] {$I_\l$};
+
+\foreach \l [count=\i] in {1,n}
+  \node [above] at (hidden-\i.north) {$H_\l$};
+
+\foreach \l [count=\i] in {1,n}
+  \draw [->] (output-\i) -- ++(1,0)
+    node [above, midway] {$O_\l$};
+
+\foreach \i in {1,...,4}
+  \foreach \j in {1,...,2}
+    \draw [->] (input-\i) -- (hidden-\j);
+
+\foreach \i in {1,...,2}
+  \foreach \j in {1,...,2}
+    \draw [->] (hidden-\i) -- (output-\j);
+
+\foreach \l [count=\x from 0] in {Input, Hidden, Ouput}
+  \node [align=center, above] at (\x*2,2) {\l \\ layer};
+
+\end{tikzpicture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newpage
 
 \bibliographystyle{apacite}
