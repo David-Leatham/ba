@@ -1,0 +1,179 @@
+Allgemeine Kommentare:
+x - Lernen Sie bibtex fuer Zitate!
+x - Comment -> Remark
+- Bitte keine Formeln an den Beginn von (Halb-)Saetzen! Das macht Vieles schlecht lesbar.
+- Bitte mit aussen groesseren Klammern arbeiten, so dass Formeln lesbar bleiben.
+- Bitte keine Formeln ueber den Rand hinaus.
+- Begriffe, die definiert werden, sollten beim ersten Mal kursiv oder fett gedruckt sein.
+
+Einleitung:
+x - Das Wort “historically” ist überflüssig. Bitte weglassen.
+x - Das Wort “observed” ist überflüssig. Bitte weglassen.
+x - through out ->  throughout
+~ - “abstract taks”? Wortwahl?
+x - “following recent research of the past two years” vielleicht lieber gleich den Artikel erwähnen und nicht die letzten beiden Jahre.
+x - making this a very contemporary topic. -> wuerde ich weglassen.
+x - opened the subject -> Wortwahl ungewoehnlich, besser “started”
+x - is in the early 60’s with -> genaue Jahreszahlen, is with? besser “is concered with”
+? - Starting 2010, warum nicht schon vorher?
+x - the improvement of underlying understanding as of works -> Was bedeutet dieser Satz?
+x - and in particular are key  -> and, in particular, they are key
+x - some years before 1990 -> genaue Angabe… Zitate…
+x - since then -> wirklich erst ab ungefaehr 2000
+x - One spectrum -> Wortwahl???
+x - this work is a very good -> Eigenlob stinkt, oder etwa nicht? Besser zeigen, warum das hier besonders interessant ist, als es einfach zu sagen.
+x - to the topics -> to these topics
+x - which leads us to to chapter 2 -> zu viele to
+x - This thesis follows the underlying paper (Maclagan & Sturmfels, 2015)  -> Zitat falsch
+
+ - tropical semifield andstatt tropical semiring
+Abschnitt 1:
+x - the theory of tropical algebra -> tropical algebra
+x - Every other chapter -> The remaining chapters
+x - tropical / tropical rational -> Was wollen Sie damit sagen? Allgemein unschoen.
+x - the object -> the tropical semifield
+x - (semiring) -> Warum Klammern?
+x - their usual sum -> eventuell mit Doppelpunkt.
+x - Meaning… -> grammatikalisch falsch. Besser “This means…”
+x -  tropical Isomorphism -> Isomorphism of semifields. Vielleicht kann man die tropischen Zahlen  erst nach Def. 1.1 sagen… Dann ist der Begriff des Halbrings eingefuehrt.
+x - Tropical Geometry -> klein schreiben.
+x - Isomorph -> kleinschreiben
+- called addition and multiplication -> Wann immer Sie etwas neues definieren, sollten Sie das Wort fett oder kursiv drucken.
+? - (Berstel & Perrin, 1985) Das Zitat kann man direkt nach Definition in eckigen Klammern anfuehren. Bitte verwenden Sie Bibtex.
+x - Prop. 1.2 Zitat gleich nach Prop. 1.2
+x - Prop. 1.2 Bitte keinen Satz mit einem mathematischen Symbol beginnen. Das ist schlechter Stil.
+x - Wenn Sie Proposition schreiben, sollte das keine Definition sein, also kommt “called the tropical semiring” als extra Satz danach.
+x - the following stands -> the following holds: -> Evtl. mit Doppelpunkt
+x - do a case distinct -> we argue case by case
+x - w.l.o.g. -> without loss of generality.
+x Because R is a field -> Das ist so falsch. R ist nur mit der ueblichen Addition und Multiplikation ein Koerper, mit den tropischen Operationen muessen Sie das schon nachweisen.
+x - (Maclagan & Sturmfels, 2015, p. 11) Zitat unnoetig.
+x - arithmetic’s -> arithmetic
+x - arithmetical -> falsch und unnoetig.
+x - before we jump into tropical polynomials. -> formaler formulieren.
+x - Remark 1.3: Doppelpunkt immer ohne Leerzeichen an das vorherige Wort.
+x - Die erste Gleichung in Remark 1.3 ist unverstaendlich. Bitte “with a,b\in\TT” nicht in der Gleichung schreiben, sondern danach in den Text oder davor.
+x - Die zweite Gleichung ist ebenfalls nicht klar. Es fehlt auch mindestens eine Null am Ende.
+x - In Remark 1.3 sollten Sie wirklich das Argument genauer ausarbeiten.
+x - Def. 1.4: an expression or function -> Was jetzt?
+x - shorthand -> shorthand notation
+- Def. 1.4 und spaeter. Eine Funktion mit dem Komma nach dem Funktionennamen zu schreiben ist ungewoehnlich.
+x - Remark 1.6: Meaning a tropical polynomial… -> das ist falscher Satzbau.
+- Die Graphen in Figure 1 sind zu unuebersichtlich. Versuchen Sie sich auf die wesentlichen Informationen zu konzentrieren.
+x - Nach Figure 1: non linear -> non-linear
+- Fuer Verweise auf Figuren u.A. koennen Sie mit \ref arbeiten und eventuell sogar das Hyperlink package einbinden.
+- Def. 1.7 und spaeter: Es ist haeufig uebersichtlicher, wenn Sie Gleichungen in neue Zeilen schreiben und nicht nur mit Kommas abtrennen. Keine Saetze mit mathematischen Symbolen beginnen.
+- Def. 1.9: Eigentlich genuegt hier K=R. Linearitaet ist bezueglich der klassischen Koerper oder Vektorraumstruktur definiert.
+- Def. 1.10: as in 1.5. -> as in Def. 1.5
+- Then every monomial -> Every monomial
+- Im Beweis von Lemma 1.10 (3): Warum genuegt es Punkte in benachbarten Linearitaetsgebieten zu betrachten?
+- Prop. 1.11: Thus, the tropical polynomial… -> Thus, the tropical polynomials
+- to understand the core section, section 4, in particular the actual connection build between neural networks and tropical geometry in this thesis,  - > zu kompliziert formuliert.
+- Warum jetzt semifields wenn Sie doch vorher semirings eingefuehrt haben?
+- Def. 1.12: Following notations above,  -> Ist das hier wirklich noetig?
+- Prop. 1.13: Nicht-mathematischen Text innerhalb mathematischen Formeln schreibt man mit \textrm{}. Keine Saetze mit Formeln beginnen. Formeln in neue Zeilen.
+- Proof of Prop. 1.13: Verwenden Sie \bigoplus
+- Nach dem ersten Absatz: Bei a(x) und b(x) geht etwas schief.
+- Other than with the proof of the Tropical semiring -> Was wollen Sie damit sagen? Hoert sich sehr deutsch an und ist auf Englisch unverstaendlich.
+- Part (1): Formeln duerfen nicht ueberstehen.
+- tropical rations function -> rational
+- Was ist mit den anderen Eigenschaften eines Semifields? - Comment 1.14 -> Remark 1.14
+- taking max and \Sigma - taking maximum and sum
+- differenceconvex function -> Entweder erklaeren oder weglassen.
+- Def. 1.15: ein grosses X_1 muss kleingeschrieben werden.
+- chapter 2 kann man immer gross schreiben, da es sich um einen Namen handelt.
+- leading to the fact that there will be a necessary logical gap -> komisch formuliert.
+
+Abschnitt 2:
+-Ich wuerde diesen Abschnitt nach Abschnitt 4 schieben, so dass die zentralen Punkte der Arbeit frueher kommen.
+- Allgemein koennte man hier auch mal ein Bild einer tropischen Hyperflaeche zeichnen, etwa einer Kurve im R^2
+- with a surface area -> Was soll das heissen? Es gibt doch kein Volumen hier…
+- We hop right in -> Formaler schreiben…
+- Def. 2.1: Recall that we write a tropical polynomial as … where \alpha_i\neq\alpha_j
+- Beweis von Lemma 2.2: Tropical Minus ist keine lineare Transformation
+- Def. 2.3: Maximal with respect to inclusion?
+- broken on - broken in
+- Def. 2.5: Definieren Sie sich \Conv mit \DeclareMathOperator und verwenden Sie das. Sieht besser aus.
+- Comment 2.6 -> Remark 2.6.
+- 2.6: Wissen wir schon was eine Subdivision ist?
+- Zweites Display: Der Punkt ist zu viel.
+- Genaues Zitat, bitte.
+- Vor Prop. 2.7: Das Newton-Polygon ist kein Polytop, oder?
+- Bew. von Prop. 2.7: Bitte \textrm verwenden.
+- Def. 2.8: ; steht am falschen Platz
+- Nach Def. 2.8: Ein einfaches Beispiel waere extrem hilfreich.
+- Def. 2.9: vector field -> vector space
+- dot-symmetric -> point-symmetric -> So etwas bitte immer googlen. Das sieht sonst richtig bloed aus.
+- Def. 2.10 ist sicher nicht zuerst in diesem Artikel erschienen. Das koennen Sie vielleicht auch einfach ohne Zitat definieren.
+- We get an intuition -> We build our intuition.
+-
+
+Abschnitt 3:
+- Der erste Satz ist sinnlos. Bitte weglassen.
+- Simplified -> Simply put.
+- Ist “excitation” wirklich das richtige Wort?
+- Through synapses the axons are connected to further soma through which the impulse is passed on to further neurons. -> Satz ist unverstaendlich
+- Figure 3 -> bitte zitieren, ausser Sie haben das selbst gezeichnet.
+- In reference to a biological neural network… Sprachlich falsch
+- biological realism would impose en- tirely unnecessary constraint -> Das ist so nicht wahr.
+- Def. 3.2: Finite set?
+- Def. 3.3: Let K be a field. Vielleicht koennen Sie auch Ecken und Kantengewichte separat definieren.
+- Def. 3.3 “in our case” unnoetig, bitte weglassen.
+- is attributed -> consists of
+- Remark 4.5 -> Example 4.5. Warum benoetigt man hier ein Eckengewicht?
+- as our graph has this property,  -> unverstaendlich, bitte weglassen.
+- Warum reden wir ueber Dijkstra’s Algorithmus? Und warum wird der nicht in eine eigene Umgebung gepackt?
+- doesn’t -> does not
+- then abstract again -> then abstractly again
+- Def. 3.6: Warum nicht a piecewise differentiable activiation function?
+- Def. 3.6 wuerde von einem Beispiel mit Bild profitieren.
+- Remark 3.8: solution to what?
+- We are at an interesting point of this chapter. -> Bitte weglassen.
+- With the in- troduction of feedforward neural networks we have cast a sensible form of neural network which is able to store and also learn complex relations between input data and output data through forward and backward propagation. -> haben wir noch nicht gesehen.
+- Remark 3.9: where we fixate -> where we name
+- Wo kommen denn die Werte von b_j1 usw. her?
+- we can establish -> Wortwahl
+- Was ist \omega?
+- Def. 3.10: Forward Propagation klein schreiben.
+- corresponds to -> is defined to be, corresponds to ist zu vage formuliert.
+- Def. 3.10 moeglicherweise in zwei Schritten aufbauen: erst z^{(j)}, dann im naechsten Satzteil a^{(L)}
+- Often binary inputs, as for exam- ple black and white pictures, are fed into neural networks and binary out- puts, like dogs or cats are expected. Bitte erst den abstrakten Satz, dann das Beispiel.
+- For the sake of proving that the feed- forward neural networks we have de- fined are able to be set up, so that for any specific binary input any bi- nary specific output can be obtained. -> Das ist kein Satz, es fehlt das Verb.
+-  Figure 5 ist zu klein und damit unlesbar.
+- Remark 3.11: Meaning if… -> Das ist wieder kein Satz.
+- To skip this interpretation -> You are not “skipping” anything…
+- motivated by figure 6 (a) -> shown in Figure 6 (a)
+- Die Namen der b_{ij} sind sehr unuebersichtlich gewaehlt.
+- Bitte \textrm{} fuer Text in mathematischen Formeln benutzen.
+- Figure 6 hat Variablen, die nicht zum Rest des Textes passen. Insbesondere, was ist b? Der Bias-Vektor? Wo  ist der eingefuehrt?
+- Def. 3.12: lth -> l-th
+- …will not be introduced extensively, rather they’ll be required as prerequisite knowledge from the reader.  -> will not be carried out in detail, they’ll -> they will
+- Def. 3.15: From remark 3 follows -> missing “it”
+- R=\mathbb{R}?
+- Ist das wirklich der Laplace-Operator und nicht der Gradient?
+- For backpropagation only we limit the σ’s of feedforward neural networks to be differentiable. -> For our theoretical analysis of backpropagation we limit ourselves to the case where the \sigma are all differentiable. For a discussion of the general case of piecewise linear \sigma, we refer the reader to…
+- Comment 3.18: Besser ist es, \partial anstatt d zu verwenden.
+- Ist x hier nicht ein Vektor?
+- This gives a way to train neural networks on a datapool. -> How exactly?
+- Comment 3.19 und 3.20 gehoeren in Abschnitt 4 und sind eher Conventions oder aehnliches.
+-The following chapter holds the key theorems of this thesis. -> Bitte weglassen oder an den Anfang von Chapter 4 schreiben. Dann aber bitte mit contains und nicht holds.
+
+Abschnitt 4:
+- Ist Comment 4.1 nicht schon Teil des Beweises von Thm. 4.2?
+- Display fuer a_{ij}^{-} hat Tippfehler.
+- max(Ax+b,t) scheint irgendwie falsch zu sein. Was ist denn max eines Vektors?
+- Was ist A_{-x}? wahrscheinlich ein Tippfehler.
+- Letztes Display ist falsch. Es fehlen Terme in max.
+- Thm. 4.2: “under the assumption” -> that fulfills the assumptions
+- We have shown the induction step, that with Comment 4.1 as induction beginning ends the proof. -> Besser formulieren.
+- Proof of Thm. 4.2, zweites Display G(l) ist ein Tippfehler.
+- viertes Display: Der Doppelpunkt gehoert auf die andere Seite. Vielleicht koennen Sie hier mit \underbrace arbeiten. Das waere schoener.
+- Comment 4.3: the tropical rational functions above -> wo genau?
+- although as we have explained  -> Komma?
+- Cor. 4.4: Was ist ReLU?
+- Now with ReLU activations we want to show the opposite implication. -> Satzbau fragwuerdig und ReLU activiations scheinen nicht definiert zu sein.
+- Prof. of Thm 4.5: wirklich b_ix^{\alpha_i}? Soll das ein Vektor sein?
+- Here all sigma are set to σ0 except the last one to σ−∞ as prerequisite. Warum darf man das?
+- we observe -> we consider?
+- Thus, by induction, any tropical polynomial can be written as a neural network with ReLU activation. -> Verstehe ich nicht. Das sollten wir diskutieren…
+- Prop. 4.6: Let \nu … be a function?
