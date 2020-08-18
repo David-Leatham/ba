@@ -26,6 +26,8 @@ x - to the topics -> to these topics
 x - which leads us to to chapter 2 -> zu viele to
 x - This thesis follows the underlying paper (Maclagan & Sturmfels, 2015)  -> Zitat falsch
 
+ - Prop. 1.16. Sind T[X_1, .. , x_r] und T(X_1 , .. , X_r) beides semifields, oder nur T(X_1, .. , X_r)?
+ - after Prop 1.14. Why are rational functions and T[X_1,.. important. Besser ausführen.
  - tropical semifield andstatt tropical semiring
 Abschnitt 1:
 x - the theory of tropical algebra -> tropical algebra
@@ -59,30 +61,30 @@ x - Def. 1.4: an expression or function -> Was jetzt?
 x - shorthand -> shorthand notation
 - Def. 1.4 und spaeter. Eine Funktion mit dem Komma nach dem Funktionennamen zu schreiben ist ungewoehnlich.
 x - Remark 1.6: Meaning a tropical polynomial… -> das ist falscher Satzbau.
-- Die Graphen in Figure 1 sind zu unuebersichtlich. Versuchen Sie sich auf die wesentlichen Informationen zu konzentrieren.
+~ - Die Graphen in Figure 1 sind zu unuebersichtlich. Versuchen Sie sich auf die wesentlichen Informationen zu konzentrieren.
 x - Nach Figure 1: non linear -> non-linear
-- Fuer Verweise auf Figuren u.A. koennen Sie mit \ref arbeiten und eventuell sogar das Hyperlink package einbinden.
-- Def. 1.7 und spaeter: Es ist haeufig uebersichtlicher, wenn Sie Gleichungen in neue Zeilen schreiben und nicht nur mit Kommas abtrennen. Keine Saetze mit mathematischen Symbolen beginnen.
-- Def. 1.9: Eigentlich genuegt hier K=R. Linearitaet ist bezueglich der klassischen Koerper oder Vektorraumstruktur definiert.
-- Def. 1.10: as in 1.5. -> as in Def. 1.5
-- Then every monomial -> Every monomial
-- Im Beweis von Lemma 1.10 (3): Warum genuegt es Punkte in benachbarten Linearitaetsgebieten zu betrachten?
-- Prop. 1.11: Thus, the tropical polynomial… -> Thus, the tropical polynomials
-- to understand the core section, section 4, in particular the actual connection build between neural networks and tropical geometry in this thesis,  - > zu kompliziert formuliert.
-- Warum jetzt semifields wenn Sie doch vorher semirings eingefuehrt haben?
-- Def. 1.12: Following notations above,  -> Ist das hier wirklich noetig?
-- Prop. 1.13: Nicht-mathematischen Text innerhalb mathematischen Formeln schreibt man mit \textrm{}. Keine Saetze mit Formeln beginnen. Formeln in neue Zeilen.
-- Proof of Prop. 1.13: Verwenden Sie \bigoplus
-- Nach dem ersten Absatz: Bei a(x) und b(x) geht etwas schief.
-- Other than with the proof of the Tropical semiring -> Was wollen Sie damit sagen? Hoert sich sehr deutsch an und ist auf Englisch unverstaendlich.
-- Part (1): Formeln duerfen nicht ueberstehen.
-- tropical rations function -> rational
-- Was ist mit den anderen Eigenschaften eines Semifields? - Comment 1.14 -> Remark 1.14
-- taking max and \Sigma - taking maximum and sum
-- differenceconvex function -> Entweder erklaeren oder weglassen.
-- Def. 1.15: ein grosses X_1 muss kleingeschrieben werden.
-- chapter 2 kann man immer gross schreiben, da es sich um einen Namen handelt.
-- leading to the fact that there will be a necessary logical gap -> komisch formuliert.
+? - Fuer Verweise auf Figuren u.A. koennen Sie mit \ref arbeiten und eventuell sogar das Hyperlink package einbinden.
+x - Def. 1.7 und spaeter: Es ist haeufig uebersichtlicher, wenn Sie Gleichungen in neue Zeilen schreiben und nicht nur mit Kommas abtrennen. Keine Saetze mit mathematischen Symbolen beginnen.
+x - Def. 1.9: Eigentlich genuegt hier K=R. Linearitaet ist bezueglich der klassischen Koerper oder Vektorraumstruktur definiert.
+x - Def. 1.10: as in 1.5. -> as in Def. 1.5
+x - Then every monomial -> Every monomial
+x - Im Beweis von Lemma 1.10 (3): Warum genuegt es Punkte in benachbarten Linearitaetsgebieten zu betrachten?
+x - Prop. 1.11: Thus, the tropical polynomial… -> Thus, the tropical polynomials
+x - to understand the core section, section 4, in particular the actual connection build between neural networks and tropical geometry in this thesis,  - > zu kompliziert formuliert.
+x - Warum jetzt semifields wenn Sie doch vorher semirings eingefuehrt haben?
+x - Def. 1.12: Following notations above,  -> Ist das hier wirklich noetig?
+x - Prop. 1.13: Nicht-mathematischen Text innerhalb mathematischen Formeln schreibt man mit \textrm{}. Keine Saetze mit Formeln beginnen. Formeln in neue Zeilen.
+x - Proof of Prop. 1.13: Verwenden Sie \bigoplus
+x - Nach dem ersten Absatz: Bei a(x) und b(x) geht etwas schief.
+x - Other than with the proof of the Tropical semiring -> Was wollen Sie damit sagen? Hoert sich sehr deutsch an und ist auf Englisch unverstaendlich.
+x - Part (1): Formeln duerfen nicht ueberstehen.
+x - tropical rations function -> rational
+x - Was ist mit den anderen Eigenschaften eines Semifields? - Comment 1.14 -> Remark 1.14
+? - taking max and \Sigma - taking maximum and sum
+x - differenceconvex function -> Entweder erklaeren oder weglassen.
+x - Def. 1.15: ein grosses X_1 muss kleingeschrieben werden.
+x - chapter 2 kann man immer gross schreiben, da es sich um einen Namen handelt.
+x - leading to the fact that there will be a necessary logical gap -> komisch formuliert.
 
 Abschnitt 2:
 -Ich wuerde diesen Abschnitt nach Abschnitt 4 schieben, so dass die zentralen Punkte der Arbeit frueher kommen.
