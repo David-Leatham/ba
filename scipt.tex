@@ -1,4 +1,4 @@
-% No clue what this does
+% We are writing an article
 \documentclass{article}
 
 % allow useage of graphics 
@@ -41,6 +41,8 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
+\usepackage{hyperref}
+
 % as it sais. Start the section counter from zero
 % instead of starting it at one
 \setcounter{section}{-1}
@@ -52,6 +54,8 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{convention}[theorem]{Convention}
 
 % create a command to easyly add figure titles
 \newcommand*{\figuretitle}[1]{%
@@ -91,7 +95,7 @@ Tropical geometry on the other hand is a field of interest in mathematics, whose
 Tropical geometry is the study of polynomials under tropical multiplication and addition, where tropical multiplication is usual addition and tropical addition of two elements returns the minimal element. It is used in mathematics itself \cite{krivulin2014tropical}, finance \cite{klemperer2009new} and computer since. For the last topic this thesis is an example, as we describe a fundamental mathematical connection between tropical geometry and deep neural networks. \\
 
 Concerning the structure of the thesis we start by introducing the reader to the necessary theories of tropical geometry in chapter \ref{sec:trop_algebra} and the theory of neural networks in chapter \ref{sec:neural_networks}, but also extend the exploration of the topics beyond the scope needed for the fundamental Theorems in this thesis to give a more rounded introduction to these topics themselves when appropriate. Chapter \ref{sec:trop_netw} uses the knowledge of the first two chapters to demonstrate a fundamental link between neural networks and the difference between two tropical polynomials, called tropical rational functions, which is the core insight of the thesis.
-Then, to put this knowledge to use, we formulate statements about decision boundaries of neural networks in chapter \ref{sec:tropical_geometry_of_neural_networks} with tropical geometry, or more concrete, the link between neural networks and tropical rational functions. This needs fundamental knowledge of tropical hypersurfaces introduced in chapter \ref{sec:tropical_hypersurfaces}. \\
+Then, to put this knowledge to use, we formulate statements about decision boundaries of neural networks in chapter \ref{sec:tropical_geometry_of_neural_networks} with tropical geometry, or more concrete, the link between neural networks and tropical rational functions. This needs fundamental 	knowledge of tropical hypersurfaces introduced in chapter \ref{sec:tropical_hypersurfaces}. \\
 
 This thesis follows the underlying paper "Tropical Geometry of Deep Neural Networks" by Liwen Zhang, Gregory Naitzat and Lek-Heng Lim very closely, in that all main statements may be reordered and rewritten, but come directly out of \cite{maclagan2015introduction} and are cited accordingly.
 
@@ -99,7 +103,7 @@ This thesis follows the underlying paper "Tropical Geometry of Deep Neural Netwo
 
 \section{Tropical Algebra}
 \label{sec:trop_algebra}
-We begin by introducing tropical algebra. The remaining chapters will build upon chapter \ref{sec:trop_algebra} without exception. The main goal is to establish an intuition and formal understanding of subsets of functions we call tropical and tropical rational functions if the image is one dimensional and tropical and tropical rational maps if not.
+We begin by introducing tropical algebra. The remaining chapters will build upon chapter \ref{sec:trop_algebra} without exception. The main goal is to establish an intuition and formal understanding of subsets of functions we call tropical and tropical rational functions if the image is one dimensional or tropical and tropical rational maps if not.
 
 Our basic object of study is the semifield $( \mathbb{R} \cup \{- \infty \} , \oplus , \odot )$. As a set this corresponds to the real numbers $ \mathbb{R} $, together with an extra element $- \infty $ which represents minus infinity. In this semifield both operations are defined on two elements $x, y \in \mathbb{R} \cup \{- \infty \}$. The first operation is called the \textbf{tropical sum} and returns the maximum of two elements, while the second operation is called \textbf{tropical product} and returns the usual sum:
 $$ x \oplus y := \max(x,\ y) \quad \text{and} \quad x \odot y := x+y.$$
@@ -318,32 +322,29 @@ A \textbf{tropical rational function} is a standard difference, or, equivalently
 $$ (f-g)(x) = f(x) - g(x) = f(x) \oslash g(x) = (f \oslash g)(x)$$
 %We will denote a tropical rational function by $f \oslash g$, where $f$ and $g$ are understood to be tropical polynomial functions.
 \end{definition}
-
-
-
 \begin{proposition}
 $\mathbb{T}[X_1, \dots , X_d] := \{ f: \mathbb{T}^{d} \to \mathbb{T} ; f \ \text{is tropical polynomial} \}$ and \ $ \mathbb{T}(X_1, \dots , X_d) := \{ f: \mathbb{T}^{d} \to \mathbb{T} ; f \ \text{is tropical rational function} \}$ are both semirings. \cite[p.~3]{zhang2018tropical}
 \end{proposition}
 \begin{proof}
-We begin the proof by showing, that for two tropical polynomials $a, b \in \mathbb{T}[X_1, \dots , X_r]$ with $a(x) =\oplus_{i=0}^{\alpha} z_{i} x^{\zeta_{i}}$ and $b(x)= \oplus_{i=0}^{\beta} o_{i} x^{\omega_{i}}$ their tropical multiplication is a tropical polynomial $(a \odot b)(x) \in \mathbb{T}[X_1, \dots , X_r]$.
+We begin the proof by showing, that for two tropical polynomials $f, g \in \mathbb{T}[X_1, \dots , X_r]$ with $f(x) =\oplus_{i=0}^{\alpha} a_{i} x^{\zeta_{i}}$ and $g(x)= \oplus_{i=0}^{\beta} b_{i} x^{\omega_{i}}$ their tropical multiplication is a tropical polynomial $f \odot g \in \mathbb{T}[X_1, \dots , X_r]$.
 \begin{align*} 
-(a \odot b)(x) &= a(x) + b(x) \\
-&=  (\bigoplus_{i=0}^{\alpha} z_{i} x^{\zeta_{i}}) + (\bigoplus_{i=0}^{\beta} o_{i} x^{\omega_{i}}) \\
-&= \text{max}_{i=0}^{\alpha} \{ z_{i} + \sum_{k=1}^{r} \zeta_{ik} x_{k} \} + \text{max}_{j=0}^{\beta} \{ o_{j} + \sum_{k=1}^{r} \omega_{jk} x_{k} \} \\
+(f \odot g)(x) &= f(x) + g(x) \\
+&=  (\bigoplus_{i=0}^{\alpha} a_{i} x^{\zeta_{i}}) + (\bigoplus_{i=0}^{\beta} b_{i} x^{\omega_{i}}) \\
+&= \text{max}_{i=0}^{\alpha} \{ a_{i} + \sum_{k=1}^{r} \zeta_{ik} x_{k} \} + \text{max}_{j=0}^{\beta} \{ b_{j} + \sum_{k=1}^{r} \omega_{jk} x_{k} \} \\
 &= \max_{\substack{
    i=1, \dots , \alpha \\
    j=1, \dots , \beta
-  }} \{ z_{i} + \sum_{k=1}^{r} \zeta_{ik} x_{k} + o_{j} + \sum_{k=1}^{r} \omega_{jk} x_{k} \} \\
+  }} \{ a_{i} + \sum_{k=1}^{r} \zeta_{ik} x_{k} + b_{j} + \sum_{k=1}^{r} \omega_{jk} x_{k} \} \\
 &= \max_{\substack{
    i=1, \dots , \alpha \\
    j=1, \dots , \beta
-  }} \{ (z_{i} + o_{j} + \sum_{k=1}^{r} (\zeta_{ik} + \omega_{jk}) x_{k} \} \\
+  }} \{ (a_{i} + b_{j} + \sum_{k=1}^{r} (\zeta_{ik} + \omega_{jk}) x_{k} \} \\
 &= \bigoplus_{\substack{
    i=1, \dots , \alpha \\
    j=1, \dots , \beta
-  }} \ (z_{i} \odot o_{j}) \odot x^{\zeta_{i} + \omega_{i}} \in \mathbb{T}[X_1, \dots X_r]
+  }} \ (a_{i} \odot b_{j}) \odot x^{\zeta_{i} + \omega_{i}} \in \mathbb{T}[X_1, \dots X_r]
 \end{align*}
-That $(a \oplus b) \in \mathbb{T}[X_1, \dots X_r]$ is immediate. We have already shown that $\mathbb{T}$ is a tropical semifiled. Therefore, except for the neural elements, all other axioms hold automatically pointwise.
+That $(f \oplus g) \in \mathbb{T}[X_1, \dots X_r]$ is immediate. We have already shown that $\mathbb{T}$ is a tropical semifiled. Therefore, except for the neural elements, all other axioms hold automatically pointwise.
 
 The neutral element for the tropical sum is $- \infty = - \infty \oslash x = x \oslash - \infty \ x \in \mathbb{T}$. Both $0, -\infty \in \mathbb{T}$ are also a tropical and tropical rational function. Since for $f(x) \in \mathbb{T}(X_1, \dots , X_r)$ or $f(x) \in \mathbb{T}[X_1, \dots , X_r]$, the following hold
 \begin{align*}
@@ -353,8 +354,8 @@ The neutral element for the tropical sum is $- \infty = - \infty \oslash x = x \
 Therefore $0$ is the neutral element of tropical multiplication for tropical and tropical rations functions and $-\infty$ is the neural element of addition. We have shown $T[X_1, \dots X_r]$ is a semifield. \\ 
 Let $g,f,h \in \mathbb{T}(X_1, \dots ,X_d)$ with 
 \begin{align*}
-f(x) &= f_1(x) \oslash f_2(x)
-g(x) &= g_1(x) \oslash g_2(x)
+f(x) &= f_1(x) \oslash f_2(x) \\
+g(x) &= g_1(x) \oslash g_2(x) \\
 h(x) &= h_1(x) \oslash h_2(x)
 \end{align*}
 The tropical sum of tropical rational functions is a tropical rational function:
@@ -399,108 +400,131 @@ Next we introduce deep neural networks.
 
 \section{Neural networks}
 \label{sec:neural_networks}
-Neural networks viewed as a topic, make for a very compelling field of interest in their own right. Historically the term "Neural Network" was introduced in attempts to describe the functionality of biological processes, in particular the nervous system and the brain, in a mathematical sense \cite{mcculloch1943logical, widrow1960adaptive, rumelhart1986learning}. Simplified the nervous system is a net of neurons, each having a soma and an axon. At any instant a neuron has some threshold, which excitation must exceed to initiate an impulse. This, except for the fact and the time of its occurrence, is determined by the neuron, not by the excitation. From the point of excitation the impulse is propagated to all parts of the neuron \cite{mcculloch1943logical}. Through synapses the axons are connected to further soma through which the impulse is passed on to further neurons. Impulses passing through the nervous system partly consist of electrical impulses and chemical reactions \cite{palay1956synapses}. A collection of partially connected neurons, capable of carrying impulses, is called a biological neural network.
+Historically the term "Neural Network" was introduced in attempts to describe the functionality of biological processes, in particular the nervous system and the brain, in a mathematical sense \cite{mcculloch1943logical, widrow1960adaptive, rumelhart1986learning}. Simply put the nervous system is a net of neurons, each having a soma and an axon. "At any instant a neuron has some threshold, which excitation must exceed to initiate an impulse. This, except for the fact and the time of its occurrence, is determined by the neuron, not by the excitation. From the point of excitation the impulse is propagated to all parts of the neuron." \cite[p.~1]{mcculloch1943logical} Through synapses the axons are connected to the soma of further neurons, this way the impulse is passed on. Impulses passing through the nervous system partly consist of electrical impulses and chemical reactions \cite{palay1956synapses}. A collection of partially connected neurons, capable of carrying impulses, is called a biological neural network.
 
 
 \begin{figure}[H]
 \centering
 \figuretitle{Depiction of a neuron}
 \includegraphics[scale=0.75]{graphics/neuron.pdf}
-\caption{A representation of a neuron. The axon terminal attach to dendrite. This way impulses pass from neuron to neuron.}
+\caption{A representation of a neuron. The axon terminal attach to dendrite. This way impulses pass from neuron to neuron\cite{neuron2020}.}
 \label{fig:neuron}
 \end{figure}
 
-In reference to a biological neural network, an abstract neuronal network, in the following simply referenced as neuronal networks, are defined. As a biological neuron and especially a biological neural network are far more complex than this introduction may make it seem, biological realism would impose entirely unnecessary constraint. Boiling a biological neuronal network down to its quintessential features results in a weighted directed graph, where edges and vertices are weighted. Typically a weighted graph only has its edges weighted. To fit our model better we introduce them also with weighted vertices.
+Based on a biological neural network, an abstract neuronal network, in the following simply referenced as neural network, is defined. Biological neurons and especially biological neural networks are far more complex than this introduction may make it seem. Because of their vast complexity biological realism would impose entirely unnecessary constraint when building a fast computable model. Boiling a biological neuronal network down to its quintessential features results in a weighted directed graph, where edges and vertices are weighted. Typically a weighted graph only has its edges weighted. To fit our model we introduce them also with weighted vertices.
+
+\begin{definition}\cite[p.~148]{bender2010lists}
+A \textbf{finite graph} or simply \textbf{graph} is a pair $G = (V, E)$, where $V$ is a finite set whose elements are called vertices, and $E \subset \{ \{x, y\}|(x,y) \in v^{2} \}$ is a set of two-sets of vertices, whose elements are called edges.
+\end{definition}
+
+A small tweak to this definition yields the definition of a directed graph.
 
 \begin{definition}
-A graph is a pair $G = (V, E)$, where $V$ is a set whose elements are called vertices, and $E \subset \{ {x, y}|(x,y) \in v^{2} \}$ is a set of two-sets of vertices, whose elements are called edges.
+A \textbf{directed graph} is a pair $G = (V, E)$, where $V$ is a set whose elements are called vertices, and $E \subset \{ (x, y)|(x,y) \in v^{2} \}$ is a set of edges which are ordered pairs of distinct vertices.
 \end{definition}
 
 \begin{definition}
-A directed graph is a pair $G = (V, E)$, where $V$ is a set whose elements are called vertices, and $E \subset \{ (x, y)|(x,y) \in v^{2} \}$ is a set of edges which are ordered pairs of distinct vertices.
+Let $\mathbb{K}$ be a filed. A \textbf{vertex weighted graph} $G = (V, E, \psi)$ is a graph with a functions $\psi : V \to \mathbb{K}$ that assign a weight $\psi(v)$ to each vertex $v \in V$ and an \textbf{edge weighted graph} $G = (V, E, \omega)$ is a graph $G$ with a function $\omega : E \to \mathbb{K}$ that assigns a weight $\omega(e)$ to each edge $e \in E$. \\
+A \textbf{weighted graph} $G = (V, E, \psi, \omega)$ or short $G = (V, E)$ is a graph with weighted edges and vertices.
 \end{definition}
 
-\begin{definition}
-A weighted graph $G = (V, E)$ in our case is attributed by two functions $\psi : V \to \mathbb{K}$ and $\omega : E \to \mathbb{K}$ that assign a weight $\psi(v)$ and $\omega(e)$ to each edge $e \in E$ and weight $v \in V$, with $\mathbb{K}$ being a field.
-\end{definition}
-
-\begin{definition}
-Let $G = (V, E)$ be a Graph. We set $n(G) = |V|$ to be the cardinality of vertices and $m(G) = |E|$ the cardinality of edges.
-\end{definition}
+%\begin{definition}
+%Let $G = (V, E)$ be a Graph. We set $n(G) = |V|$ to be the cardinality of vertices and $m(G) = |E|$ the cardinality of edges.
+%\end{definition}
 
 Graphs can represent a multitude of relations between objects. Like road maps of roads connecting cities. Or describe objects themselves like molecules.
 
-\begin{remark}
-For instance the following weighted directed Graph could depict a road map with cities as nodes connected by roads that are weighted with the distance between cities and we want to find the minimal distance from any city to city A. \
+\begin{example}
+For instance the edge weighted directed Graph $G = (V, E, \omega)$ depicted in figure \ref{fig:mindDistGraph} could depict a map of hiking trails with connect huts as nodes. The trails are weighted with the distance between huts and we want to find the minimal walking distance from hut A to any other.\
+We will use the opportunity to introduce a specific graph formally. Matching figure \ref{fig:mindDistGraph} the graph is fully defined by setting $V=\{\text{A}, \text{B}, \text{C}, \text{D}, \text{E}, \text{F}, \text{G}, \text{H}\}$, $E=\{(\text{A}, \text{B}), (\text{A}, \text{H}), (\text{A}, \text{E}), (\text{B}, \text{D}), \\ (\text{B}, \text{C}), (\text{B}, \text{H}), (\text{C}, \text{D}), (\text{C}, \text{G}), (\text{D}, \text{G}), (\text{E}, \text{H}), (\text{E}, \text{F}), (\text{E}, \text{G}), (\text{F}, \text{C}), (\text{F}, \text{G}), (\text{H}, \text{C}), \\ (\text{H}, \text{F})\}$ and in the same order as we have written the edges of $E$ here, the values of $\omega$ correspond to $5, 8, 9, 15, 12, 4, 3, 11, 9, 5, 4, 20, 1, 13, 7, 6$.
 
 \begin{figure}[H]
 \centering
 \figuretitle{Min distance weighted graph}
-\includegraphics[scale=0.5]{graphics/weighted_directed_graph_2.png}
-\caption{Min distance weighted graph.}
-\label{fig:neuron}
+\includegraphics[scale=0.8]{graphics/weighted_directed_graph_2.png}
+\caption{Min distance weighted graph \cite{dijacGraph20}.}
+\label{fig:mindDistGraph}
 \end{figure}
 
-In a graph where we have a way to reach each node from the starting point, as our graph has this property, Dijkstra's algorithm gives us, for small graphs, an easy algorithm to compute the shortest path from node A to any other node by hand. At any point in the algorithm simply consider all reachable nodes from nodes that have their shortest path already computed by adding up the shortest paths length to the previous node and the path length of the path between the nodes. This way every reachable node by nodes with there shortest path already computed get at least one or multiple lengths of paths assigned to them. Pick the shortest path under all of these and repeat until all vertices have a path assigned. If there are multiple shortest paths, pick one of them. \\
-We will proof that this gives us a correct result through induction.
-\begin{proof} 
-For each node $v$, $dist(v)$ is the shortest distance from source to $v$ when travelling via visited nodes only, or infinity if no such path exists. (Note: we do not assume $dist(v)$ is the actual shortest distance for unvisited nodes.) \\
-The base case is when there is just one visited node, namely the initial node source, in which case the hypothesis is trivial. \\
-Otherwise assume the hypothesis for $n-1$ visited nodes, n which case we choose an edge $vu$ where $u$ has the least $dist(u)$ of any unvisited nodes and the edge $vu$ is such that $dist(u) = dist(v) + length(v,u)$. $dist(u)$ is considered to be the shortest distance from source to $u$ because if there were a shorter path, and if $w$ was the first unvisited node on that path then by the original hypothesis $dist(w) > dist(u)$ which creates a contradiction. Similarly if there were a shorter path to u without using unvisited nodes, and if the last but one node on that path were $w$, then we would have had $dist(u) = dist(w) + length(w,u)$, also a contradiction. \\
-After processing $u$ it will still be true that for each unvisited node $w$, $dist(w)$ will be the shortest distance from source to $w$ using visited nodes only, because if there were a shorter path that doesn't go by $u$ we would have found it previously, and if there were a shorter path using u we would have updated it when processing $u$. \\
-After all nodes are visited, the shortest path from source to any node $v$ consists only of visited nodes, therefore $dist(v)$ is the shortest distance.
+To compute an answer we use Dijkstra's algorithm. At any point in the algorithm simply consider all reachable nodes from nodes that have their shortest path already computed by adding up the computed shortest paths length to the paths length to the reachable node. This way every reachable node by nodes with there longest path already computed get at least one or multiple lengths of paths assigned to them. Pick the shortest path under all of these and repeat until all vertices have a path assigned. If there are multiple shortest paths, pick one of them. At any point, if there are no more reachable nodes, terminate and the nodes that have no distance assigned are not reachable.
+\begin{proof}
+Let $v_0 \in V$ be our starting vertex and $v_1$ an adjacent vertex with the closest path to $v_0$. Say $\text{dist}(v)$ is the computed shortest distance from node $v_0$ to $v \in V$, then $\text{dist}(v_1) = \omega((v_0, v_1))$. Let $n \in \mathbb{N}$, now say $v_1, \dots , v_n$ are the $n$ nodes with the shortest paths $\text{dist}(v_1), \dots , \text{dist}(v_n)$ and $v_{n+1} \in V \setminus {v_1, \dots , v_n}$ the vertex of closest distance to one of $v_1 \dots v_n$ out of all adjacent vertices. We pick $i \in \{ 1 , \dots , n \}$ so that $v_i$ is the vertex to which $v_{n+1}$ is closest, then $\text{dist}((v_1, v_{n+1}))$ since otherwise $v_{n+1}$ would have been under the first $n$ closest vertices. Also $v_1 , \dots , v_{n+1}$ are the $n+1$  closest vertices to $v_0$
 \end{proof}
 
-Now that we understand Dijkstra's algorithm, to complete the remark, we will compute the shortest distance to vertex $C$, by terminating Dijkstra's algorithm as soon as we have computed the shortest path to $C$. \\
-From $A$ the shortest distance to adjacent vertices is the distance to vertex $B$ with length $5$. We set the shortest distance to $B$ to $5$ and repeat. This time we have to also consider the the distances to adjacent vertices to $B$ with the added shortest distance to $B$. So in this iteration paths of length $20$ to $D$, $17$ to $C$ and $9$ to $H$ with is closely beaten by $8$ to $H$ from $A$ are to be considered. We mark $8$ to be the shortest distance to $H$. We describe one more step in detail and let the reader confirm if the calculated value for $C$ is correct. We have now computed the minimal distance to nodes $A$, $B$ and $H$. Reachable nodes at this point are $D$, $C$, $F$ and $E$ with path lengths of $20, 17, 15, 14$ and $9$. $9$ is the shortest, the shortest way to node $E$ is of length $9$. Next is node $F$ and then $C$ with it's length being $14$.
-
-\end{remark}
+This way it is easy to compute, that the shortest distance to from node A to D is $17$ for example. \\
+An interesting link to tropical geometry in this example is, if we write the edges of a graph as a matrix in the following form
+$$M := \left[ \begin{array}{rrrr}
+(v_0, v_0) & (v_0, v_1) & \cdots \\
+(v_1, v_0) & (v_1, v_1)  \\
+\vdots &  & \ddots \\
+\end{array}\right]$$
+then $(M^{k})_{ij}$ returns the shortest distance from $v_i$ to $v_j$ after $k$ steps.
+\end{example}
 
 Graph theory is a big field, but we are interested in modelling neural networks. In particular in those neural networks that have specific input layers and output layers. Our goal at this point is to get an insight of how to construct a neural network and define weights, so that our output stands in a predefined relation to our input.
 In particular one of the most important neural networks is the L-layer feedforward neural network. \
 We will define and motivate L-layer feedforward neural networks using graphs at first and then abstract again to only their necessary features.
 
 \begin{definition}
-An $L$-layer feedforward neural network in graph form $(G, \sigma)$ is a weighted graph $G=(V, E)$ with an activation function $\sigma: \mathbb{R} \to \mathbb{R}$. $\sigma$ needs to be piecewise differentiable. The graph consists of $L$ sets $V^{(j)}$, $j = 1, \dots , L$ of vertices $(V=\cup_{j=1}^{L}V^{(j)})$ with $L-1$ corresponding sets of edges $E^{(i)} \subset \{(x,y)|x \in V^{(i)}; y \in V^{(i+1)}\}$, $i = 1, \dots , L-1$ which connect two consecutive layers.
+\label{def:graphFeedForwardNetwork}
+An \textbf{L-layer feedforward neural network} in graph form $(G, \sigma)$ is a weighted graph $G=(V, E)$ with a piecewise differentiable activation function $\sigma: \mathbb{R} \to \mathbb{R}$. The graph consists of $L$ sets $V^{(j)}$, $j = 1, \dots , L$ of vertices $V=\cup_{j=1}^{L}V^{(j)}$ with $L-1$ corresponding sets of edges $E^{(i)} \subset \{(x,y)|x \in V^{(i)}; y \in V^{(i+1)}\}$, $i = 1, \dots , L-1$ and $E=\cup_{i=1}^{L-1}E^{(i)}$ which connect two consecutive layers.
 \end{definition}
 
 The Graph of a $0$-layer feedforward neural network is an empty graph and of a $1$-layer feedforward neural network is a set of vertices without connecting edges. $\sigma$ will be applied in between propagating nodes in forward propagation \ref{def:forward_propagation}.
 
-\begin{remark}
-The first layer of an $L$-layer feedforward neural network is called the input layer and the last ($L$-th) layer is called the output layer. All layers in between collectively are called hidden layers.
-\end{remark}
+\begin{definition}
+The first layer of an $L$-layer feedforward neural network is called the \textbf{input layer} and the last ($L$-th) layer is called the \textbf{output layer}. All layers in between collectively are called \textbf{hidden layers}.
+\end{definition}
 
-\begin{remark}
-A fully connected feedforward neural network $(G, \sigma)$ with $G = (V, E)$ is one where $E$ is the largest out of every possible sets of $E$. This will give the unique solution, where $V^{(j)}$ and $V^{(j+1)}$ for each $j = 1, \dots , L-1$ will be fully connected.
-\end{remark}
+\begin{definition}
+A $L$-layer feedforward neural network $(G, \sigma)$ with $G = (V, E)$ is called \textbf{fully connected} if $E$ is the largest out of every possible sets of $E$.
+\end{definition}
 
-We are at an interesting point of this chapter. Inspired by biological neural networks, which are the core building blocks of animal brains, we have abstracted some of the essential features, given an introduction to graphs and used these as a mathematical buildingblock for neural networks.
-With the introduction of feedforward neural networks we have cast a sensible form of neural network which is able to store and also learn complex relations between input data and output data through forward and backward propagation. \\
-Forward propagation describes the process by which from an input vector the output vector is calculated. First we need to introduce the bias and weight vector $W^{(j)}$.
+In a fully connected feedforward neural network every vertex of $V^{(j)}$ is connected though an edge to a vertex of $V^{(j+1)}$ for each $j = 1, \dots , L-1$.
+
+\begin{example}
+We will construct a simple fully connected 4-layer feedforward neural network for the sake of visualisation. Using the same notation as in definition \ref{def:graphFeedForwardNetwork} we set $V^{(1)}=\{v_{11}, v_{12}, v_{13}, v_{14}\}, V^{(2)}=\{v_{21}, v_{22}, v_{23}\}, V^{(3)}=\{v_{31}, v_{32}, v_{33}\}$ and $V^{(4)}=\{v_{41}\}$. The edges are immediately defined when the vertices are defined in a fully connected graph. For example $E^{(3)}=\{(v_{31}, v_{41}), (v_{32}, v_{41}), (v_{33}, v_{41})\}$ is forced. As the use of weights is not introduced jet we set them all to $1$ for example and draw the graph in figure \ref{fig:4LayerNetwork}: 
+\begin{figure}[H]
+\centering
+\figuretitle{Fully connected 4-layer feedforward neural network}
+\includegraphics[scale=0.85]{graphics/MultiLayerNeuralNetwork.png}
+\caption{An example image of a fully connected feedforward neural network without visualised edge and vertex weights\cite{neuralNetwork2020}.} 
+\label{fig:4LayerNetwork}
+\end{figure}
+
+\end{example}
+
+Inspired by biological neural networks, which are the core building blocks of animal brains, we have abstracted some of the essential features, given an introduction to graphs and used these as a mathematical buildingblock for neural networks.
+With the introduction of feedforward neural networks we have cast a sensible form of neural network with which we will be able to store and also learn complex relations between input data and output data through forward and backward propagation. These will be introduced now.\\
+Forward propagation describes the process by which from an input vector the output vector is calculated. First we need to introduce the bias vectors and weight matrices.
 
 \begin{remark}\label{standardGraphLabeling}
-Let $(G, \sigma)$ be a $L$-layer feedforward neural network where we fixate the elements from the sets $V^{(j)}$, by naming them $b_{j1}$ to $b_{j|V^{(j)}|}$, so that we can establish a correlating vector $b^{(j)} = (b_{j1}, \dots ,b_{j|V^{(j)}|})^{t}$, we call this vector the bias of layer $j$, which corresponds to the weights of vertices in $V^{(j)}$ for $j = 2, \dots , L$ and a matrix $W^{(j)}$ with the entries $W^{(j)}_{nm} = \omega((b_{j-1n}, b_{jm}))$ which correspond to the weights of edges connecting layer $j-1$ and $j$ where $j$ is still in range $j = 2, \dots , L$.
+Let $(G, \sigma)$ be a $L$-layer feedforward neural network, with $G=(V,E,\psi,\omega)$, where we name the elements from the sets $V^{(j)} = \{ b_{j1}, \dots ,b_{j|V^{(j)}|} \}$ so that these are ordered. The \textbf{bias vector} of layer j: 
+$$b^{(j)} = (\psi(b_{j1}), \dots ,\psi(b_{j|V^{(j)}|}))^{t},$$ 
+corresponds to the weights of vertices in $V^{(j)}$ for $j = 2, \dots , L$. The \textbf{weights matrix} $W^{(j)}$ with the entries 
+$$W^{(j)}_{nm} = \omega((b_{j-1n}, b_{jm}))$$ 
+corresponds to the matrix of weights of edges connecting layer $j-1$ and $j$ where $j$ is still in range $j = 2, \dots , L$.
 \end{remark}
 
 We will label feedforward neural networks this way until we define feedforward neural networks as functions and are now in a position to define forward propagation.
 
 \begin{definition}(Forward Propagation)
 \label{def:forward_propagation}
-Let $(G, \sigma)$ be as in \ref{standardGraphLabeling}. A Forward Propagation of our $L$-layer feedforward neural network $(G, \sigma)$ and an input vector x, corresponds to the value of $a^{(L)}$, where $z^{(j)} = W^{(j)} a^{(j-1)} + b^{(j)}$, $a^{(j)} = \sigma(z^{(j)})$, for $j=2, \dots , L$ and $a^{(1)} = x$.
+Let $(G, \sigma)$ be as in \ref{standardGraphLabeling} a $L$-layer feedforward neural network. Let $a^{(1)} = x \in \mathbb{R}^{|V^{(1)}|}$ be the input vector of the same dimension as the cardinality of the first layer $V^{(1)}$ of the neural network, then recursively we define $z^{(j)} = W^{(j)} a^{(j-1)} + b^{(j)}$ and $a^{(j)} = \sigma(z^{(j)})$, for $j=2, \dots , L$. A \textbf{forward propagation} of our $L$-layer feedforward neural network $(G, \sigma)$ is defined to be the value of $a^{(L)}$.
 \end{definition}
 
-\begin{wrapfigure}{r}{0.5\textwidth}
+For the sake of proving that the feedforward neural networks we have defined are able to be set up, so that for any specific binary input any binary specific output can be obtained, we will view the infrastructure of the weights, bias and the function $\sigma$ together as a circuit. Often binary inputs, as for example black and
+\begin{wrapfigure}{r}{0.68\textwidth}
 \centering
 %\figuretitle{Min distance weighted graph}
 \includegraphics[scale=0.2]{graphics/Summary-of-the-common-Boolean-logic-gates-with-symbols-and-truth-tables.png}
-\caption{Boolean Gates Truth Tables}
+\caption{Boolean Gates Truth Tables \cite{booleanGates}}
 \label{fig:bool_gate}
 \end{wrapfigure}
-
-Often binary inputs, as for example black and white pictures, are fed into neural networks and binary outputs, like dogs or cats are expected. For the sake of proving that the feedforward neural networks we have defined are able to be set up, so that for any specific binary input any binary specific output can be obtained. We will view the infrastructure of the weights, bias and the function $\sigma$ together as a circuit. 
+white pictures, are fed into neural networks and binary outputs, like dogs or cats are expected.
 
 \begin{remark}
-Binary circuits are defined by basic logical gates like AND, OR, and NOT gates and a lot more, that manipulate binary input as shown in figure \ref{fig:bool_gate}. A set of gates is called a Universal Logic Gates Set if with those gates any other logic or boolean function can be created. After \cite{quine1955way} AND, OR and NOT define such a set. Meaning if we can reproduce these three gates in form of feedforward neural networks, any boolean logic can be created by these. For that we set $\omega=\mathds{1}$, the weights of edges to one and
+Binary circuits are defined by basic logical gates like AND, OR, and NOT gates and a lot more, that manipulate binary input as shown in figure \ref{fig:bool_gate}. A set of gates is called a \textbf{Universal Logic Gates Set} if with those gates any other logic or boolean function can be created. After \cite{quine1955way} AND, OR and NOT define such a set. Thsi meanings, if we can reproduce these three gates in form of feedforward neural networks, any boolean logic can be created by these. For that we set $\omega=\mathds{1}$, the weights of edges to one and
 \[ \sigma(x) = 
   \begin{cases}
     1       & \quad \text{if } x > 0\\
@@ -508,39 +532,42 @@ Binary circuits are defined by basic logical gates like AND, OR, and NOT gates a
   \end{cases}
 \]
 %Then again NAND and NOR both can make a AND, OR and NOT gait, so ether of them are so called minimal universal logic gates, meaning they can make any other logic of Boolean function on their own.
-Usually the output of a neural network is non binary, but is trained so that the higher the output value is the higher the probabillity of the specific outcome and the lower the output the lower the probability, with zero being neutral. To skip this interpretation $\sigma$ is defined to immediately produce a binary output. Now we will define three different $2$-layer feedforward neural nets with this sigma.
+Usually the output of a neural network is non binary, but is trained so that the higher the output value is the higher the probabillity of the specific outcome and the lower the output the lower the probability, with zero being neutral. To fit this interpretation $\sigma$ is defined to immediately produce a binary output. Now we will define three different $2$-layer feedforward neural nets with this sigma.
 
 
 \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{graphics/AND_gate.png}
+    	\centering
+        \includegraphics[width=\textwidth]{graphics/AND_gate.pdf}
         \caption{AND gate}
         \label{fig:AND}
     \end{subfigure}
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{graphics/OR_gate.png}
+    	\centering
+        \includegraphics[width=\textwidth]{graphics/OR_gate.pdf}
         \caption{OR gate}
         \label{fig:OR}
     \end{subfigure}
     \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{graphics/NOT_gate.png}
+    	\centering
+        \includegraphics[width=\textwidth]{graphics/NOT_gate.pdf}
         \caption{NOT gate}
         \label{fig:NOT}
     \end{subfigure}
     \caption{Neural Logical Gates}\label{fig:neural_logic_gates}
 \end{figure}
-The first, motivated by figure \ref{fig:neural_logic_gates} (a), defines our AND gate. It is defined with the graph $G=(E, V)$, $V=\{ b_{11}, b_{12}, b_{21}, b_{31} \}$, $E=\{ (b_{11}, b_{21}), (b_{12}, b_{21}), (b_{21}, b_{31})\}$ a fully connected neural network with weights 
-$$\psi(b_{11})=\psi(b_{12})=\psi(b_31)=0, \ \psi(b_{21})=-1 \ and \ W^{(1)}=\begin{pmatrix}1\\1\end{pmatrix}, \ W^{(2)}=\begin{pmatrix}1\end{pmatrix}.$$
-Lets compare the the boolean output with the truth table. Inputs $\{(x, y)|x, y \in \{0, 1\}\}$ with
+Each network takes a real vector $x$ as input and returns $y$. The weights of each layer are attached to the edges and the biases are labelled with "b". The first gate, shown in figure \ref{fig:neural_logic_gates} (a), defines our AND gate. It is defined with the graph $G=(E, V)$, $V=\{ b_{11}, b_{12}, b_{21}, b_{31} \}$, $E=\{ (b_{11}, b_{21}), (b_{12}, b_{21}), (b_{21}, b_{31})\}$ a fully connected neural network with weights 
+$$\psi(b_{11})=\psi(b_{12})=\psi(b_{31})=0, \ \psi(b_{21})=-1 \ and \ W^{(1)}=\begin{pmatrix}1\\1\end{pmatrix}, \ W^{(2)}=\begin{pmatrix}1\end{pmatrix}.$$
+The first index of every bias corresponds to the layer. Lets compare the the boolean output with the truth table. Inputs $\{(x, y)|x, y \in \{0, 1\}\}$ with
 $$z^{(1)}=(1, 1)\begin{pmatrix}x\\y\end{pmatrix}-1 \ \to \ z^{(2)} = (1)(\sigma(x+y-1))+0 = \sigma(x+y-1)$$
 \begin{align*}
-for \ (0, 0) \ yield \ z^{(2)}&=\sigma(-1)=0 \\
-for \ (1, 0), (0, 1) \ yield \ z^{(2)}&=\sigma(0)=0 \\
-and \ for \ (1, 1) \ yield \ z^{(2)}&=\sigma(1)=1.
+\text{for} \ (0, 0) \ \text{yield} \ z^{(2)}&=\sigma(-1)=0 \\
+\text{for} \ (1, 0), (0, 1) \ \text{yield} \ z^{(2)}&=\sigma(0)=0 \\
+\text{and} \ for \ (1, 1) \ \text{yield} \ z^{(2)}&=\sigma(1)=1.
 \end{align*}
 The same graph with weights
-$$\psi(b_{11})=\psi(b_{12})=\psi(b_31)=0, \ \psi(b_{21})=-1 \ and \ W^{(1)}=\begin{pmatrix}2\\2\end{pmatrix}, \ W^{(2)}=\begin{pmatrix}1\end{pmatrix}$$
+$$\psi(b_{11})=\psi(b_{12})=\psi(b_{31})=0, \ \psi(b_{21})=-1 \ and \ W^{(1)}=\begin{pmatrix}2\\2\end{pmatrix}, \ W^{(2)}=\begin{pmatrix}1\end{pmatrix}$$
 makes an OR gate:
 $$z^{(1)}=(2, 2)\begin{pmatrix}x\\y\end{pmatrix}-1 \ \to \ z^{(2)} = (1)(\sigma(2x+2y-1))+0 = \sigma(2x+2y-1)$$
 \begin{align*}
@@ -549,7 +576,7 @@ for \ (1, 0), (0, 1) \ yield \ z^{(2)}&=\sigma(2)=1 \\
 and \ for \ (1, 1) \ yield \ z^{(2)}&=\sigma(4)=1.
 \end{align*}
 And last but not least the graph of the NOT gate is different in that it only has one input. Therefore the graph also changes to $G=(E, V)$, $V=\{ b_{11}, b_{21}, b_{31} \}$, $E=\{ (b_{11}, b_{21}), (b_{21}, b_{31})\}$ also a fully connected $2$ feedforward neural network. With weights
-$$\psi(b_{11})=\psi(b_31)=0, \ \psi(b_{21})=1 \ and \ W^{(1)}=(-1), \ W^{(2)}=(1)$$
+$$\psi(b_{11})=\psi(b_{31})=0, \ \psi(b_{21})=1 \ and \ W^{(1)}=(-1), \ W^{(2)}=(1)$$
 that define a NOT gate:
 \begin{align*}
 for \ (0) \ yield \ z^{(2)}&= z^{(1)} = 1 \\
@@ -563,11 +590,11 @@ We have proven that any binary input can create any binary output. This also mea
 The last abstraction level of feedforward neural networks is to define them as a function, which enables to us to compare feedforward neural networks to tropical polynomials in Chapter $4$.
 
 \begin{definition}\cite{zhang2018tropical}
-Viewed abstractly, an L-layer feedforward neural network is a map $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ given by a composition of functions
+Viewed abstractly, an \textbf{L-layer feedforward neural network} is a map $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ given by a composition of functions
 $$ \nu = \sigma^{(L)} \circ \rho^{(L)} \circ \sigma^{(L-1)} \circ \rho^{(L-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}$$
 The preactivation functions $\rho^{(1)}, \dots , \rho^{(L)}$ are affine transformations to be determined and the activation functions $\sigma^{(1)}, \dots , \sigma^{(L)}$ are chosen and fixed in advanced. \\
-We denote the width, i.e., the number of nodes, of the $l$th
-layer by $n_l, l = 1, \dots , L-1$. We set $n_0 := d$ and $n_L := p$, respectively the dimensions of the input and output of the network. The output from the lth layer will be denoted by
+We denote the width, i.e., the number of nodes, of the $l$-th
+layer by $n_l, l = 1, \dots , L-1$. We set $n_0 := d$ and $n_L := p$, respectively the dimensions of the input and output of the network. The output from the $l$-th layer will be denoted by
 $$\nu = \sigma^{(l)} \circ \rho^{(l)} \circ \sigma^{(l-1)} \circ \rho^{(l-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}$$
 i.e., it is a map $\nu^{(l)} : \mathbb{R}^{d} \to \mathbb{R}^{n_l}$. For convenience, we assume $\nu^{(0)}(x) := x$. \\
 The affine function $\nu^{(l)} : \mathbb{R}^{n_{l-1}} \to \mathbb{R}^{n_{l}}$ is given by a weight matrix $A^{(l)} \in \mathbb{Z}^{n_l \times n_{l-1}} $ and a bias vector $b^{(l)} \in \mathbb{R}^{n_l}$:
@@ -582,20 +609,20 @@ For a vector input $x \in \mathbb{R}^{n_l}, \sigma^{(l)}(x)$ is understood to be
 final output of a neural network $\nu(x)$ is fed into a score function $s : \mathbb{R}^{p} \to \mathbb{R}^{m}$ that is application specific.
 \end{remark}
 
-Now we will give a brief introduction to backpropagation of neural networks. The underlying analytics for the small section of backpropagation will not be introduced extensively, rather they'll be required as prerequisite knowledge from the reader.
+Now we will give a brief introduction to backpropagation of neural networks. The underlying analytics for the small section of backpropagation will be carried out in detail, rather they will be required as prerequisite knowledge from the reader.
 
 Backpropagation is best explained by viewing a neural feedforward neural network as a function or a concatenation of functions, which we can extend to a Cost function and perform gradient descent on.
 In the following we may refer to $A^{(l)}$ as $w^{(l)}$ the weight matrices and $b^{(l)}$ simply as the bias vectors.
 
 \begin{remark}
-For a multi-variate function $F(X)$ that is defined and differentiable in a neighbourhood of a point $a$, then $F$ increases in point $a$ fastest in value in the direction of the gradient $\Delta F(a)$.
+For a multi-variate function $F(X)$ that is defined and differentiable in a neighbourhood of a point $a$, then $F$ increases in point $a$ fastest in value in the direction of the gradient $\text{grad}(F)(a)$.
 \end{remark}\label{rem:gradient}
 This motivates the following definition.
 
 \begin{definition}(Gradient descent)
-From remark \ref{rem:gradient} follows for a defined, differentiable function $F: \mathbb{R} \to \mathbb{R}$ if 
-$$a_{n+1}=a_{n}-\epsilon \Delta F(a_{n})$$
-for $\epsilon \in \mathbb{R}_{+}$ small enough and $a_{n} \in R$. Then $F(a_{n}) \geq F(a_{n+1})$. With this observation in mind, one starts with a guess $x_{0} \in \mathbb{R}$ for a local minimum of $F$, defines the sequence $(x_{n})_{n\in\mathbb{N}}$ as above ($c_{n+1}=c_{n}-\epsilon \Delta F(x_{n})$) and with epsilon small enough $x_{n}$ will eventually end up close to a local minimum. Setting up and calculating the sequence $x_{n}$ to step towards local minima is called gradient descent.
+From remark \ref{rem:gradient} follows for a differentiable function $F: \mathbb{R} \to \mathbb{R}$ if 
+$$a_{n+1}=a_{n}-\epsilon \cdot \text{grad}(F)(a_{n})$$
+for $\epsilon \in \mathbb{R}_{+}$ small enough and $a_{n} \in \mathbb{R}$. Then $F(a_{n}) \geq F(a_{n+1})$. With this observation in mind, one starts with a guess $x_{0} \in \mathbb{R}$ for a local minimum of $F$, defines the sequence $(x_{n})_{n\in\mathbb{N}}$ as above ($c_{n+1}=c_{n}-\epsilon \cdot \text{grad}(F)(x_{n})$) and with epsilon small enough $x_{n}$ will eventually end up close to a local minimum. Setting up and calculating the sequence $x_{n}$ to step towards local minima is called gradient descent.
 \end{definition}
 
 We will use gradient descent with a cost function that we want to optimize the neural network on. To optimize a feedforward neural network to give sensible outputs relative to the inputs, we define the cost function.
@@ -611,10 +638,10 @@ Backpropagation is an algorithm to tweak weights of a neural network to minimize
 For backpropagation only we limit the $\sigma$'s of feedforward neural networks to be differentiable.
 
 \begin{definition}(Backpropagation)
-Let $\nu$ be an $L$-layer feedwordward neural network, $\mu \in \mathbb{R}$ a learning rate and $C$ be a cost function over $\nu$ as in \ref{def:cost_fct}. Application of backpropagation to $\nu$ is calculating $\Delta_{w^{(i)}} C$ the gradient of the weights and $\Delta_{b^{(i)}} C$ the gradient of the biases of the cost function for $i = 1, \dots , L$ and applying changes to the weights and biases of the neural network $\nu$ as follows:
+Let $\nu$ be an $L$-layer feedwordward neural network, $\mu \in \mathbb{R}$ a learning rate and $C$ be a cost function over $\nu$ as in \ref{def:cost_fct}. Application of backpropagation to $\nu$ is calculating $\text{grad}_{w^{(i)}}(C)$ the gradient of the weights and $\text{grad}_{b^{(i)}}(C)$ the gradient of the biases of the cost function for $i = 1, \dots , L$ and applying changes to the weights and biases of the neural network $\nu$ as follows:
 \begin{align*}
-w^{(i)} &\to (w^{(i)})' = w^{(i)}-\mu \Delta_{w^{(i)}} C \\
-b^{(i)} &\to (b^{(i)})' = b^{(i)}-\mu \Delta_{b^{(i)}} C \ \text{for} \ i = 1, \dots, L. 
+w^{(i)} &\to (w^{(i)})' = w^{(i)}-\mu \text{grad}_{w^{(i)}}(C) \\
+b^{(i)} &\to (b^{(i)})' = b^{(i)}-\mu \text{grad}_{b^{(i)}}(C) \ \text{for} \ i = 1, \dots, L.
 \end{align*}
 \end{definition}
 
@@ -625,34 +652,34 @@ Repeated application of backpropagation is a gradient descent algorithm and ther
 Essentially, backpropagation evaluates the expression for the derivative of the cost function as a product of derivatives between each layer from left to right – "backwards" – with the gradient of $\sigma$'s between each layer being a simple modification of the partial products (the "backwards propagated error").
 Given an input–output pair $(x,y)$, the loss is:
 $$C_{x}(\sigma^{(L)} \circ \rho^{(L)} \circ \sigma^{(L-1)} \circ \rho^{(L-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}(x), y).$$
-The gradient $\Delta$ is the transpose of the derivative of the output in terms of the input and with the chain rule the following holds.
+The gradient $\text{grad}$ is the transpose of the derivative of the output in terms of the input and with the chain rule the following holds.
 \begin{align*}
-\frac{\mathrm d C_{x}}{\mathrm d x} &= \frac{\mathrm d C_{x}}{\mathrm d \sigma^{(L)}} \cdot \frac{\mathrm d \sigma^{(L)}}{\mathrm d \rho^{(L)}} \cdot \frac{d \rho^{(L)}}{d \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{d \rho^{(1)}} \cdot \frac{d \rho^{(1)}}{dx}\\
-\Delta_{x} C_{x} &= \left(\frac{dC}{dx}\right)^{t}
+\frac{\mathrm \partial C_{x}}{\mathrm \partial x} &= \frac{\mathrm \partial C_{x}}{\mathrm \partial \sigma^{(L)}} \cdot \frac{\mathrm \partial \sigma^{(L)}}{\mathrm \partial \rho^{(L)}} \cdot \frac{\partial \rho^{(L)}}{\partial \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{\partial \rho^{(1)}} \cdot \frac{\partial \rho^{(1)}}{\partial x}\\
+\text{grad}_{x} (C_{x}) &= \left(\frac{\partial C}{\partial x}\right)^{t}
 \end{align*}
 The affine linear functions $\rho^{(l)}$ for $l=L, \dots , 1$ can be written unambiguously as it's weight matrix $w^{(l)}$ and bias vector $b^{(l)}, \rho^{(l)} = x^{(l)} x + b^{(l)}$. Each derivative 
-$$\frac{d \rho^{(l)}}{d \sigma^{(l-1)}}, \ \text{for} \ l=L, \dots, 2$$ therefore consists of the derivative 
-$$\frac{d \rho^{(l)}}{d \sigma^{(l-1)}} = \frac{d w^{(l)}}{d b^{(l)}} \cdot \frac{d b^{(l)}}{\sigma^{(l-1)}}.$$ 
+$$\frac{\partial \rho^{(l)}}{\partial \sigma^{(l-1)}}, \ \text{for} \ l=L, \dots, 2$$ therefore consists of the derivative 
+$$\frac{\partial \rho^{(l)}}{\partial \sigma^{(l-1)}} = \frac{\partial w^{(l)}}{\partial b^{(l)}} \cdot \frac{\partial b^{(l)}}{\sigma^{(l-1)}}.$$ 
 The same holds for $l = 1$ in relation to $x$. We get
-$$\frac{\mathrm d C_{x}}{\mathrm d x} = \frac{\mathrm d C_{x}}{\mathrm d \sigma^{(L)}} \cdot \frac{\mathrm d \sigma^{(L)}}{\mathrm d w^{(L)}} \cdot \frac{\mathrm d w^{(L)}}{\mathrm d b^{(L)}} \cdot \frac{d b^{(L)}}{d \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{d w^{(1)}} \cdot \frac{d w^{(1)}}{d b^{(1)}} \cdot \frac{d b^{(1)}}{dx}.$$
+$$\frac{\mathrm \partial C_{x}}{\mathrm \partial x} = \frac{\mathrm \partial C_{x}}{\mathrm \partial \sigma^{(L)}} \cdot \frac{\mathrm \partial \sigma^{(L)}}{\mathrm \partial w^{(L)}} \cdot \frac{\mathrm \partial w^{(L)}}{\mathrm \partial b^{(L)}} \cdot \frac{\partial b^{(L)}}{\partial \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{\partial \sigma^{(1)}}{\partial w^{(1)}} \cdot \frac{\partial w^{(1)}}{\partial b^{(1)}} \cdot \frac{\partial b^{(1)}}{\partial x}.$$
 This way we set
 \begin{align*}
-\delta^{(L)}_{w} &= \frac{d C}{d \sigma^{(L)}} \cdot \frac{d \sigma^{(L)}}{d w^{(L)}} \\
-\delta^{(L)}_{b} &= \delta^{(L)}_{w} \cdot \frac{d w^{(L)}}{d b^{(L)}} \\
-\delta^{(l-1)}_{w} &= \delta^{(l)}_{b} \frac{d b^{(l)}}{d \sigma^{(l)}} \cdot \frac{d \sigma^{(l)}}{d b^{(l-1)}}, \ \text{and} \\
-\delta^{(l-1)}_{b} &= \delta^{(l-1)}_{w} \cdot \frac{d w^{(l-1)}}{b^{(l-1)}} \ \text{for} \ l=L-1, \dots, 2 \\
-\delta^{(0)} &= \delta^{(1)}_{b} \cdot \frac{d b^{(1)}}{x}
+\delta^{(L)}_{w} &= \frac{\partial C}{\partial \sigma^{(L)}} \cdot \frac{\partial \sigma^{(L)}}{\partial w^{(L)}} \\
+\delta^{(L)}_{b} &= \delta^{(L)}_{w} \cdot \frac{\partial w^{(L)}}{\partial b^{(L)}} \\
+\delta^{(l-1)}_{w} &= \delta^{(l)}_{b} \frac{\partial b^{(l)}}{\partial \sigma^{(l)}} \cdot \frac{\partial \sigma^{(l)}}{\partial b^{(l-1)}}, \ \text{and} \\
+\delta^{(l-1)}_{b} &= \delta^{(l-1)}_{w} \cdot \frac{\partial w^{(l-1)}}{\partial b^{(l-1)}} \ \text{for} \ l=L-1, \dots, 2 \\
+\delta^{(0)} &= \delta^{(1)}_{b} \cdot \frac{\partial b^{(1)}}{\partial x}
 \end{align*}
 Which depending on the choice of sigma gives an easy to calculate algorithm for
 \begin{align*}
-\Delta_{w^{(l)}}C_{x} &= (\delta_{w}^{(l)})^{t}, \ \text{and} \\
-\Delta_{b^{(l)}}C_{x} &= (\delta_{b}^{(l)})^{t} \ \text{for} \ i=1,\dots , L.
+\text{grad}_{w^{(l)}}(C_{x}) &= (\delta_{w}^{(l)})^{t}, \ \text{and} \\
+\text{grad}_{b^{(l)}}(C_{x}) &= (\delta_{b}^{(l)})^{t} \ \text{for} \ i=1,\dots , L.
 \end{align*}
 In contrast to calculating the $\delta$'s by forward propagating.
 \begin{align*}
-\delta^{(0)} &= \frac{\mathrm d C_{x}}{\mathrm d \sigma^{(L)}} \cdot \frac{\mathrm d \sigma^{(L)}}{\mathrm d w^{(L)}} \cdot \frac{\mathrm d w^{(L)}}{\mathrm d b^{(L)}} \cdot \frac{d b^{(L)}}{d \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{d w^{(1)}} \cdot \frac{d w^{(1)}}{d b^{(1)}} \cdot \frac{d b^{(1)}}{dx} \\
+\delta^{(0)} &= \frac{\mathrm \partial C_{x}}{\mathrm \partial \sigma^{(L)}} \cdot \frac{\mathrm \partial \sigma^{(L)}}{\mathrm \partial w^{(L)}} \cdot \frac{\mathrm \partial w^{(L)}}{\mathrm \partial b^{(L)}} \cdot \frac{\partial b^{(L)}}{\partial \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{\partial w^{(1)}} \cdot \frac{\partial w^{(1)}}{\partial b^{(1)}} \cdot \frac{\partial b^{(1)}}{\partial x} \\
 &\vdots \\
-\delta^{(L)}_{w} &= \frac{d C}{d \sigma^{(L)}} \cdot \frac{d \sigma^{(L)}}{d w^{(L)}}.
+\delta^{(L)}_{w} &= \frac{\partial C}{\partial \sigma^{(L)}} \cdot \frac{\partial \sigma^{(L)}}{\partial w^{(L)}}.
 \end{align*}
 
 \end{remark}
@@ -663,11 +690,15 @@ In contrast to calculating the $\delta$'s by forward propagating.
 %$fraq$
 %\end{remark}
 
-This gives a way to train neural networks on a datapool. \\
+This gives a way to train neural networks on a datapool.
 
-Finally for a tropical characterisation of neural networks we will need to restrict the neural networks in the following ways.
+\newpage
 
-\begin{remark}\cite{zhang2018tropical}
+\section{Tropical algebra of neural networks}\label{sec:trop_netw}
+
+This chapter proves the key theorems of the thesis, an equivalence of neural networks and tropical rational functions, which allows studies on tropical rational functions in return to enforce statements on neural networks. For a tropical characterisation of neural networks we will need to restrict the neural networks in the following ways.
+
+\begin{convention}\cite{zhang2018tropical}
 We will make the following mild assumptions
 on the architecture of our feedforward neural networks:
 \begin{itemize}
@@ -680,10 +711,9 @@ the activation functions $\sigma^{(1)} , \dots , \sigma^{(L)}$ take the form
 $$\sigma^{(l)}(x) := \max\{c, t^{(L)}\},$$
 where $t^{(l)} \in (\mathbb{R} \cup \{-\infty \})^{n_l}$ is called a threshold vector.
 \end{itemize}
-Henceforth all neural networks in our subsequent discussions will be assumed to satisfy (a)–(c).
-\end{remark}
+\end{convention}
 
-\begin{remark}\cite{zhang2018tropical}
+\begin{convention}\cite{zhang2018tropical}
 (b) is completely general but there is also no loss of generality in (a), i.e., in restricting the weights $A^{1}, \dots ,A^{L}$
 from real matrices to integer matrices, as: \\
 • real weights can be approximated arbitrarily closely by
@@ -693,37 +723,10 @@ weights by multiplying them by the least common multiple of their denominators t
 • keeping in mind that scaling all weights and biases
 by the same positive constant has no bearing on the
 workings of a neural network.
-\end{remark}
+\end{convention}
 
-The following chapter holds the key theorems of this thesis.
-
-\newpage
-
-\section{Tropical algebra of neural networks}\label{sec:trop_netw}
-
-This chapter proves the key theorems of the thesis, an equivalence of neural networks under assumptions (a)-(c) and tropical rational functions, which allows studies on tropical rational functions in return to enforce statements on neural networks.
-
-\begin{remark}\cite{zhang2018tropical}
-\label{com:trop_char_ind_beg}
-Consider the output from the first layer in a neural network
-$$ \nu(x) = \max \{ Ax+b, t \}; $$
-where $A \in \mathbb{Z}^{p \times d}, b \in \mathbb{R}^{p}$, and $t \in (\mathbb{R} \cup \{ - \infty \}^{p})$. We will
-decompose A as a difference of two nonnegative integervalued matrices, $A = A_{+} - A_{-}$ with $A_{+},A_{-} \in \mathbb{N}^{p \times d}$; e.g., in the standard way with entries
-$$ a^{+}_{ij} := \max \{ a_{ij}, 0 \}, \ a^{-}_{ij} := \max \{ -a_ij , 0\} $$
-respectively. Since
-$$ \max \{ Ax + b, t \} = \max \{ A_{+}x+b, A_{-}x+t \} - A_{-x}$$
-and
-$$\max \{ A_{+}x+b, A_{-}x+t \} - A_{-x} = 
- \begin{pmatrix}
-  \max\{a_{1,1}x_{1} + \dots + a_{1d}x_{d} + b_1\} - \max\{t_{1},-\infty\}  \\
-  \vdots \\
-  \max\{a_{p,1}x_{1} + \dots + a_{pd}x_{d} + b_p\} - \max\{t_{p},-\infty\}  \\ 
- \end{pmatrix},$$
-we see that every coordinate of one-layer neural network
-is a difference of two tropical polynomials, which means the first layer of a neural network can be described through a tropical rational map.
-\end{remark}
-
-For networks with more layers, we apply this decomposition recursively to obtain the following result.
+Henceforth all neural networks in our subsequent discussions will be assumed to satisfy (a)–(c). \\ \\
+We introduce the first main theorem of the thesis.
 
 \begin{theorem}\cite{zhang2018tropical}
 \label{teo:trop_char_of_neur_net}
@@ -733,8 +736,25 @@ is a function $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ whose coordinates are tr
 $$ \nu(x) = F(x) \oslash G(x) = F(x) - G(x) $$
 where $F$ and $G$ are tropical polynomial maps. Thus $\nu$ is a tropical rational map.
 \end{theorem}
-\begin{proof}
-Let $A \in \mathbb{Z}^{m \times n}, b \in \mathbb{R}^{m}$ be the parameters of the $(l+1)$th layer, and let $t \in (\mathbb{R} \cup {- \infty})^{m}$ be the threshold vector in the $(l+1)$th layer. If the nodes of the $l$th layer are given by a tropical rational map,
+\begin{proof}Consider the output from the first layer in a neural network
+$$ \nu(x) = \max \{ Ax+b, t \}; $$
+where $A \in \mathbb{Z}^{p \times d}, b \in \mathbb{R}^{p}$, and $t \in (\mathbb{R} \cup \{ - \infty \}^{p})$. We will
+decompose A as a difference of two nonnegative integervalued matrices, $A = A_{+} - A_{-}$ with $A_{+},A_{-} \in \mathbb{N}^{p \times d}$; e.g., in the standard way with entries
+$$ a^{+}_{ij} := \max \{ a_{ij}, 0 \}, \ a^{-}_{ij} := \max \{ -a_ij , 0\} $$
+respectively. Since
+$$ \max \{ Ax + b, t \} = \max \{ A_{+}x+b, A_{-}x+t \} - A_{-x}$$
+and
+\begin{align*}
+&\max \{ A_{+}x+b, A_{-}x+t \} - A_{-x} \\ &= 
+ \begin{pmatrix}
+  \max\{a_{1,1}x_{1} + \dots + a_{1d}x_{d} + b_1\} - \max\{t_{1},-\infty\}  \\
+  \vdots \\
+  \max\{a_{p,1}x_{1} + \dots + a_{pd}x_{d} + b_p\} - \max\{t_{p},-\infty\}  \\ 
+ \end{pmatrix},
+\end{align*}
+we see that every coordinate of one-layer neural network
+is a difference of two tropical polynomials, which means the first layer of a neural network can be described through a tropical rational map. \\
+Now let $A \in \mathbb{Z}^{m \times n}, b \in \mathbb{R}^{m}$ be the parameters of the $(l+1)$th layer, and let $t \in (\mathbb{R} \cup {- \infty})^{m}$ be the threshold vector in the $(l+1)$th layer. If the nodes of the $l$th layer are given by a tropical rational map,
 $$ \nu^{(l)}(x) = F^{(l)}(x) \oslash G^{(l)}(x) = F^{(l)}(x)-G^{(l)}(x),$$
 i.e., each coordinate of $f^{(l)}$ and $G^{(l)}$ is a tropical polynomial in $x$. We want to show, that then $\nu^{(l+1)}$ is also a rational map. We begin by calculating
 \begin{align*}
@@ -742,7 +762,7 @@ i.e., each coordinate of $f^{(l)}$ and $G^{(l)}$ is a tropical polynomial in $x$
 &= A^{(l+1)} \nu^{(l)} + b^{(l)} \\
 &= A^{(l+1)}(F^{(l)}(x) - G^{(l)}(x)) + b^{(l+1)} \\
 &=(A^{(l+1)}_{+} - A^{(l+1)}_{-})(F^{(l)}(x) - G^{(l)}(x)) + b^{(l+1)} \\
-&=A_{+}^{(l+1)}F^{(l)}(x) + A_{-}^{(l+1)}G^{(l)}(x) + b^{(l+1)} - (A_{+}^{(l+1)}G^{(l)}(x) + A_{-}^{(l+1)}F^{(l)})\\
+&=A_{+}^{(l+1)}F^{(l)}(x) + A_{-}^{(l+1)}G^{(l)}(x) + b^{(l+1)} \\ &\ \ \ \ \ \ -(A_{+}^{(l+1)}G^{(l)}(x) + A_{-}^{(l+1)}F^{(l)})\\
 &:=  H^{(l+1)}(x) - G^{(l+1)}(x), \\
 \end{align*}
 with
@@ -770,7 +790,7 @@ is a tropical rational map considering, with $f_{i}$ denoting the $i$th coordina
 $$f_{i}^{(l+1)} = h_{i}^{(l+1)} \oplus (g_{i}^{(l+1)} \odot t_{i}) \in \mathbb{T}(x)$$
 $f_{i}^{(l+1)}$ is a tropical rational function.
 
-We have shown the induction step, that with Remark \ref{com:trop_char_ind_beg} as induction beginning ends the proof.
+Through induction this ends the proof.
 \end{proof}
 
 \begin{remark}\cite{zhang2018tropical}
@@ -823,7 +843,7 @@ Observe also that if a tropical polynomial is the tropical sum of $r$ monomials,
 $\lceil \log_{2} r \rceil + 1$ layers. Now one more time we will write $p \oslash q$, where $p$ and $q$ are tropical polynomials as a neural network. Under the same assumptions as above and with
 \begin{align*}
 (p \oslash q)(x)
-&= \sigma_{0}(p(x)) - \sigma_{0}(-p(x)) + \sigma_{0}(-q(x)) - \sigma_{0}(q(x))
+&= \sigma_{0}(p(x)) - \sigma_{0}(-p(x)) + \sigma_{0}(-q(x)) - \sigma_{0}(q(x)) \\
 &= \sigma_{- \infty }(\begin{pmatrix} 1 & -1 & 1 & -1 \end{pmatrix} \sigma_{0}(\rho(y(x)))
 \end{align*}
 where $\rho_{i}:\mathbb{R}^{2} \to \mathbb{R}^{1}, \ i=4,5,6,7,$ are linear functions defined by

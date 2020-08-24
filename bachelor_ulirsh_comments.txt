@@ -110,58 +110,61 @@ Abschnitt 2:
 - We get an intuition -> We build our intuition.
 -
 
+ - Example 2.4.: Nochmal alles anschauen und überarbeiten.
+x - Def. 3.2: Finite set? (Ulirsch fragen.)
+x - Def. 3.3: Vielleicht koennen Sie auch Ecken und Kantengewichte separat definieren. (frage)
 Abschnitt 3:
-- Der erste Satz ist sinnlos. Bitte weglassen.
-- Simplified -> Simply put.
-- Ist “excitation” wirklich das richtige Wort?
-- Through synapses the axons are connected to further soma through which the impulse is passed on to further neurons. -> Satz ist unverstaendlich
-- Figure 3 -> bitte zitieren, ausser Sie haben das selbst gezeichnet.
-- In reference to a biological neural network… Sprachlich falsch
-- biological realism would impose en- tirely unnecessary constraint -> Das ist so nicht wahr.
-- Def. 3.2: Finite set?
-- Def. 3.3: Let K be a field. Vielleicht koennen Sie auch Ecken und Kantengewichte separat definieren.
-- Def. 3.3 “in our case” unnoetig, bitte weglassen.
-- is attributed -> consists of
-- Remark 4.5 -> Example 4.5. Warum benoetigt man hier ein Eckengewicht?
-- as our graph has this property,  -> unverstaendlich, bitte weglassen.
-- Warum reden wir ueber Dijkstra’s Algorithmus? Und warum wird der nicht in eine eigene Umgebung gepackt?
-- doesn’t -> does not
-- then abstract again -> then abstractly again
-- Def. 3.6: Warum nicht a piecewise differentiable activiation function?
-- Def. 3.6 wuerde von einem Beispiel mit Bild profitieren.
-- Remark 3.8: solution to what?
-- We are at an interesting point of this chapter. -> Bitte weglassen.
-- With the in- troduction of feedforward neural networks we have cast a sensible form of neural network which is able to store and also learn complex relations between input data and output data through forward and backward propagation. -> haben wir noch nicht gesehen.
-- Remark 3.9: where we fixate -> where we name
-- Wo kommen denn die Werte von b_j1 usw. her?
-- we can establish -> Wortwahl
-- Was ist \omega?
-- Def. 3.10: Forward Propagation klein schreiben.
-- corresponds to -> is defined to be, corresponds to ist zu vage formuliert.
-- Def. 3.10 moeglicherweise in zwei Schritten aufbauen: erst z^{(j)}, dann im naechsten Satzteil a^{(L)}
-- Often binary inputs, as for exam- ple black and white pictures, are fed into neural networks and binary out- puts, like dogs or cats are expected. Bitte erst den abstrakten Satz, dann das Beispiel.
+x - Der erste Satz ist sinnlos. Bitte weglassen.
+x - Simplified -> Simply put.
+x - Ist “excitation” wirklich das richtige Wort?
+x - Through synapses the axons are connected to further soma through which the impulse is passed on to further neurons. -> Satz ist unverstaendlich
+x - Figure 3 -> bitte zitieren, ausser Sie haben das selbst gezeichnet.
+x - In reference to a biological neural network… Sprachlich falsch
+x - biological realism would impose en- tirely unnecessary constraint -> Das ist so nicht wahr.
+? - Def. 3.2: Finite set?
+x - Def. 3.3: Let K be a field. Vielleicht koennen Sie auch Ecken und Kantengewichte separat definieren.
+x - Def. 3.3 “in our case” unnoetig, bitte weglassen.
+x - is attributed -> consists of
+x - Remark 3.5 -> Example 3.5. Warum benoetigt man hier ein Eckengewicht?
+x - as our graph has this property,  -> unverstaendlich, bitte weglassen.
+x - Warum reden wir ueber Dijkstra’s Algorithmus? Und warum wird der nicht in eine eigene Umgebung gepackt?
+x - doesn’t -> does not
+x - then abstract again -> then abstractly again
+x - Def. 3.6: Warum nicht a piecewise differentiable activiation function?
+x - Def. 3.6 wuerde von einem Beispiel mit Bild profitieren.
+? - Remark 3.8: solution to what?
+x - We are at an interesting point of this chapter. -> Bitte weglassen.
+x - With the in- troduction of feedforward neural networks we have cast a sensible form of neural network which is able to store and also learn complex relations between input data and output data through forward and backward propagation. -> haben wir noch nicht gesehen.
+x - Remark 3.9: where we fixate -> where we name
+x - Wo kommen denn die Werte von b_j1 usw. her?
+x - we can establish -> Wortwahl
+x - Was ist \omega?
+x - Def. 3.10: Forward Propagation klein schreiben.
+x - corresponds to -> is defined to be, corresponds to ist zu vage formuliert.
+x - Def. 3.10 moeglicherweise in zwei Schritten aufbauen: erst z^{(j)}, dann im naechsten Satzteil a^{(L)}
+x - Often binary inputs, as for exam- ple black and white pictures, are fed into neural networks and binary out- puts, like dogs or cats are expected. Bitte erst den abstrakten Satz, dann das Beispiel.
 - For the sake of proving that the feed- forward neural networks we have de- fined are able to be set up, so that for any specific binary input any bi- nary specific output can be obtained. -> Das ist kein Satz, es fehlt das Verb.
--  Figure 5 ist zu klein und damit unlesbar.
-- Remark 3.11: Meaning if… -> Das ist wieder kein Satz.
-- To skip this interpretation -> You are not “skipping” anything…
-- motivated by figure 6 (a) -> shown in Figure 6 (a)
-- Die Namen der b_{ij} sind sehr unuebersichtlich gewaehlt.
-- Bitte \textrm{} fuer Text in mathematischen Formeln benutzen.
-- Figure 6 hat Variablen, die nicht zum Rest des Textes passen. Insbesondere, was ist b? Der Bias-Vektor? Wo  ist der eingefuehrt?
-- Def. 3.12: lth -> l-th
-- …will not be introduced extensively, rather they’ll be required as prerequisite knowledge from the reader.  -> will not be carried out in detail, they’ll -> they will
+x -  Figure 5 ist zu klein und damit unlesbar.
+x - Remark 3.11: Meaning if… -> Das ist wieder kein Satz.
+x - To skip this interpretation -> You are not “skipping” anything…
+x - motivated by figure 6 (a) -> shown in Figure 6 (a)
+x - Die Namen der b_{ij} sind sehr unuebersichtlich gewaehlt.
+x - Bitte \textrm{} fuer Text in mathematischen Formeln benutzen.
+x - Figure 6 hat Variablen, die nicht zum Rest des Textes passen. Insbesondere, was ist b? Der Bias-Vektor? Wo  ist der eingefuehrt?
+x - Def. 3.12: lth -> l-th
+x - …will not be introduced extensively, rather they’ll be required as prerequisite knowledge from the reader.  -> will not be carried out in detail, they’ll -> they will
 - Def. 3.15: From remark 3 follows -> missing “it”
-- R=\mathbb{R}?
-- Ist das wirklich der Laplace-Operator und nicht der Gradient?
+x - R=\mathbb{R}?
+hmm - Ist das wirklich der Laplace-Operator und nicht der Gradient?
 - For backpropagation only we limit the σ’s of feedforward neural networks to be differentiable. -> For our theoretical analysis of backpropagation we limit ourselves to the case where the \sigma are all differentiable. For a discussion of the general case of piecewise linear \sigma, we refer the reader to…
-- Comment 3.18: Besser ist es, \partial anstatt d zu verwenden.
+x - Comment 3.18: Besser ist es, \partial anstatt d zu verwenden.
 - Ist x hier nicht ein Vektor?
 - This gives a way to train neural networks on a datapool. -> How exactly?
-- Comment 3.19 und 3.20 gehoeren in Abschnitt 4 und sind eher Conventions oder aehnliches.
--The following chapter holds the key theorems of this thesis. -> Bitte weglassen oder an den Anfang von Chapter 4 schreiben. Dann aber bitte mit contains und nicht holds.
+x - Comment 3.19 und 3.20 gehoeren in Abschnitt 4 und sind eher Conventions oder aehnliches.
+x -The following chapter holds the key theorems of this thesis. -> Bitte weglassen oder an den Anfang von Chapter 4 schreiben. Dann aber bitte mit contains und nicht holds.
 
 Abschnitt 4:
-- Ist Comment 4.1 nicht schon Teil des Beweises von Thm. 4.2?
+x - Ist Comment 4.1 nicht schon Teil des Beweises von Thm. 4.2?
 - Display fuer a_{ij}^{-} hat Tippfehler.
 - max(Ax+b,t) scheint irgendwie falsch zu sein. Was ist denn max eines Vektors?
 - Was ist A_{-x}? wahrscheinlich ein Tippfehler.
