@@ -1,5 +1,6 @@
 % We are writing an article
 \documentclass{article}
+\usepackage[margin=4cm]{geometry}
 
 % allow useage of graphics 
 \usepackage[pdftex]{graphicx}
@@ -87,7 +88,7 @@
 \leavevmode
 \\
 Tropical geometry is a modern branch of mathematics subject to a rise in research throughout the past 30 years. Neural networks have found application in many disciplines and have been used to algorithmically manage complex tasks like self driving cars, face and text recognition or automatically processing hand written checks at banks. Neural networks impact our lives on a daily basis. \\
-In this thesis we describe a new representation of neural networks through tropical geometry, following the recent article "Tropical Geometry of Deep Neural Networks" by Liwen Zhang, Gregory Naitzat and Lek-Heng Lim. \\
+In this thesis we describe a new representation of neural networks through tropical geometry, following the recent article "Tropical Geometry of Deep Neural Networks" by Liwen Zhang, Gregory Naitzat and Lek-Heng Lim \cite{maclagan2015introduction}. \\
 
 The subject of neural networks was introduced by Warren McCulloch and Walter Pitts in 1943 when they created a computational model for neural networks \cite{mcculloch1943logical}. In the following years one of the next big steps towards today's state of the art neural networks, was the research into the underlying concepts of backpropagation in 1960 by Kelley \cite{kelley1960gradient} and 1961 by Bryson \cite{bryson1961gradient}. Backpropagation is an algorithm describing a key concept of training neural networks. Starting $2010$ to this day neural networks are experiencing a boost in popularity. This is due to hardware improvements especially in GPU's making backpropagation feasible \cite{cirecsan2010deep}, the growing amount of data and the improvement of knowledge on deep neural networks fuelled by articles and works, for example that of Andrew Yan-Tak Ng and Jeff Dean in 2012. They created a network that learned to recognize higher-level concepts, such as cats, only from watching unlabeled images \cite{DBLP:journals/corr/abs-1112-6209}. Nowadays neural networks help solve challenging problems in computer science and software engineering and, in particular, they are key to application areas such as system identification and control, pattern and sequence recognition, social network filtering and e-mail spam filtering. \\
 
@@ -605,13 +606,14 @@ The $(i, j)$th coordinate of $A^{(l)}$ will be denoted $a^{l}_{ij}$ and the $i$t
 This way forward propagation corresponds to evaluation of the neural network.
 
 \begin{remark}\cite{zhang2018tropical}
-For a vector input $x \in \mathbb{R}^{n_l}, \sigma^{(l)}(x)$ is understood to be in coordinatewise sense; so $\sigma : \mathbb{R}^{n_l} \to \mathbb{R}^{n_l}$. We assume the
-final output of a neural network $\nu(x)$ is fed into a score function $s : \mathbb{R}^{p} \to \mathbb{R}^{m}$ that is application specific.
+For a vector input $x \in \mathbb{R}^{n_l}, \sigma^{(l)}(x)$ is understood to be in coordinatewise sense; so $\sigma : \mathbb{R}^{n_l} \to \mathbb{R}^{n_l}$.
+\end{remark}
+\begin{remark}\cite{zhang2018tropical}
+We assume the final output of a neural network $\nu(x)$ is fed into a \textbf{score function} $s : \mathbb{R}^{p} \to \mathbb{R}^{m}$ that is application specific. The score function is quite often regarded as the last layer of a neural network but this is purely a matter of convenience and we will not assume this.
 \end{remark}
 
-Now we will give a brief introduction to backpropagation of neural networks. The underlying analytics for the small section of backpropagation will be carried out in detail, rather they will be required as prerequisite knowledge from the reader.
-
-Backpropagation is best explained by viewing a neural feedforward neural network as a function or a concatenation of functions, which we can extend to a Cost function and perform gradient descent on.
+Now we will give a brief introduction to backpropagation of neural networks. The underlying analytics for the small section of backpropagation will not be carried out in detail, rather they will be required as prerequisite knowledge from the reader. \
+Backpropagation is best explained by viewing a feedforward neural network as a function or a concatenation of functions, which we can extend to a Cost function and perform gradient descent on.
 In the following we may refer to $A^{(l)}$ as $w^{(l)}$ the weight matrices and $b^{(l)}$ simply as the bias vectors.
 
 \begin{remark}
@@ -620,28 +622,32 @@ For a multi-variate function $F(X)$ that is defined and differentiable in a neig
 This motivates the following definition.
 
 \begin{definition}(Gradient descent)
-From remark \ref{rem:gradient} follows for a differentiable function $F: \mathbb{R} \to \mathbb{R}$ if 
+It follows from remark \ref{rem:gradient} that for a differentiable function $F: \mathbb{R} \to \mathbb{R}$, if 
 $$a_{n+1}=a_{n}-\epsilon \cdot \text{grad}(F)(a_{n})$$
-for $\epsilon \in \mathbb{R}_{+}$ small enough and $a_{n} \in \mathbb{R}$. Then $F(a_{n}) \geq F(a_{n+1})$. With this observation in mind, one starts with a guess $x_{0} \in \mathbb{R}$ for a local minimum of $F$, defines the sequence $(x_{n})_{n\in\mathbb{N}}$ as above ($c_{n+1}=c_{n}-\epsilon \cdot \text{grad}(F)(x_{n})$) and with epsilon small enough $x_{n}$ will eventually end up close to a local minimum. Setting up and calculating the sequence $x_{n}$ to step towards local minima is called gradient descent.
+for $\epsilon \in \mathbb{R}_{+}$ small enough and $a_{n} \in \mathbb{R}$, that $F(a_{n}) \geq F(a_{n+1})$. With this observation in mind, one starts with a guess $x_{0} \in \mathbb{R}$ for a local minimum of $F$, defines the sequence $(x_{n})_{n\in\mathbb{N}}$ as above ($c_{n+1}=c_{n}-\epsilon \cdot \text{grad}(F)(x_{n})$) and with epsilon small enough $x_{n}$ will eventually end up close to a local minimum. Setting up and calculating the sequence $x_{n}$ to step towards local minima is called gradient descent.
 \end{definition}
 
 We will use gradient descent with a cost function that we want to optimize the neural network on. To optimize a feedforward neural network to give sensible outputs relative to the inputs, we define the cost function.
 
 \begin{definition}(Cost function)
 \label{def:cost_fct}
-Let $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ be a $L$-layer feedforward neural network. The cost function for $\nu$ to a specific input $x$ and desired output $y$ is $C_{x}$ or $C_{x}(\nu(x), y)$ being a differentiable extension of $\nu$ dependant on the weights and biases of $\nu$. Notice that the input-output pair $(x, y)$ are fixed, where the weights $w^{(l)}$ and biases $b^{(l)}$ are variable. \\
+Let $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ be a $L$-layer feedforward neural network and $s : \mathbb{R}^{p} \to \mathbb{R}^{m}$ a score function. The cost function for $\nu$ to a specific input $x$ and desired output $y$ is $C_{x}$ or $C_{x}(s(\nu(x)), y)$ being a differentiable extension of $\nu$ dependant on the weights and biases of $\nu$. We will assume the score function is considered in the definition of the cost function and simply write $C_{x}(\nu(x), y)$ instead. Notice that the input-output pair $(x, y)$ is fixed, where the weights $w^{(l)}$ and biases $b^{(l)}$ are variable. \\
 The cost function of a finite set $\mathcal{X}$ of input vectors is then the average $$C=\frac{1}{|\mathcal{X}|}\sum_{x \in \mathcal{X}}C_{x}$$
 over cost functions $C_{x}$ for individual training examples, x.
 \end{definition}
 
+\begin{remark}
+The cost function is meant to be defined in relation to the score function to ensure, that
+\end{remark}
+
 Backpropagation is an algorithm to tweak weights of a neural network to minimize the cost function on a training set, containing input vectors and the corresponding desired outputs. \\
-For backpropagation only we limit the $\sigma$'s of feedforward neural networks to be differentiable.
+For backpropagation we limit the $\sigma$'s of feedforward neural networks to be differentiable.
 
 \begin{definition}(Backpropagation)
 Let $\nu$ be an $L$-layer feedwordward neural network, $\mu \in \mathbb{R}$ a learning rate and $C$ be a cost function over $\nu$ as in \ref{def:cost_fct}. Application of backpropagation to $\nu$ is calculating $\text{grad}_{w^{(i)}}(C)$ the gradient of the weights and $\text{grad}_{b^{(i)}}(C)$ the gradient of the biases of the cost function for $i = 1, \dots , L$ and applying changes to the weights and biases of the neural network $\nu$ as follows:
 \begin{align*}
-w^{(i)} &\to (w^{(i)})' = w^{(i)}-\mu \text{grad}_{w^{(i)}}(C) \\
-b^{(i)} &\to (b^{(i)})' = b^{(i)}-\mu \text{grad}_{b^{(i)}}(C) \ \text{for} \ i = 1, \dots, L.
+w^{(i)} &\to (w^{(i)})' = w^{(i)}-\mu \cdot \text{grad}_{w^{(i)}}(C) \\
+b^{(i)} &\to (b^{(i)})' = b^{(i)}-\mu \cdot \text{grad}_{b^{(i)}}(C) \ \text{for} \ i = 1, \dots, L.
 \end{align*}
 \end{definition}
 
@@ -700,7 +706,7 @@ This chapter proves the key theorems of the thesis, an equivalence of neural net
 
 \begin{convention}\cite{zhang2018tropical}
 We will make the following mild assumptions
-on the architecture of our feedforward neural networks:
+on the architecture of our $L$-layer feedforward neural networks:
 \begin{itemize}
 \item[(a)]
 the weight matrices $Aa^{(1)} , \dots , A^{(L)}$ are integer-valued;
@@ -708,9 +714,11 @@ the weight matrices $Aa^{(1)} , \dots , A^{(L)}$ are integer-valued;
 the bias vectors $b^{(1)} , \dots , b^{(L)}$ are real-valued;
 \item[(c)]
 the activation functions $\sigma^{(1)} , \dots , \sigma^{(L)}$ take the form
-$$\sigma^{(l)}(x) := \max\{c, t^{(L)}\},$$
+$$\sigma^{(l)}(x) := \max\{x, t^{(l)}\},$$
 where $t^{(l)} \in (\mathbb{R} \cup \{-\infty \})^{n_l}$ is called a threshold vector.
 \end{itemize}
+Keep in mind, that x is a vector here and therefore may be multidimensional. The activation function, here $\max$, is meant to be applied element wise:
+$$\max\{x, t^{(l)}\}=\begin{pmatrix}\max\{x_1, t^{(l)}_1 \}\\ \vdots \\ \max\{x_{n_l}, t^{(l)}_{n_l} \}\end{pmatrix}.$$
 \end{convention}
 
 \begin{convention}\cite{zhang2018tropical}
@@ -731,7 +739,7 @@ We introduce the first main theorem of the thesis.
 \begin{theorem}\cite{zhang2018tropical}
 \label{teo:trop_char_of_neur_net}
 (Tropical characterization of neural networks). \\
-A feedforward neural network under assumptions (a)–(c)
+A feedforward neural network that fulfils the assumptions (a)–(c)
 is a function $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ whose coordinates are tropical rational functions of the input, i.e.,
 $$ \nu(x) = F(x) \oslash G(x) = F(x) - G(x) $$
 where $F$ and $G$ are tropical polynomial maps. Thus $\nu$ is a tropical rational map.
@@ -740,9 +748,10 @@ where $F$ and $G$ are tropical polynomial maps. Thus $\nu$ is a tropical rationa
 $$ \nu(x) = \max \{ Ax+b, t \}; $$
 where $A \in \mathbb{Z}^{p \times d}, b \in \mathbb{R}^{p}$, and $t \in (\mathbb{R} \cup \{ - \infty \}^{p})$. We will
 decompose A as a difference of two nonnegative integervalued matrices, $A = A_{+} - A_{-}$ with $A_{+},A_{-} \in \mathbb{N}^{p \times d}$; e.g., in the standard way with entries
-$$ a^{+}_{ij} := \max \{ a_{ij}, 0 \}, \ a^{-}_{ij} := \max \{ -a_ij , 0\} $$
+$$ a^{+}_{ij} := \max \{ a_{ij}, 0 \}, \ a^{-}_{ij} := \max \{ -a_{ij}
+ , 0\} $$
 respectively. Since
-$$ \max \{ Ax + b, t \} = \max \{ A_{+}x+b, A_{-}x+t \} - A_{-x}$$
+$$ \max \{ Ax + b, t \} = \max \{ A_{+}x+b, A_{-}x+t \} - A_{-}x$$
 and
 \begin{align*}
 &\max \{ A_{+}x+b, A_{-}x+t \} - A_{-x} \\ &= 
@@ -754,21 +763,21 @@ and
 \end{align*}
 we see that every coordinate of one-layer neural network
 is a difference of two tropical polynomials, which means the first layer of a neural network can be described through a tropical rational map. \\
-Now let $A \in \mathbb{Z}^{m \times n}, b \in \mathbb{R}^{m}$ be the parameters of the $(l+1)$th layer, and let $t \in (\mathbb{R} \cup {- \infty})^{m}$ be the threshold vector in the $(l+1)$th layer. If the nodes of the $l$th layer are given by a tropical rational map,
+Now let $A^{(l+1)} \in \mathbb{Z}^{m \times n}, b^{(l+1)} \in \mathbb{R}^{m}$ be the parameters of the $(l+1)$th layer, and let $t \in (\mathbb{R} \cup {- \infty})^{m}$ be the threshold vector in the $(l+1)$th layer. If the nodes of the $l$th layer are given by a tropical rational map,
 $$ \nu^{(l)}(x) = F^{(l)}(x) \oslash G^{(l)}(x) = F^{(l)}(x)-G^{(l)}(x),$$
 i.e., each coordinate of $f^{(l)}$ and $G^{(l)}$ is a tropical polynomial in $x$. We want to show, that then $\nu^{(l+1)}$ is also a rational map. We begin by calculating
 \begin{align*}
 \rho^{(l+1)} \circ \nu^{(l)}(x)
-&= A^{(l+1)} \nu^{(l)} + b^{(l)} \\
+&= A^{(l+1)} \nu^{(l)} + b^{(l+1)} \\
 &= A^{(l+1)}(F^{(l)}(x) - G^{(l)}(x)) + b^{(l+1)} \\
 &=(A^{(l+1)}_{+} - A^{(l+1)}_{-})(F^{(l)}(x) - G^{(l)}(x)) + b^{(l+1)} \\
 &=A_{+}^{(l+1)}F^{(l)}(x) + A_{-}^{(l+1)}G^{(l)}(x) + b^{(l+1)} \\ &\ \ \ \ \ \ -(A_{+}^{(l+1)}G^{(l)}(x) + A_{-}^{(l+1)}F^{(l)})\\
-&:=  H^{(l+1)}(x) - G^{(l+1)}(x), \\
+&=: H^{(l+1)}(x) - G^{(l+1)}(x), \\
 \end{align*}
 with
 \begin{align*}
-H^{(l+1)}(x) &:= A_{+}F^{(l)}(x) + A_{-}G{(l)}(x) +b, \\
-G^{(l+1)}(x) &:= A_{x}G^{(l)}(x) + A_{-}F^{(l)}(x).
+H^{(l+1)}(x) &:= A_{+}^{(l+1)}F^{(l)}(x) + A_{-}^{(l+1)}G^{(l)}(x) + b^{(l+1)}, \\
+G^{(l+1)}(x) &:= A_{x}^{(l+1)}G^{(l)}(x) + A_{-}^{(l+1)}F^{(l)}(x).
 \end{align*}
 is a rational map, since when we write $g_{i}^{(l)}$ and $h_{i}^{(l)}$ for the $i$th coordinate of $G^{(l)}$ and $H^{(l)}$ respectively. In tropical arithmetic, the recurrence above takes the form
 \begin{align*}
@@ -782,7 +791,7 @@ On this basis it is easy to show that $\nu$
 &= \sigma^{(l+1)} (H^{(l+1)}(x) - G^{(l+1)}(x)) \\
 &= \max\{ H^{(l+1)}(x) - G^{(l+1)}(x), t\} \\
 &= \max\{ H^{(l+1)}(x), t + G^{(l+1)}(x)\} - G^{(l+1)}(x) \\
-&:= F^{(l+1)}(x) - G^{(l+1)}(x),
+&=: F^{(l+1)}(x) - G^{(l+1)}(x),
 \end{align*}
 with
 $$F^{(l+1)}(x) := \max\{ H^{(l+1)}(x), t + G^{(l+1)}(x)\}$$
@@ -794,11 +803,16 @@ Through induction this ends the proof.
 \end{proof}
 
 \begin{remark}\cite{zhang2018tropical}
-Note that the tropical rational functions above have real coefficients, not integer coefficients. The integer weights $A^{(l)} \in \mathbb{Z}^{n_l \times n_{l-1}}$ have gone into the powers of tropical monomials in $f$ and $g$, which is why we require our weights to be integer-valued, although as we have explained, this requirement imposes little loss of generality
+Note that the tropical rational functions $G$ and $H$ in theorem \ref{teo:trop_char_of_neur_net} have real coefficients, not integer coefficients. The integer weights $A^{(l)} \in \mathbb{Z}^{n_l \times n_{l-1}}$ have gone into the powers of tropical monomials in $f$ and $g$, which is why we require our weights to be integer-valued, although, as we have explained, this requirement imposes little loss of generality.
 \end{remark}
 
-By setting $t^{(1)} = \dots = t^{(L-1)} = 0$ and $t^{(l)} = - \infty$, we obtain the following corollary.
-
+\begin{definition}
+Let $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ be an $L$-layer neural network with
+$$ \nu = \sigma^{(L)} \circ \rho^{(L)} \circ \sigma^{(L-1)} \circ \rho^{(L-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}.$$
+Then $\nu$ has \textbf{ReLU activation} if 
+$\sigma^{(1)} = \dots = \sigma^{(L-1)} = \max\{x, 0 \}$ and $\sigma^{(L)} = \max\{x, -\infty \}$.
+\end{definition}
+The result of the following corollary is immediate.
 \begin{corollary}\cite{zhang2018tropical}
 \label{cor:relu_trop_rat_fkt}
 Let $\nu : \mathbb{R}^{d} \to \mathbb{R}$ be an ReLU activated feedforward neural network with integer weights and linear output. Then $\nu$ is a tropical rational function.
@@ -819,7 +833,7 @@ where $r_f$ and $r_g$ are the number of monomials in the tropical polynomials $f
 \end{itemize}
 \end{theorem}
 \begin{proof}
-That a feedforward neural network under assumptions (a)-(c) is a tropical polynomial map has been shown in Theorem \ref{teo:trop_char_of_neur_net}. Now with ReLU activations we want to show the opposite implication. As with \ref{teo:trop_char_of_neur_net}, we will show this by induction. Setting $\sigma_{t} := \max \{ x, t\}$ our base case is $\nu (x) = b_{i} x^{\alpha_{i}}$ a tropical tropical monomial. Considering
+That a feedforward neural network under assumptions (a)-(c) is a tropical polynomial map has been shown in Theorem \ref{teo:trop_char_of_neur_net}. Now if the neural network has ReLU activations we want to show the opposite implication. As with \ref{teo:trop_char_of_neur_net}, we will show this by induction. Setting $\sigma_{t} := \max \{ x, t\}$ our base case is $\nu (x) = b_{i} x^{\alpha_{i}}$ a tropical tropical monomial. Considering
 $$b_{i}x^{\alpha_{i}} = (\sigma_{- \infty} \circ \rho_{i})(x) = \max \{ a_{i}^{t}x + b_{i}, -\infty \}$$
 $\nu$ is a feedforward neural network under assumtions (a)-(c). \
 As induction step we observe two tropical polynomials $p$ and $q$ which are represented as neural networks with $l_{p}$ and $l_{q}$ layers respectively,
@@ -1093,7 +1107,15 @@ vertices, since the dimension has gone one lower. For any vertex $v \in P$, if $
 \section{Tropical geometry of neural networks}
 \label{sec:tropical_geometry_of_neural_networks}
 
----missing---
+\begin{proposition}\cite{zhang2018tropical}(Tropical geometry of decision boundary).
+Let $v : \mathbb{R}^{d} \to \mathbb{R}$ be an $L$-layer neural network satisfying assumptions (a)–(c) with $t^{L}=-\infty$. Let the score function $s: \mathbb{R} \to \mathbb{R}$ be injective with decision threshold $c$ in its range. If $v : f \oslash g$ where $f$ and $g$ are tropical polynomials, then \\
+(i) its decision boundary $\mathcal{B}=\{ x \in \mathbb{R}^{d} : v(x) = s^{-1}\}$ divides $\mathbb{R}^{d}$ into at most $\mathcal{N} (f)$ connected positive regions and at most $\mathcal{N}(g)$ connected negative regions; \\
+(ii) its decision boundary is contained in the tropical hypersurface of the tropical polynomial $s^{-1}(c) \odot g(x) \oplus f(x) = \max\{f(x), g(x) + s^{-1}(c)\}$, i.e.,
+$$\mathcal{B} \subseteq \tau(s^{-1}(c) \odot g \oplus f).$$
+\end{proposition}
+\begin{proof}
+
+\end{proof}
 
 \newpage
 

@@ -143,7 +143,7 @@ x - Def. 3.10: Forward Propagation klein schreiben.
 x - corresponds to -> is defined to be, corresponds to ist zu vage formuliert.
 x - Def. 3.10 moeglicherweise in zwei Schritten aufbauen: erst z^{(j)}, dann im naechsten Satzteil a^{(L)}
 x - Often binary inputs, as for exam- ple black and white pictures, are fed into neural networks and binary out- puts, like dogs or cats are expected. Bitte erst den abstrakten Satz, dann das Beispiel.
-- For the sake of proving that the feed- forward neural networks we have de- fined are able to be set up, so that for any specific binary input any bi- nary specific output can be obtained. -> Das ist kein Satz, es fehlt das Verb.
+? - For the sake of proving that the feed- forward neural networks we have de- fined are able to be set up, so that for any specific binary input any bi- nary specific output can be obtained. -> Das ist kein Satz, es fehlt das Verb.
 x -  Figure 5 ist zu klein und damit unlesbar.
 x - Remark 3.11: Meaning if… -> Das ist wieder kein Satz.
 x - To skip this interpretation -> You are not “skipping” anything…
@@ -153,9 +153,9 @@ x - Bitte \textrm{} fuer Text in mathematischen Formeln benutzen.
 x - Figure 6 hat Variablen, die nicht zum Rest des Textes passen. Insbesondere, was ist b? Der Bias-Vektor? Wo  ist der eingefuehrt?
 x - Def. 3.12: lth -> l-th
 x - …will not be introduced extensively, rather they’ll be required as prerequisite knowledge from the reader.  -> will not be carried out in detail, they’ll -> they will
-- Def. 3.15: From remark 3 follows -> missing “it”
+x - Def. 3.15: From remark 3 follows -> missing “it”
 x - R=\mathbb{R}?
-hmm - Ist das wirklich der Laplace-Operator und nicht der Gradient?
+x - Ist das wirklich der Laplace-Operator und nicht der Gradient?
 - For backpropagation only we limit the σ’s of feedforward neural networks to be differentiable. -> For our theoretical analysis of backpropagation we limit ourselves to the case where the \sigma are all differentiable. For a discussion of the general case of piecewise linear \sigma, we refer the reader to…
 x - Comment 3.18: Besser ist es, \partial anstatt d zu verwenden.
 - Ist x hier nicht ein Vektor?
@@ -165,20 +165,20 @@ x -The following chapter holds the key theorems of this thesis. -> Bitte weglass
 
 Abschnitt 4:
 x - Ist Comment 4.1 nicht schon Teil des Beweises von Thm. 4.2?
-- Display fuer a_{ij}^{-} hat Tippfehler.
-- max(Ax+b,t) scheint irgendwie falsch zu sein. Was ist denn max eines Vektors?
-- Was ist A_{-x}? wahrscheinlich ein Tippfehler.
-- Letztes Display ist falsch. Es fehlen Terme in max.
-- Thm. 4.2: “under the assumption” -> that fulfills the assumptions
-- We have shown the induction step, that with Comment 4.1 as induction beginning ends the proof. -> Besser formulieren.
-- Proof of Thm. 4.2, zweites Display G(l) ist ein Tippfehler.
-- viertes Display: Der Doppelpunkt gehoert auf die andere Seite. Vielleicht koennen Sie hier mit \underbrace arbeiten. Das waere schoener.
-- Comment 4.3: the tropical rational functions above -> wo genau?
+x - Display fuer a_{ij}^{-} hat Tippfehler.
+x - max(Ax+b,t) scheint irgendwie falsch zu sein. Was ist denn max eines Vektors?
+x - Was ist A_{-x}? wahrscheinlich ein Tippfehler.
+x - Letztes Display ist falsch. Es fehlen Terme in max.
+x - Thm. 4.2: “under the assumption” -> that fulfills the assumptions
+x - We have shown the induction step, that with Comment 4.1 as induction beginning ends the proof. -> Besser formulieren.
+x - Proof of Thm. 4.2, zweites Display G(l) ist ein Tippfehler.
+x - viertes Display: Der Doppelpunkt gehoert auf die andere Seite. Vielleicht koennen Sie hier mit \underbrace arbeiten. Das waere schoener.
+x - Comment 4.3: the tropical rational functions above -> wo genau?
 - although as we have explained  -> Komma?
-- Cor. 4.4: Was ist ReLU?
-- Now with ReLU activations we want to show the opposite implication. -> Satzbau fragwuerdig und ReLU activiations scheinen nicht definiert zu sein.
+x - Cor. 4.4: Was ist ReLU?
+x - Now with ReLU activations we want to show the opposite implication. -> Satzbau fragwuerdig und ReLU activiations scheinen nicht definiert zu sein.
 - Prof. of Thm 4.5: wirklich b_ix^{\alpha_i}? Soll das ein Vektor sein?
-- Here all sigma are set to σ0 except the last one to σ−∞ as prerequisite. Warum darf man das?
-- we observe -> we consider?
-- Thus, by induction, any tropical polynomial can be written as a neural network with ReLU activation. -> Verstehe ich nicht. Das sollten wir diskutieren…
-- Prop. 4.6: Let \nu … be a function?
+x - Here all sigma are set to σ0 except the last one to σ−∞ as prerequisite. Warum darf man das?
+? - we observe -> we consider?
+x - Thus, by induction, any tropical polynomial can be written as a neural network with ReLU activation. -> Verstehe ich nicht. Das sollten wir diskutieren…
+x - Prop. 4.6: Let \nu … be a function?
