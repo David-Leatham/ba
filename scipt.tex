@@ -58,6 +58,8 @@
 \newtheorem{example}[theorem]{Example}
 \newtheorem{convention}[theorem]{Convention}
 
+\DeclareMathOperator{\Conv}{Conv}
+
 % create a command to easyly add figure titles
 \newcommand*{\figuretitle}[1]{%
     {\centering%   <--------  will only affect the title because of the grouping (by the
@@ -324,7 +326,8 @@ $$ (f-g)(x) = f(x) - g(x) = f(x) \oslash g(x) = (f \oslash g)(x)$$
 %We will denote a tropical rational function by $f \oslash g$, where $f$ and $g$ are understood to be tropical polynomial functions.
 \end{definition}
 \begin{proposition}
-$\mathbb{T}[X_1, \dots , X_d] := \{ f: \mathbb{T}^{d} \to \mathbb{T} ; f \ \text{is tropical polynomial} \}$ and \ $ \mathbb{T}(X_1, \dots , X_d) := \{ f: \mathbb{T}^{d} \to \mathbb{T} ; f \ \text{is tropical rational function} \}$ are both semirings. \cite[p.~3]{zhang2018tropical}
+\label{prop:trop_semi_ring_set}
+The sets $\mathbb{T}[X_1, \dots , X_d] := \{ f: \mathbb{T}^{d} \to \mathbb{T} ; f \ \text{is tropical polynomial} \}$ and \ $ \mathbb{T}(X_1, \dots , X_d) := \{ f: \mathbb{T}^{d} \to \mathbb{T} ; f \ \text{is tropical rational function} \}$ are both semirings. \cite[p.~3]{zhang2018tropical}
 \end{proposition}
 \begin{proof}
 We begin the proof by showing, that for two tropical polynomials $f, g \in \mathbb{T}[X_1, \dots , X_r]$ with $f(x) =\oplus_{i=0}^{\alpha} a_{i} x^{\zeta_{i}}$ and $g(x)= \oplus_{i=0}^{\beta} b_{i} x^{\omega_{i}}$ their tropical multiplication is a tropical polynomial $f \odot g \in \mathbb{T}[X_1, \dots , X_r]$.
@@ -377,6 +380,13 @@ The tropical product of tropical rational functions is a tropical rational funct
 &= (f_1(x) + g_1(x)) - (f_2(x) + g_2(x)) \in \mathbb{T}(X_1, \dots , X_r)
 \end{align*}
 This concludes the proof.
+\end{proof}
+
+\begin{proposition}
+The set $\mathbb{T}(X_1, \dots , X_d)$ is a semifiled.
+\end{proposition}
+\begin{proof}
+Because of proposition \ref{prop:trop_semi_ring_set} we only have to show that $f \oslash g \in \mathbb{T}(X_1, \dots , X_d)$ has a multiplicative inverse element. With $(f \oslash g) \odot (g \oslash f) = f - g + g - f = 0$ we have found $(g \oslash f) \in \mathbb{T}(X_1, \dots , X_d)$ the element.
 \end{proof}
 
 We regard a tropical polynomial $f=f \oslash 0$ as a special case of a tropical rational function and thus $\mathbb{T}[X_1, \dots , X_r] \subseteq \mathbb{T}(X_1, \dots , X_r)$. \cite[p.~3]{zhang2018tropical}
@@ -722,7 +732,7 @@ $$\max\{x, t^{(l)}\}=\begin{pmatrix}\max\{x_1, t^{(l)}_1 \}\\ \vdots \\ \max\{x_
 \end{convention}
 
 \begin{convention}\cite{zhang2018tropical}
-(b) is completely general but there is also no loss of generality in (a), i.e., in restricting the weights $A^{1}, \dots ,A^{L}$
+The assumption (b) is completely general but there is also no loss of generality in (a), i.e., in restricting the weights $A^{1}, \dots ,A^{L}$
 from real matrices to integer matrices, as: \\
 • real weights can be approximated arbitrarily closely by
 rational weights; \\
@@ -821,6 +831,7 @@ Let $\nu : \mathbb{R}^{d} \to \mathbb{R}$ be an ReLU activated feedforward neura
 A more remarkable fact is the converse of Corollary \ref{cor:relu_trop_rat_fkt}.
 
 \begin{theorem}\cite{zhang2018tropical}
+\label{theo:network_eq_rat_fnkt}
 (Equivalence of neural networks and tropical
 rational functions).
 \begin{itemize}
@@ -865,19 +876,24 @@ $$\rho_{4}(y)=y_{1}, \rho_{5}(y)=-y_{1}, \rho_{6}(y)=-y_{2}, \rho_{7}(y)=y_{2}.$
 The same argumentation as above shows, $p \oslash q$ is also a neural network with at most $\max \{ l_{p}, l_{q} \}$ layers. \\
 Finally, if $f$ and $g$ are tropical polynomials that are respectively tropical sums of $r_{f}$ and $r_{g}$ monomials, then the discussions
 above show that $(f \oslash g) = f(x) - g(x)$ is a neural network with at most $\max \{ \lceil \log_{2}r_{f} \rceil + 1, \lceil \log_{2}r_g \rceil + 1 \} + 1 = \max \{ \lceil \log_{2}r_{f} \rceil, \lceil \log_{2}r_g \rceil \} + 2$ layers.
-
-
 \end{proof}
 
 \begin{proposition}\cite{zhang2018tropical}
+\label{prop:plin_trop_fnkt}
 Let $\nu : \mathbb{R}^{d} \to \mathbb{R}$. Then $\nu$ is a continuous piecewise linear function with integer coefficients if and only if $\nu$ is a tropical rational function.
 \end{proposition}
 \begin{proof}
-
+We have shown in lemma \ref{lemma:trop_properties} that $\nu \in \mathbb{T}(X_1, \dots, X_d)$ is a piecewise linear function and has integer coefficients per definition. Therefore we only have to show the opposite implication. Let $\nu : \mathbb{R}^{d} \to \mathbb{R}$ be a piecewise linear function with integer coefficients. This means we can divide $\mathbb{R}^{d}$ into $N$ polyhedral regions on each of which $\nu$ restricts to a linear function
+$$l_{i} = a_{i}^{t}x + b$$
+where $a_{i} \in \mathbb{Z}^{d}, b_{i} \in \mathbb{R}$ and $i=1, \dots, L$. The theorem 4.1 in \cite{tarela1999region} shows, that we can find $N$ subsets of $\{ 1, \dots , L\}$, denoted by $S_{j}$, $j=1, \dots , N$, so that $\nu$ has a representation
+$$\nu (x) = \max_{j=1,\dots,N} \min_{i \in S_j} l_i.$$
+Since $l_{i}$ is a linear function for $i=1, \dots, L$, we know $l_i \in \mathbb{T}(X_1, \dots, X_d)$ is a tropical rational function. We show for two tropical rational functions $p,q \in \mathbb{T}(X_1, \dots , X_k)$ for any $k \in \mathbb{N}$, that there minimum is also a tropical rational function:
+$$\min\{p,q\} = p + q - \max\{p,q\} = [p \odot q] \oslash [p \oplus q] \in T(X_1, \dots , X_k).$$
+Therefore by induction $\min_{i \in S_j} l_i \in \mathbb{T}(X_1, \dots , X_d)$ holds for any $j=1, \dots , N$ and we have shown that $\nu$ is a tropical rational function.
 \end{proof}
 
 \begin{remark}\cite{zhang2018tropical}
-Corollary 5.3, Theorem 5.4, and Proposition 5.5 collectively imply the equivalence of
+Corollary \ref{cor:relu_trop_rat_fkt}, Theorem \ref{theo:network_eq_rat_fnkt}, and Proposition \ref{prop:plin_trop_fnkt} collectively imply the equivalence of
 \begin{itemize}
 \item[(i)]
 tropical rational functions,
@@ -888,12 +904,11 @@ neural networks satisfying assumptions (a)-(c).
 \end{itemize}
 \end{remark}
 
-\begin{proposition}\cite{zhang2018tropical}
-Every feedforward neural network with ReLU activation is a tropical rational signomial map.
-\end{proposition}
-\begin{proof}
-
-\end{proof}
+%\begin{proposition}\cite{zhang2018tropical}
+%Every feedforward neural network with ReLU activation is a tropical rational signomial map.
+%\end{proposition}
+%\begin{proof}
+%\end{proof}
 
 \newpage
 
@@ -928,10 +943,10 @@ Every feedforward neural network with ReLU activation is a tropical rational sig
 \section{Tropical hypersurfaces}
 \label{sec:tropical_hypersurfaces}
 
-In this chapter we will start viewing tropical polynomials as geometric figures with a surface area that is piecewise linear and boundaries for the number of the linear areas. We hop right in by defining the tropical hypersurface of a tropical polynial. 
+In this chapter we will start viewing tropical polynomials as geometric figures with a tropical hypersurface that is piecewise linear and boundaries for the number of the linear areas. Recall that we write a tropical polynomial as $c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ where $\alpha_i = (\alpha_{i1}, \dots , \alpha_{id}) \in \mathbb{N}^{d}$ and $c_i \in \mathbb{T}, i=1, \dots , r$ and also $\alpha_i \neq \alpha_j$ for any $i \neq j$. We begin by defining the tropical hypersurface of a tropical polynial. 
  
 \begin{definition}\cite[p.~3]{zhang2018tropical}
-The tropical hypersurface of a tropical polynomial $f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ is 
+The \textbf{tropical hypersurface} of a tropical polynomial $f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ is 
 $$\Gamma(f) := \{ x \in \mathbb{R}^{d} : c_i x^{\alpha_i} = c_j x^{\alpha_j} = f(x) \ \text{for some} \ \alpha_i \neq \alpha_j \}$$
 i.e., the set of points x at which the value of f at x is attained by two or more monomials in f.
 \end{definition}
@@ -943,28 +958,28 @@ To understand the geometry of tropical rational functions, tropical polynomial m
 Tropical rational functions are piecewise linear functions. Tropical polynomial maps and tropical rational maps are piecewise linear maps.
 \end{lemma}
 \begin{proof}
-Because of \ref{lemma:trop_properties} tropical polynomials are piecewise linear. $\oslash$ is a linear transformation, therefore the tropical rational maps are piecewise linear two. Now this means that tropical rational maps and tropical polynomial maps are also piecewise linear and the notion of linear regions applies.
+Because of lemma \ref{lemma:trop_properties} tropical polynomials are piecewise linear. Tropical division, $\oslash$, is a linear transformation, therefore tropical rational maps are piecewise linear two. Now this means that tropical rational maps and tropical polynomial maps are also piecewise linear and the notion of linear regions applies.
 \end{proof}
 
 \begin{definition}
-A linear region of $F \in Rat(d, m)$ is a maximal connected subset of the domain on which $F$ is linear. The number of linear regions of $F$ is denoted $\mathcal{N}(f)$ \cite[p.~4]{zhang2018tropical}.
+A \textbf{linear region} of $F \in Rat(d, m)$ is a maximal, with respect to inclusion, connected subset of the domain on which $F$ is linear. The number of linear regions of $F$ is denoted $\mathcal{N}(f)$ \cite[p.~4]{zhang2018tropical}.
 \end{definition}
 
-The linearity of a tropical polynomial per definition will be broken on its hypersurface and linear everywhere else. Therefore the tropical hypersurface $\Gamma(f)$ of a tropical polynomial $f$ divides the domain of f into convex cells on each of witch f is linear.
+The linearity of a tropical polynomial per definition will be broken in its hypersurface and linear everywhere else. Therefore the tropical hypersurface $\Gamma(f)$ of a tropical polynomial $f$ divides the domain of f into convex cells on each of witch f is linear. Tropical hypersurfaces of polynomials in two variables are called \textbf{tropical curves}.\cite[p.~3]{zhang2018tropical}
 
-\begin{definition}\cite[p.~3]{zhang2018tropical}
-Tropical hypersurfaces of polynomials in two variables are called tropical curves.
+\begin{definition}
+Let $A \subset \mathbb{R}^{n}$ be a real subset with $n \in \mathbb{N}$. Then the set $\Conv(A) = \{\lambda x + (1- \lambda)y \ | \ x, y \in A \ \text{and} \ \lambda \in [0,1] \subset \mathbb{R}\}$ is called the \textbf{convex hull} of $A$.
 \end{definition}
 
 \begin{definition}\cite[p.~3]{zhang2018tropical}
-The Newton polygon of a tropical polynomial $f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$  is the convex hull of $\alpha_1 , \dots , \alpha_r \in \mathbb{N}^{d}$, regarded as points in $\mathbb{R}^{d}$,
-$$ \Delta(f) := Conv{\alpha_i \in \mathbb{R}^{d} : c_i \neq -\infty , i = 1, \dots ,r } $$.
+The \textbf{Newton polygon} of a tropical polynomial $f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$  is the convex hull of $\alpha_1 , \dots , \alpha_r \in \mathbb{N}^{d}$, regarded as points in $\mathbb{R}^{d}$,
+$$ \Delta(f) := \Conv\{\alpha_i \in \mathbb{R}^{d} : c_i \neq -\infty , i = 1, \dots ,r \} $$.
 \end{definition}
 
 \begin{remark}\cite[p.~3]{zhang2018tropical}
 A tropical polynomial $f$ determines a dual subdivision of
 $\delta (f)$, constructed as follows. First, lift each $\alpha_i$ from $\mathbb{R}^d$ into $\mathbb{R}^{d+1}$ by appending $c_i$ as the last coordinate. Denote the convex hull of the lifted $\alpha_1, \dots , \alpha_r$ as
-$$\mathcal{P}(f):= Conv{(\alpha_i, c_i) \in \mathbb{R}^{d} \times \mathbb{R} : i = 1, \dots , r}. (1)$$
+$$\mathcal{P}(f):= \Conv{(\alpha_i, c_i) \in \mathbb{R}^{d} \times \mathbb{R} : i = 1, \dots , r}. (1)$$
 Next let $UF(\mathcal(P)(f))$ denote the collection of upper faces in $\mathcal{P}(f)$ and $\pi : \mathbb{R}^{d} \times \mathbb{R} \to \mathbb{R}^{d}$ be the projection that drops
 the last coordinate. The dual subdivision determined by $f$
 is then
@@ -973,7 +988,7 @@ $\delta (f)$ forms a polyhedral complex with support $\delta (f)$. By \cite{macl
 \end{remark}
 
 Our analysis of neural networks will require figuring out
-how the polytope $\mathcal(P)(f)$ transforms under tropical power,
+how the polytope $\mathcal{P}(f)$ transforms under tropical power,
 sum, and product.
 
 \begin{proposition}\cite[p.~4]{zhang2018tropical}

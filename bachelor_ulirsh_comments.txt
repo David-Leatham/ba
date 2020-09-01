@@ -87,16 +87,16 @@ x - chapter 2 kann man immer gross schreiben, da es sich um einen Namen handelt.
 x - leading to the fact that there will be a necessary logical gap -> komisch formuliert.
 
 Abschnitt 2:
--Ich wuerde diesen Abschnitt nach Abschnitt 4 schieben, so dass die zentralen Punkte der Arbeit frueher kommen.
+x - Ich wuerde diesen Abschnitt nach Abschnitt 4 schieben, so dass die zentralen Punkte der Arbeit frueher kommen.
 - Allgemein koennte man hier auch mal ein Bild einer tropischen Hyperflaeche zeichnen, etwa einer Kurve im R^2
-- with a surface area -> Was soll das heissen? Es gibt doch kein Volumen hier…
-- We hop right in -> Formaler schreiben…
-- Def. 2.1: Recall that we write a tropical polynomial as … where \alpha_i\neq\alpha_j
-- Beweis von Lemma 2.2: Tropical Minus ist keine lineare Transformation
-- Def. 2.3: Maximal with respect to inclusion?
-- broken on - broken in
-- Def. 2.5: Definieren Sie sich \Conv mit \DeclareMathOperator und verwenden Sie das. Sieht besser aus.
-- Comment 2.6 -> Remark 2.6.
+x - with a surface area -> Was soll das heissen? Es gibt doch kein Volumen hier…
+x - We hop right in -> Formaler schreiben…
+x - Def. 2.1: Recall that we write a tropical polynomial as … where \alpha_i\neq\alpha_j
+x - Beweis von Lemma 2.2: Tropical Minus ist keine lineare Transformation
+~ - Def. 2.3: Maximal with respect to inclusion?
+x - broken on - broken in
+x - Def. 2.5: Definieren Sie sich \Conv mit \DeclareMathOperator und verwenden Sie das. Sieht besser aus.
+x - Comment 2.6 -> Remark 2.6.
 - 2.6: Wissen wir schon was eine Subdivision ist?
 - Zweites Display: Der Punkt ist zu viel.
 - Genaues Zitat, bitte.
