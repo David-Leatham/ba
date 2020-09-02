@@ -22,6 +22,8 @@
 \usepackage{mathtools}
 % for Proof paragraphs
 \usepackage{amsthm}
+% to enumerate with roman bulletpoints
+\usepackage{enumerate}
 
 %subitem bulletpoints
 \usepackage{outlines}
@@ -209,7 +211,7 @@ $$ c \odot x_1^{a_1} \odot x_2^{a_2} \odot \dots \odot x_{d-1}^{a_{d-1}} \odot x
 where $c \in \mathbb{R} \cup \{- \infty \}$ and $a_1, \dots , a_d \in \mathbb{N}$. As a convenient shorthand notation, we will also write a tropical monomial in multiindex notation as $cx^{\alpha}$ where $\alpha = (a_1 , \dots , a_d) \in \mathbb{N}_d$ and $x = (x_1 , \dots , x_d)$. Note that $x^{\alpha} = 0 \odot x^{\alpha}$.
 \end{definition}
 
-\begin{definition}\label{tropPolyn}
+\begin{definition}\label{def:tropPolyn}
 \cite[p.~2]{zhang2018tropical}
 A \textbf{tropical polynomial} $f: \mathbb{T}^{d} \to \mathbb{T}$ is a finite tropical sum of tropical monomials 
 $$ f(x)=c_1x^{\alpha_1} \oplus \dots \oplus c_rx^{\alpha_r}$$
@@ -282,7 +284,7 @@ In multiple variables we can characterise tropical polynomials as functions from
 
 \begin{lemma}\label{lemma:trop_properties}
 Let f be a tropical polynomial
-$$ f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$$ as in definition \ref{tropPolyn}, but we restrict $c_1, \dots , c_r \in \mathbb{R}$ to be real and $f: \mathbb{R}^{n} \to \mathbb{R}$ with $n \in \mathbb{N}$. Then f has three important properties:
+$$ f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$$ as in definition \ref{def:tropPolyn}, but we restrict $c_1, \dots , c_r \in \mathbb{R}$ to be real and $f: \mathbb{R}^{n} \to \mathbb{R}$ with $n \in \mathbb{N}$. Then f has three important properties:
 \begin{itemize}
 \item[(1)]
 $f$ is continuous.
@@ -961,9 +963,39 @@ Tropical rational functions are piecewise linear functions. Tropical polynomial 
 Because of lemma \ref{lemma:trop_properties} tropical polynomials are piecewise linear. Tropical division, $\oslash$, is a linear transformation, therefore tropical rational maps are piecewise linear two. Now this means that tropical rational maps and tropical polynomial maps are also piecewise linear and the notion of linear regions applies.
 \end{proof}
 
-\begin{definition}
-A \textbf{linear region} of $F \in Rat(d, m)$ is a maximal, with respect to inclusion, connected subset of the domain on which $F$ is linear. The number of linear regions of $F$ is denoted $\mathcal{N}(f)$ \cite[p.~4]{zhang2018tropical}.
+\begin{definition}\cite[p.~4]{zhang2018tropical}
+A \textbf{convex polyhedron} or just \textbf{polyhedron} is a set defined by linear inequalities with integer coefficients:
+$$\{x \in \mathbb{R} \ | \ Ax \leq b \}$$
+for $A \in \mathbb{Z}^{m \times d}$ and $b \in \mathbb{R}^{m}$. A \textbf{polygon} is a bounded polyhedron.
 \end{definition}
+
+\begin{definition}\cite[p.~4]{zhang2018tropical}
+\label{def:lin_reg_of}
+A \textbf{linear region} of $F \in Rat(d, m)$ is a, with respect to inclusion, maximal connected subset of the domain on which $F$ is linear. The number of linear regions of $F$ is denoted $\mathcal{N}(f)$.
+\end{definition}
+A linear region as in \ref{def:lin_reg_of} is a polyhedron.
+\begin{definition}
+A \textbf{face} of a polyhedron $P \subset \mathbb{R}^{n}$ is a subset of the form
+$$F= P \cap \{x \in \mathbb{R}^{n} \ | \ c^{t}x = b_0 \}$$
+where $c \in \mathbb{R}^{n}$ and $b_0 \in \mathbb{R}$ are picked picked so that
+$$P \subset \{ x \in \mathbb{R} \ | \ c^{t}x \leq b_0 \}$$
+holds.
+\end{definition}
+
+\begin{definition}\cite{maclagan2015introduction}
+A \textbf{polyhedral complex} is a collection of polyhedra satisfying two conditions:
+\begin{enumerate}[i]
+\item if a polyhedron $P$ is in the collection, then so is any face of $P$
+\item if $P$ and $Q$ lie in the collection then $P \cap Q$ is a face of both $P$ and $Q$.
+\end{enumerate}
+\end{definition}
+\begin{definition}
+Let $\Sigma$ be a polyhedral complex and $d \in \mathbb{N}$, then the \textbf{d-skeleton} of $\Sigma$ is the the conjunction of all faces of $\Sigma$ of dimension $\leq d$.
+\end{definition}
+\begin{definition}\cite{maclagan2015introduction}
+The support $supp(\Sigma)$ of a polyhedral complex $\Sigma$ is the set $\{ x \in \mathbb{R}^{n} \ | \ x \in P \ \text{for some} \ P \in \Sigma \}$
+\end{definition}
+
 
 The linearity of a tropical polynomial per definition will be broken in its hypersurface and linear everywhere else. Therefore the tropical hypersurface $\Gamma(f)$ of a tropical polynomial $f$ divides the domain of f into convex cells on each of witch f is linear. Tropical hypersurfaces of polynomials in two variables are called \textbf{tropical curves}.\cite[p.~3]{zhang2018tropical}
 
@@ -977,14 +1009,13 @@ $$ \Delta(f) := \Conv\{\alpha_i \in \mathbb{R}^{d} : c_i \neq -\infty , i = 1, \
 \end{definition}
 
 \begin{remark}\cite[p.~3]{zhang2018tropical}
-A tropical polynomial $f$ determines a dual subdivision of
-$\delta (f)$, constructed as follows. First, lift each $\alpha_i$ from $\mathbb{R}^d$ into $\mathbb{R}^{d+1}$ by appending $c_i$ as the last coordinate. Denote the convex hull of the lifted $\alpha_1, \dots , \alpha_r$ as
+Let $f = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ be a tropical polynomial. We first, lift each $\alpha_i$ from $\mathbb{R}^d$ into $\mathbb{R}^{d+1}$ by appending $c_i$ as the last coordinate. Denote the convex hull of the lifted $\alpha_1, \dots , \alpha_r$ as
 $$\mathcal{P}(f):= \Conv{(\alpha_i, c_i) \in \mathbb{R}^{d} \times \mathbb{R} : i = 1, \dots , r}. (1)$$
 Next let $UF(\mathcal(P)(f))$ denote the collection of upper faces in $\mathcal{P}(f)$ and $\pi : \mathbb{R}^{d} \times \mathbb{R} \to \mathbb{R}^{d}$ be the projection that drops
 the last coordinate. The dual subdivision determined by $f$
 is then
-$$\delta(f) := {\pi(p) \subset \mathbb{R}^{d} : p \in UF( \mathcal{P}(f))}.$$.
-$\delta (f)$ forms a polyhedral complex with support $\delta (f)$. By \cite{maclagan2015introduction}, the tropical hypersurface $\mathcal{T}(f)$ is the $(d - 1)$-skeleton of the polyhedral complex dual to $ \delta(f)$. This means that each vertex in $ \delta(f)$ corresponds to one "cell" in $R^{d}$ where the function f is linear. Thus, the number of vertices in $\mathcal{P}(f)$ provides an upper bound on the number of linear regions of $f$.
+$$\delta(f) := {\pi(p) \subset \mathbb{R}^{d} : p \in UF( \mathcal{P}(f))}.$$
+$\delta (f)$ forms a polyhedral complex with support $\delta (f)$. By \cite[Proposition 3.1.6.]{maclagan2015introduction}, the tropical hypersurface $\mathcal{T}(f)$ is the $(d - 1)$-skeleton of the polyhedral complex dual to $ \delta(f)$. This means that each vertex in $ \delta(f)$ corresponds to one "cell" in $R^{d}$ where the function f is linear. Thus, the number of vertices in $\mathcal{P}(f)$ provides an upper bound on the number of linear regions of $f$.
 \end{remark}
 
 Our analysis of neural networks will require figuring out
@@ -992,12 +1023,12 @@ how the polytope $\mathcal{P}(f)$ transforms under tropical power,
 sum, and product.
 
 \begin{proposition}\cite[p.~4]{zhang2018tropical}
-Let $f$ be a tropical polynomial and let $a \in \mathbb{N}$. Then
-$$ \mathcal{P}(f^{a}) = a \mathcal{P}(f) $$.
-$a \mathcal{P}(f) = \{ax : x \in \mathcal{P}(f) \} \subset \mathbb{R}^{d + 1}$ is a scaled version of $\mathcal{P}(f)$ with the same shape but different volume.
+Let $f$ be a tropical polynomial and let $a \in \mathbb{N}$, then
+$$ \mathcal{P}(f^{a}) = a \mathcal{P}(f).$$
+The set $a \mathcal{P}(f) = \{ax : x \in \mathcal{P}(f) \} \subset \mathbb{R}^{d + 1}\}$ is a scaled version of $\mathcal{P}(f)$ with the same shape but different volume.
 \end{proposition}
 \begin{proof}
-Let $f(x)=c_{1}x^{\alpha_1} \oplus \dots \oplus c_{r}x^{\alpha_r}, f:\mathbb{T}^{n} \to \mathbb{T}$, as in \ref{tropPolyn}. Then with $\mathcal{P}(f) = Conv\{(\alpha_{i}, c_{i}) \in \mathbb{R}^{d} \times \mathbb{R}, i= 1, \dots , r and c_{i} \neq - \infty \}$.
+Let $f(x)=c_{1}x^{\alpha_1} \oplus \dots \oplus c_{r}x^{\alpha_r}, f:\mathbb{T}^{n} \to \mathbb{T}$, as in definition \ref{def:tropPolyn}. Then with $\mathcal{P}(f) = \Conv\{(\alpha_{i}, c_{i}) \in \mathbb{R}^{d} \times \mathbb{R}, i= 1, \dots , r \ \text{and} \ c_{i} \neq - \infty \}$.
 \begin{align*}
 f^{a} &= (c_{1}x^{\alpha_{1}} \oplus \dots \oplus c_{r} x^{\alpha_{r}})^{a} \\
 &= a \cdot (c_{1}x^{\alpha_{1}} \oplus \dots \oplus c_{r} x^{\alpha_{r}}) \\
@@ -1005,52 +1036,52 @@ f^{a} &= (c_{1}x^{\alpha_{1}} \oplus \dots \oplus c_{r} x^{\alpha_{r}})^{a} \\
 &= (a \cdot c_{1})x^{a \cdot \alpha_{1}} \oplus \dots \oplus (a \cdot c_{r}) x^{a \cdot \alpha_{r}}
 \end{align*}
 and therefore
-$$\mathcal{P}(f^{a}) = Conv\{(a \cdot \alpha_{i}, a \cdot c_{i}) \in \mathbb{R}^{d} \times \mathbb{R}, i = 1, \dots, r \ \text{and} \ c_{i} \neq - \infty \} = a\mathcal{P}(f)$$.
+$$\mathcal{P}(f^{a}) = \Conv\{(a \cdot \alpha_{i}, a \cdot c_{i}) \in \mathbb{R}^{d} \times \mathbb{R}, i = 1, \dots, r \ \text{and} \ c_{i} \neq - \infty \} = a\mathcal{P}(f)$$.
 \end{proof}
 
 A generalisation of normal summation, now on sets, is the Minkowski sum.
 
 \begin{definition}\cite[p.~4]{zhang2018tropical}
 The Minkowski sum of two sets $P_1$ and $P_2$ in $\mathbb{R}^{d}$ is the set
-$$ P_1 + P_2 := \{x_1 + x_2 \in \mathbb{R}^{d} : x_1 \in P_1 ,x_2 \in P_2 \} $$;
+$$ P_1 + P_2 := \{x_1 + x_2 \in \mathbb{R}^{d} : x_1 \in P_1 ,x_2 \in P_2 \};$$
 and for $\lambda_1 , \lambda_2 \geq 0$, their weighted Minkowski sum is
 $$ \lambda_1 P_1 + \lambda_2 P_2 := \{ \lambda_1 x_1 + \lambda_2 x_2 \in \mathbb{R}^{d} : x_1 \in P_1 , x_2 \in P_2 \} $$.
 \end{definition}
 
 One important example for an Minkowski sum is a zonotope. For that we need a notion of the following.
 \begin{definition}
-A subset $A \subset \mathbb{V}$ of a vector field $\mathbb{V}$ is a line segment, if $A=\{\lambda x + \lambda (1-y) \ | \ \lambda \in [0,1]\subset \mathbb{K}\}$ with $\mathbb{K}$ being the scalar field of $\mathbb{V}$.
+A subset $A \subset \mathbb{V}$ of a vector space $\mathbb{V}$ is a line segment, if $A=\{\lambda x + \lambda (1-y) \ | \ \lambda \in [0,1]\subset \mathbb{K}\}$ with $\mathbb{K}$ being the scalar field of $\mathbb{V}$.
 \end{definition}
 
-\begin{definition}\cite[p.~4]{zhang2018tropical}
+\begin{definition}
 The Minkowski sum of line segments is called a zonotope.
 \end{definition}
 
 \begin{definition}
-\label{def:dot_sym}
-Let $A \subset \mathbb{R}^{n}$ be a set. A is dot symmetric around $b \in A$ if for $a \in A$ follows $a + 2(b-a)=2b-a \in A$
+\label{def:point_sym}
+Let $A \subset \mathbb{R}^{n}$ be a set. A is point symmetric around $b \in A$ if for $a \in A$ follows $a + 2(b-a)=2b-a \in A$
 \end{definition}
 
-Obviously for $A$ and $b$ as in \ref{def:dot_sym} and $A$ is convex, then $b \in A$ the symmetry point must lie in $A$. We get an intuition of zonotopes by proving the following statement.
+Obviously for $A$ and $b$ as in definition \ref{def:point_sym} and if $A$ is convex, then $b \in A$ the symmetry point must lie in $A$. We get an intuition of zonotopes by proving the following statement.
 
 \begin{lemma}
 \label{lem:zon_sym_conv}
-A zonotope over $\mathbb{R}^{n}$ is dot symmetric and convex.
+A zonotope over $\mathbb{R}^{n}$ is point symmetric and convex.
 \end{lemma}
 \begin{proof}
-We proof a zonotope is dot symmetric and convex by induction. As base case let $P \subset \mathbb{R}^{n}$ be a line segment in between $x, y \in \mathbb{R}^{n}$ then $P$ is obviously dot symmetric around $b=0.5(x+y) \in \mathbb{R}^{n}$ and convex per definition. For the induction step let $A \subset \mathbb{R}^{n}$ be a convex set and dot symmetric around $b \in \mathbb{R}^{n}$ and also let $P = \{ \lambda x + (1- \lambda) y | \lambda \in [0,1] \subset \mathbb{R}^{n} \}$ for $x, y \in \mathbb{R}^{n}$. Then the Minkowski sum of the two sets is
+We proof a zonotope is point symmetric and convex by induction. As base case let $P \subset \mathbb{R}^{n}$ be a line segment in between $x, y \in \mathbb{R}^{n}$ then $P$ is obviously point symmetric around $b=0.5(x+y) \in \mathbb{R}^{n}$ and convex per definition. For the induction step let $A \subset \mathbb{R}^{n}$ be a convex set and point symmetric around $b \in \mathbb{R}^{n}$ and also let $P = \{ \lambda x + (1- \lambda) y | \lambda \in [0,1] \subset \mathbb{R}^{n} \}$ for $x, y \in \mathbb{R}^{n}$. Then the Minkowski sum of the two sets is
 \begin{align*}
 A + P 
-&= \{ a + p | a \in A \ \text{and} \ p \in P \} \\
-&= \{ a + \lambda x + (1- \lambda) y | a \in A \ \text{and} \ \lambda \in [0,1] \}
+&= \{ a + p \ | \ a \in A \ \text{and} \ p \in P \} \\
+&= \{ a + \lambda x + (1- \lambda) y \ | \ a \in A \ \text{and} \ \lambda \in [0,1] \}
 \end{align*}
 It follows that $a_{A+P} \in A+P$ has the form $a_{A+P}=a + \lambda x + (1- \lambda)y$ for $a\in A$ and $\lambda \in [0,1]$. We set $b_{A+P}=(0.5)(x+y) + b$. Then
 \begin{align*}
-a_{A+P} + &2(b_{A+P} - a_{A+P}) \\
+a_{A+P} &+ 2(b_{A+P} - a_{A+P}) \\
 &= a + \lambda x + (1- \lambda)y + 2( 0.5(x+y) + b - (a + \lambda x + (1-\lambda)y)) \\
 &= 2b-a + (1- \lambda) x + \lambda y \in A+P
 \end{align*}
-since $2b-a \in A$ and $(1- \lambda) x + \lambda y \ in P$. Therefore a zonotope is symmetric.
+since $2b-a \in A$ and $(1- \lambda) x + \lambda y \ \in P$. Therefore a zonotope is symmetric.
 Similarly for convexity let $p, q \in A+P$ have the shape
 \begin{align*}
 p &= a_{p} + \lambda_{p} x + (1 - \lambda_{p}) y \\
@@ -1066,14 +1097,14 @@ with $\Phi = \Phi(\mu , \lambda_{p}, \lambda_{q}) = \mu \lambda_{p} + \lambda_{q
 Because of $\mu \lambda_{p} \geq 0$ and $\lambda_{q} \geq \mu \lambda_{q}$ follows $\Phi \geq 0$. $\Phi$ is maximal for $\lambda_{p} = 1$ and $\Phi (\mu, 1, \lambda_{q}) = \mu + \lambda_{q} - \mu \lambda_{q} \leq 1$.
 \end{proof}
 
-Let $\mathcal{V}$ denote the set of vertices of a polytope $P$. Clearly, the Minkowski sum of two polytopes is given by the convex hull of the Minkowski sum of their vertex sets, i.e., $P_{1} + P_{2} = Conv(\mathcal{V}(P1) + \mathcal{V}(P2))$. With this observation, the
+Let $\mathcal{V}$ denote the set of vertices of a polytope $P$. Clearly, the Minkowski sum of two polytopes is given by the convex hull of the Minkowski sum of their vertex sets, i.e., $P_{1} + P_{2} = \Conv(\mathcal{V}(P1) + \mathcal{V}(P2))$. With this observation, the
 following is immediate.
 
 \begin{proposition} \cite[p.~4]{zhang2018tropical}
 Let $f, g \in Pol(d, 1) = \mathbb{T}[x_1, \dots , x_d]$ be tropical polynomials. Then
 \begin{align*}
 \mathcal{P}(f \odot g) &= \mathcal{P}(f) + \mathcal{P}(g), \\
-\mathcal{P}(f \oplus g) &= Conv(\mathcal{V}(\mathcal{P}(f)) \cup \mathcal{V}( \mathcal{P}(g))).
+\mathcal{P}(f \oplus g) &= \Conv(\mathcal{V}(\mathcal{P}(f)) \cup \mathcal{V}( \mathcal{P}(g))).
 \end{align*}
 \end{proposition}
 

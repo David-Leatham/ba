@@ -97,15 +97,15 @@ x - Beweis von Lemma 2.2: Tropical Minus ist keine lineare Transformation
 x - broken on - broken in
 x - Def. 2.5: Definieren Sie sich \Conv mit \DeclareMathOperator und verwenden Sie das. Sieht besser aus.
 x - Comment 2.6 -> Remark 2.6.
-- 2.6: Wissen wir schon was eine Subdivision ist?
-- Zweites Display: Der Punkt ist zu viel.
-- Genaues Zitat, bitte.
-- Vor Prop. 2.7: Das Newton-Polygon ist kein Polytop, oder?
-- Bew. von Prop. 2.7: Bitte \textrm verwenden.
-- Def. 2.8: ; steht am falschen Platz
+x - 2.6: Wissen wir schon was eine Subdivision ist?
+x - Zweites Display: Der Punkt ist zu viel.
+x - Genaues Zitat, bitte.
+x - Vor Prop. 2.7: Das Newton-Polygon ist kein Polytop, oder?
+x - Bew. von Prop. 2.7: Bitte \textrm verwenden.
+x - Def. 2.8: ; steht am falschen Platz
 - Nach Def. 2.8: Ein einfaches Beispiel waere extrem hilfreich.
-- Def. 2.9: vector field -> vector space
-- dot-symmetric -> point-symmetric -> So etwas bitte immer googlen. Das sieht sonst richtig bloed aus.
+x - Def. 2.9: vector field -> vector space
+x - dot-symmetric -> point-symmetric -> So etwas bitte immer googlen. Das sieht sonst richtig bloed aus.
 - Def. 2.10 ist sicher nicht zuerst in diesem Artikel erschienen. Das koennen Sie vielleicht auch einfach ohne Zitat definieren.
 - We get an intuition -> We build our intuition.
 -
