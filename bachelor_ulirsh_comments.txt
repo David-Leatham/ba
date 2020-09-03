@@ -15,7 +15,7 @@ x - “following recent research of the past two years” vielleicht lieber glei
 x - making this a very contemporary topic. -> wuerde ich weglassen.
 x - opened the subject -> Wortwahl ungewoehnlich, besser “started”
 x - is in the early 60’s with -> genaue Jahreszahlen, is with? besser “is concered with”
-? - Starting 2010, warum nicht schon vorher?
+x - Starting 2010, warum nicht schon vorher?
 x - the improvement of underlying understanding as of works -> Was bedeutet dieser Satz?
 x - and in particular are key  -> and, in particular, they are key
 x - some years before 1990 -> genaue Angabe… Zitate…
@@ -80,7 +80,7 @@ x - Other than with the proof of the Tropical semiring -> Was wollen Sie damit s
 x - Part (1): Formeln duerfen nicht ueberstehen.
 x - tropical rations function -> rational
 x - Was ist mit den anderen Eigenschaften eines Semifields? - Comment 1.14 -> Remark 1.14
-? - taking max and \Sigma - taking maximum and sum
+x - taking max and \Sigma - taking maximum and sum
 x - differenceconvex function -> Entweder erklaeren oder weglassen.
 x - Def. 1.15: ein grosses X_1 muss kleingeschrieben werden.
 x - chapter 2 kann man immer gross schreiben, da es sich um einen Namen handelt.
@@ -106,8 +106,8 @@ x - Def. 2.8: ; steht am falschen Platz
 - Nach Def. 2.8: Ein einfaches Beispiel waere extrem hilfreich.
 x - Def. 2.9: vector field -> vector space
 x - dot-symmetric -> point-symmetric -> So etwas bitte immer googlen. Das sieht sonst richtig bloed aus.
-- Def. 2.10 ist sicher nicht zuerst in diesem Artikel erschienen. Das koennen Sie vielleicht auch einfach ohne Zitat definieren.
-- We get an intuition -> We build our intuition.
+x - Def. 2.10 ist sicher nicht zuerst in diesem Artikel erschienen. Das koennen Sie vielleicht auch einfach ohne Zitat definieren.
+x - We get an intuition -> We build our intuition.
 -
 
  - Example 2.4.: Nochmal alles anschauen und überarbeiten.
@@ -121,7 +121,7 @@ x - Through synapses the axons are connected to further soma through which the i
 x - Figure 3 -> bitte zitieren, ausser Sie haben das selbst gezeichnet.
 x - In reference to a biological neural network… Sprachlich falsch
 x - biological realism would impose en- tirely unnecessary constraint -> Das ist so nicht wahr.
-? - Def. 3.2: Finite set?
+x - Def. 3.2: Finite set?
 x - Def. 3.3: Let K be a field. Vielleicht koennen Sie auch Ecken und Kantengewichte separat definieren.
 x - Def. 3.3 “in our case” unnoetig, bitte weglassen.
 x - is attributed -> consists of
@@ -158,7 +158,7 @@ x - R=\mathbb{R}?
 x - Ist das wirklich der Laplace-Operator und nicht der Gradient?
 - For backpropagation only we limit the σ’s of feedforward neural networks to be differentiable. -> For our theoretical analysis of backpropagation we limit ourselves to the case where the \sigma are all differentiable. For a discussion of the general case of piecewise linear \sigma, we refer the reader to…
 x - Comment 3.18: Besser ist es, \partial anstatt d zu verwenden.
-- Ist x hier nicht ein Vektor?
+x - Ist x hier nicht ein Vektor?
 - This gives a way to train neural networks on a datapool. -> How exactly?
 x - Comment 3.19 und 3.20 gehoeren in Abschnitt 4 und sind eher Conventions oder aehnliches.
 x -The following chapter holds the key theorems of this thesis. -> Bitte weglassen oder an den Anfang von Chapter 4 schreiben. Dann aber bitte mit contains und nicht holds.
@@ -174,10 +174,10 @@ x - We have shown the induction step, that with Comment 4.1 as induction beginni
 x - Proof of Thm. 4.2, zweites Display G(l) ist ein Tippfehler.
 x - viertes Display: Der Doppelpunkt gehoert auf die andere Seite. Vielleicht koennen Sie hier mit \underbrace arbeiten. Das waere schoener.
 x - Comment 4.3: the tropical rational functions above -> wo genau?
-- although as we have explained  -> Komma?
+x - although as we have explained  -> Komma?
 x - Cor. 4.4: Was ist ReLU?
 x - Now with ReLU activations we want to show the opposite implication. -> Satzbau fragwuerdig und ReLU activiations scheinen nicht definiert zu sein.
-- Prof. of Thm 4.5: wirklich b_ix^{\alpha_i}? Soll das ein Vektor sein?
+x - Prof. of Thm 4.5: wirklich b_ix^{\alpha_i}? Soll das ein Vektor sein?
 x - Here all sigma are set to σ0 except the last one to σ−∞ as prerequisite. Warum darf man das?
 ? - we observe -> we consider?
 x - Thus, by induction, any tropical polynomial can be written as a neural network with ReLU activation. -> Verstehe ich nicht. Das sollten wir diskutieren…

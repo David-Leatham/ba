@@ -61,6 +61,7 @@
 \newtheorem{convention}[theorem]{Convention}
 
 \DeclareMathOperator{\Conv}{Conv}
+\DeclareMathOperator{\grad}{grad}
 
 % create a command to easyly add figure titles
 \newcommand*{\figuretitle}[1]{%
@@ -94,7 +95,7 @@
 Tropical geometry is a modern branch of mathematics subject to a rise in research throughout the past 30 years. Neural networks have found application in many disciplines and have been used to algorithmically manage complex tasks like self driving cars, face and text recognition or automatically processing hand written checks at banks. Neural networks impact our lives on a daily basis. \\
 In this thesis we describe a new representation of neural networks through tropical geometry, following the recent article "Tropical Geometry of Deep Neural Networks" by Liwen Zhang, Gregory Naitzat and Lek-Heng Lim \cite{maclagan2015introduction}. \\
 
-The subject of neural networks was introduced by Warren McCulloch and Walter Pitts in 1943 when they created a computational model for neural networks \cite{mcculloch1943logical}. In the following years one of the next big steps towards today's state of the art neural networks, was the research into the underlying concepts of backpropagation in 1960 by Kelley \cite{kelley1960gradient} and 1961 by Bryson \cite{bryson1961gradient}. Backpropagation is an algorithm describing a key concept of training neural networks. Starting $2010$ to this day neural networks are experiencing a boost in popularity. This is due to hardware improvements especially in GPU's making backpropagation feasible \cite{cirecsan2010deep}, the growing amount of data and the improvement of knowledge on deep neural networks fuelled by articles and works, for example that of Andrew Yan-Tak Ng and Jeff Dean in 2012. They created a network that learned to recognize higher-level concepts, such as cats, only from watching unlabeled images \cite{DBLP:journals/corr/abs-1112-6209}. Nowadays neural networks help solve challenging problems in computer science and software engineering and, in particular, they are key to application areas such as system identification and control, pattern and sequence recognition, social network filtering and e-mail spam filtering. \\
+The subject of neural networks was introduced by Warren McCulloch and Walter Pitts in 1943 when they created a computational model for neural networks \cite{mcculloch1943logical}. In the following years one of the next big steps towards today's state of the art neural networks, was the research into the underlying concepts of backpropagation in 1960 by Kelley \cite{kelley1960gradient} and 1961 by Bryson \cite{bryson1961gradient}. Backpropagation is an algorithm describing a key concept of training neural networks. Starting around $2010$ to this day neural networks are experiencing a boost in popularity. This is due to hardware improvements especially in GPU's making backpropagation feasible \cite{cirecsan2010deep}, the growing amount of data and the improvement of knowledge on deep neural networks fuelled by articles and works, for example that of Andrew Yan-Tak Ng and Jeff Dean in 2012. They created a network that learned to recognize higher-level concepts, such as cats, only from watching unlabeled images \cite{DBLP:journals/corr/abs-1112-6209}. Nowadays neural networks help solve challenging problems in computer science and software engineering and, in particular, they are key to application areas such as system identification and control, pattern and sequence recognition, social network filtering and e-mail spam filtering. \\
 
 Tropical geometry on the other hand is a field of interest in mathematics, whose underlying analytical ideas have been around some years before $1990$, for example by Victor Pavlovich Maslov \cite{maslov1985new}. But only since then have there been basic efforts to consolidate the basic definitions as research increased and from $2000$ onwards gained the attention it receives nowadays carried by successful applications in enumerative tropical algebraic geometry for instance by Grigory Mikhalkin in 2005 \cite{mikhalkin2005enumerative}. 
 Tropical geometry is the study of polynomials under tropical multiplication and addition, where tropical multiplication is usual addition and tropical addition of two elements returns the minimal element. It is used in mathematics itself \cite{krivulin2014tropical}, finance \cite{klemperer2009new} and computer since. For the last topic this thesis is an example, as we describe a fundamental mathematical connection between tropical geometry and deep neural networks. \\
@@ -648,12 +649,11 @@ The cost function of a finite set $\mathcal{X}$ of input vectors is then the ave
 over cost functions $C_{x}$ for individual training examples, x.
 \end{definition}
 
-\begin{remark}
-The cost function is meant to be defined in relation to the score function to ensure, that
-\end{remark}
+%\begin{remark}
+%The cost function is meant to be defined in relation to the score function to ensure, that lower values in the score function correspond to 
+%\end{remark}
 
-Backpropagation is an algorithm to tweak weights of a neural network to minimize the cost function on a training set, containing input vectors and the corresponding desired outputs. \\
-For backpropagation we limit the $\sigma$'s of feedforward neural networks to be differentiable.
+Backpropagation is an algorithm to tweak weights of a neural network to minimize the cost function on a training set, containing input vectors and the corresponding desired outputs.  For backpropagation we limit the $\sigma$'s of feedforward neural networks to be differentiable.
 
 \begin{definition}(Backpropagation)
 Let $\nu$ be an $L$-layer feedwordward neural network, $\mu \in \mathbb{R}$ a learning rate and $C$ be a cost function over $\nu$ as in \ref{def:cost_fct}. Application of backpropagation to $\nu$ is calculating $\text{grad}_{w^{(i)}}(C)$ the gradient of the weights and $\text{grad}_{b^{(i)}}(C)$ the gradient of the biases of the cost function for $i = 1, \dots , L$ and applying changes to the weights and biases of the neural network $\nu$ as follows:
@@ -663,43 +663,48 @@ b^{(i)} &\to (b^{(i)})' = b^{(i)}-\mu \cdot \text{grad}_{b^{(i)}}(C) \ \text{for
 \end{align*}
 \end{definition}
 
-Repeated application of backpropagation is a gradient descent algorithm and therefore optimize the cost function and approaches local minima. This gives a way to train a neural network on a datapool efficiently.
+Repeated application of backpropagation is a gradient descent algorithm and therefore optimizes the cost function and approaches local minima. This gives a way to train a neural network on a datapool efficiently.
 
 \begin{remark}
 \label{com:back_prop_madness}
 Essentially, backpropagation evaluates the expression for the derivative of the cost function as a product of derivatives between each layer from left to right – "backwards" – with the gradient of $\sigma$'s between each layer being a simple modification of the partial products (the "backwards propagated error").
 Given an input–output pair $(x,y)$, the loss is:
 $$C_{x}(\sigma^{(L)} \circ \rho^{(L)} \circ \sigma^{(L-1)} \circ \rho^{(L-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}(x), y).$$
-The gradient $\text{grad}$ is the transpose of the derivative of the output in terms of the input and with the chain rule the following holds.
+
+
+The gradient $\text{grad}$ is the transpose of the derivative of the output in terms of the input.
+
+To understand how the algorithm of gradient descet operates, we first interpret the constant $x$ as a variable and $b^{(l)}, w^{(l)}$ as constants again. Then with the chain rule the following holds:
 \begin{align*}
 \frac{\mathrm \partial C_{x}}{\mathrm \partial x} &= \frac{\mathrm \partial C_{x}}{\mathrm \partial \sigma^{(L)}} \cdot \frac{\mathrm \partial \sigma^{(L)}}{\mathrm \partial \rho^{(L)}} \cdot \frac{\partial \rho^{(L)}}{\partial \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{\partial \rho^{(1)}} \cdot \frac{\partial \rho^{(1)}}{\partial x}\\
-\text{grad}_{x} (C_{x}) &= \left(\frac{\partial C}{\partial x}\right)^{t}
+ &= C_{x}'(\overline{\sigma^{(L)}}(x)) \cdot (\sigma^{(L)})'(\overline{\rho^{(L)}}(x)) \cdot \dots \cdot (\sigma^{(1)})'(\overline{\rho^{(1)}}(x)) \cdot (\rho^{(1)})'(x) \\
+\text{grad}_{x} (C_{x}) &= \left(\frac{\partial C}{\partial x}\right)^{t}.
 \end{align*}
-The affine linear functions $\rho^{(l)}$ for $l=L, \dots , 1$ can be written unambiguously as it's weight matrix $w^{(l)}$ and bias vector $b^{(l)}, \rho^{(l)} = x^{(l)} x + b^{(l)}$. Each derivative 
-$$\frac{\partial \rho^{(l)}}{\partial \sigma^{(l-1)}}, \ \text{for} \ l=L, \dots, 2$$ therefore consists of the derivative 
-$$\frac{\partial \rho^{(l)}}{\partial \sigma^{(l-1)}} = \frac{\partial w^{(l)}}{\partial b^{(l)}} \cdot \frac{\partial b^{(l)}}{\sigma^{(l-1)}}.$$ 
-The same holds for $l = 1$ in relation to $x$. We get
-$$\frac{\mathrm \partial C_{x}}{\mathrm \partial x} = \frac{\mathrm \partial C_{x}}{\mathrm \partial \sigma^{(L)}} \cdot \frac{\mathrm \partial \sigma^{(L)}}{\mathrm \partial w^{(L)}} \cdot \frac{\mathrm \partial w^{(L)}}{\mathrm \partial b^{(L)}} \cdot \frac{\partial b^{(L)}}{\partial \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{\partial \sigma^{(1)}}{\partial w^{(1)}} \cdot \frac{\partial w^{(1)}}{\partial b^{(1)}} \cdot \frac{\partial b^{(1)}}{\partial x}.$$
-This way we set
+Here sigma and rho bar are defined as follows:
 \begin{align*}
-\delta^{(L)}_{w} &= \frac{\partial C}{\partial \sigma^{(L)}} \cdot \frac{\partial \sigma^{(L)}}{\partial w^{(L)}} \\
-\delta^{(L)}_{b} &= \delta^{(L)}_{w} \cdot \frac{\partial w^{(L)}}{\partial b^{(L)}} \\
-\delta^{(l-1)}_{w} &= \delta^{(l)}_{b} \frac{\partial b^{(l)}}{\partial \sigma^{(l)}} \cdot \frac{\partial \sigma^{(l)}}{\partial b^{(l-1)}}, \ \text{and} \\
-\delta^{(l-1)}_{b} &= \delta^{(l-1)}_{w} \cdot \frac{\partial w^{(l-1)}}{\partial b^{(l-1)}} \ \text{for} \ l=L-1, \dots, 2 \\
-\delta^{(0)} &= \delta^{(1)}_{b} \cdot \frac{\partial b^{(1)}}{\partial x}
+\overline{\sigma^{(l)}} &= \sigma^{(l)} \circ \rho^{(l)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)} \\
+\overline{\rho^{(l)}} &= \rho^{(l)} \circ \sigma^{(l-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}.
 \end{align*}
-Which depending on the choice of sigma gives an easy to calculate algorithm for
-\begin{align*}
-\text{grad}_{w^{(l)}}(C_{x}) &= (\delta_{w}^{(l)})^{t}, \ \text{and} \\
-\text{grad}_{b^{(l)}}(C_{x}) &= (\delta_{b}^{(l)})^{t} \ \text{for} \ i=1,\dots , L.
-\end{align*}
-In contrast to calculating the $\delta$'s by forward propagating.
-\begin{align*}
-\delta^{(0)} &= \frac{\mathrm \partial C_{x}}{\mathrm \partial \sigma^{(L)}} \cdot \frac{\mathrm \partial \sigma^{(L)}}{\mathrm \partial w^{(L)}} \cdot \frac{\mathrm \partial w^{(L)}}{\mathrm \partial b^{(L)}} \cdot \frac{\partial b^{(L)}}{\partial \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{\partial w^{(1)}} \cdot \frac{\partial w^{(1)}}{\partial b^{(1)}} \cdot \frac{\partial b^{(1)}}{\partial x} \\
-&\vdots \\
-\delta^{(L)}_{w} &= \frac{\partial C}{\partial \sigma^{(L)}} \cdot \frac{\partial \sigma^{(L)}}{\partial w^{(L)}}.
-\end{align*}
+The affine linear functions $\rho^{(l)}$ for $l=L, \dots , 1$ can be written unambiguously as it's weight matrix $w^{(l)}$ and bias vector $b^{(l)}, \rho^{(l)} = x^{(l)} x + b^{(l)}$. 
+With this form in mind we set $x$ constant again and in the $l$-th step view $w^{(l)}$ and $b^{(l)}$ as variable again. Then
 
+\begin{align*}
+\delta^{(L)} &= \frac{\partial C}{\partial \sigma^{(L)}} \cdot \frac{\partial \sigma^{(L)}}{\partial \rho^{(L)}} \\
+\delta^{(l-1)} &= \delta^{(l)} \frac{\partial \rho^{(l)}}{\partial \sigma^{(l-1)}} \cdot \frac{\partial \sigma^{(l-1)}}{\partial \rho^{(l-1)}}, \\
+\end{align*}
+for $l=L-1, \dots, 1$.
+This, depending on the choice of sigma, gives an easy to calculate algorithm for the gradients:
+\begin{align*}
+\grad_{w^{(l)}}(C_x) &= \left[\delta^{(l)} \cdot \frac{\partial \rho^{(l)}}{\partial w^{(l)}}\right]^{T} \\
+\grad_{b^{(l)}}(C_x) &= \left[\delta^{(l)} \cdot \frac{\partial \rho^{(l)}}{\partial b^{(l)}}\right]^{T}.
+\end{align*}
+This is much faster than calculating the deltas in a forward manner with would have the following form:
+\begin{align*}
+\delta^{(1)} &= \frac{\mathrm \partial C_{x}}{\mathrm \partial \sigma^{(L)}} \cdot \frac{\mathrm \partial \sigma^{(L)}}{\mathrm \partial \rho^{(L)}} \cdot \frac{\partial \rho^{(L)}}{\partial \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{\partial \rho^{(1)}} \\
+&\vdots \\
+\delta^{(L)}_{w} &= \frac{\partial C}{\partial \sigma^{(L)}} \cdot \frac{\partial \sigma^{(L)}}{\partial \rho^{(L)}}.
+\end{align*}
+The recursive way of propagating the neural network backwards is where backpropagation gets its name from. The $\overline{\sigma^{(l)}}$ and $\overline{\rho^{(l)}}$ for $l = 1, \dots , L$ get computed and saved beforehand in a forward propagation run to save computational time.
 \end{remark}
 
 
@@ -846,15 +851,14 @@ where $r_f$ and $r_g$ are the number of monomials in the tropical polynomials $f
 \end{itemize}
 \end{theorem}
 \begin{proof}
-That a feedforward neural network under assumptions (a)-(c) is a tropical polynomial map has been shown in Theorem \ref{teo:trop_char_of_neur_net}. Now if the neural network has ReLU activations we want to show the opposite implication. As with \ref{teo:trop_char_of_neur_net}, we will show this by induction. Setting $\sigma_{t} := \max \{ x, t\}$ our base case is $\nu (x) = b_{i} x^{\alpha_{i}}$ a tropical tropical monomial. Considering
-$$b_{i}x^{\alpha_{i}} = (\sigma_{- \infty} \circ \rho_{i})(x) = \max \{ a_{i}^{t}x + b_{i}, -\infty \}$$
-$\nu$ is a feedforward neural network under assumtions (a)-(c). \
-As induction step we observe two tropical polynomials $p$ and $q$ which are represented as neural networks with $l_{p}$ and $l_{q}$ layers respectively,
+That a feedforward neural network under assumptions (a)-(c) is a tropical polynomial map has been shown in theorem \ref{teo:trop_char_of_neur_net}. Now if the neural network has ReLU activations we want to show the opposite implication. As in theorem \ref{teo:trop_char_of_neur_net}, we will show this by induction. Since the image of $\nu$ is real, we set $\nu=c_1x^{\alpha_1} \oplus \dots \oplus c_rx^{\alpha_r}$ as in definition \ref{def:tropPolyn} with the difference that $c_i \in \mathbb{R}$ for $i = 1, \dots , r$. Setting $\sigma_{t} := \max \{ x, t\}$ our base case is $\nu (x) = c x^{\alpha}$ a tropical tropical monomial. Considering
+$$\nu(x) = cx^{\alpha} = \max \{ \alpha^{t}x + c, -\infty \} = (\sigma_{- \infty} \circ \rho)(x),$$
+where $\max$ is applied coordinate wise and $\rho(x) = a^{t}x + b$ is a real affine linear function, $\nu$ is a feedforward neural network under assumtions (a)-(c). As induction step we observe two tropical polynomials $p$ and $q$ which are represented as neural networks with $l_{p}$ and $l_{q}$ layers respectively,
 \begin{align*}
 p(x) &= (\sigma_{- \infty} \circ \ \rho_{p}^{(l_{p})} \circ \sigma_{0} \circ \dots \circ \sigma_{0} \circ \rho_{p}^{(1)})(x), \\
-q(x) &= (\sigma_{- \infty} \circ \ \rho_{q}^{(l_{q})} \circ \sigma_{0} \circ \dots \circ \sigma_{0} \circ \rho_{q}^{(1)})(x)
+q(x) &= (\sigma_{- \infty} \circ \ \rho_{q}^{(l_{q})} \circ \sigma_{0} \circ \dots \circ \sigma_{0} \circ \rho_{q}^{(1)})(x).
 \end{align*}
-Here all sigma are set to $\sigma_{0}$ except the last one to $\sigma_{- \infty}$ as prerequisite. We will write $p \oplus q$ as a neural network.
+Here all sigma are set to $\sigma_{0}$ except the last one to $\sigma_{- \infty}$ as prerequisite by the ReLU activation. We will write $p \oplus q$ as a neural network.
 \begin{align*}
 (p \oplus q)(x) 
 &= \min \{ p(x), q(x) \} \\
@@ -1062,7 +1066,7 @@ The Minkowski sum of line segments is called a zonotope.
 Let $A \subset \mathbb{R}^{n}$ be a set. A is point symmetric around $b \in A$ if for $a \in A$ follows $a + 2(b-a)=2b-a \in A$
 \end{definition}
 
-Obviously for $A$ and $b$ as in definition \ref{def:point_sym} and if $A$ is convex, then $b \in A$ the symmetry point must lie in $A$. We get an intuition of zonotopes by proving the following statement.
+Obviously for $A$ and $b$ as in definition \ref{def:point_sym} and if $A$ is convex, then $b \in A$ the symmetry point must lie in $A$. We build an intuition of zonotopes by proving the following statement.
 
 \begin{lemma}
 \label{lem:zon_sym_conv}
