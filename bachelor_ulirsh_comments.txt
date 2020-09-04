@@ -26,9 +26,9 @@ x - to the topics -> to these topics
 x - which leads us to to chapter 2 -> zu viele to
 x - This thesis follows the underlying paper (Maclagan & Sturmfels, 2015)  -> Zitat falsch
 
- - Prop. 1.16. Sind T[X_1, .. , x_r] und T(X_1 , .. , X_r) beides semifields, oder nur T(X_1, .. , X_r)?
+x - Prop. 1.16. Sind T[X_1, .. , x_r] und T(X_1 , .. , X_r) beides semifields, oder nur T(X_1, .. , X_r)?
  - after Prop 1.14. Why are rational functions and T[X_1,.. important. Besser ausführen.
- - tropical semifield andstatt tropical semiring
+x - tropical semifield andstatt tropical semiring
 Abschnitt 1:
 x - the theory of tropical algebra -> tropical algebra
 x - Every other chapter -> The remaining chapters
@@ -156,10 +156,10 @@ x - …will not be introduced extensively, rather they’ll be required as prere
 x - Def. 3.15: From remark 3 follows -> missing “it”
 x - R=\mathbb{R}?
 x - Ist das wirklich der Laplace-Operator und nicht der Gradient?
-- For backpropagation only we limit the σ’s of feedforward neural networks to be differentiable. -> For our theoretical analysis of backpropagation we limit ourselves to the case where the \sigma are all differentiable. For a discussion of the general case of piecewise linear \sigma, we refer the reader to…
+x - For backpropagation only we limit the σ’s of feedforward neural networks to be differentiable. -> For our theoretical analysis of backpropagation we limit ourselves to the case where the \sigma are all differentiable. For a discussion of the general case of piecewise linear \sigma, we refer the reader to…
 x - Comment 3.18: Besser ist es, \partial anstatt d zu verwenden.
 x - Ist x hier nicht ein Vektor?
-- This gives a way to train neural networks on a datapool. -> How exactly?
+x - This gives a way to train neural networks on a datapool. -> How exactly?
 x - Comment 3.19 und 3.20 gehoeren in Abschnitt 4 und sind eher Conventions oder aehnliches.
 x -The following chapter holds the key theorems of this thesis. -> Bitte weglassen oder an den Anfang von Chapter 4 schreiben. Dann aber bitte mit contains und nicht holds.
 

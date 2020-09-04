@@ -484,7 +484,7 @@ We will define and motivate L-layer feedforward neural networks using graphs at 
 An \textbf{L-layer feedforward neural network} in graph form $(G, \sigma)$ is a weighted graph $G=(V, E)$ with a piecewise differentiable activation function $\sigma: \mathbb{R} \to \mathbb{R}$. The graph consists of $L$ sets $V^{(j)}$, $j = 1, \dots , L$ of vertices $V=\cup_{j=1}^{L}V^{(j)}$ with $L-1$ corresponding sets of edges $E^{(i)} \subset \{(x,y)|x \in V^{(i)}; y \in V^{(i+1)}\}$, $i = 1, \dots , L-1$ and $E=\cup_{i=1}^{L-1}E^{(i)}$ which connect two consecutive layers.
 \end{definition}
 
-The Graph of a $0$-layer feedforward neural network is an empty graph and of a $1$-layer feedforward neural network is a set of vertices without connecting edges. $\sigma$ will be applied in between propagating nodes in forward propagation \ref{def:forward_propagation}.
+The Graph of a $0$-layer feedforward neural network is an empty graph and of a $1$-layer feedforward neural network is a set of vertices without connecting edges. The \textbf{activation function} $\sigma$ will be applied in between propagating nodes in forward propagation \ref{def:forward_propagation}.
 
 \begin{definition}
 The first layer of an $L$-layer feedforward neural network is called the \textbf{input layer} and the last ($L$-th) layer is called the \textbf{output layer}. All layers in between collectively are called \textbf{hidden layers}.
@@ -627,7 +627,7 @@ We assume the final output of a neural network $\nu(x)$ is fed into a \textbf{sc
 
 Now we will give a brief introduction to backpropagation of neural networks. The underlying analytics for the small section of backpropagation will not be carried out in detail, rather they will be required as prerequisite knowledge from the reader. \
 Backpropagation is best explained by viewing a feedforward neural network as a function or a concatenation of functions, which we can extend to a Cost function and perform gradient descent on.
-In the following we may refer to $A^{(l)}$ as $w^{(l)}$ the weight matrices and $b^{(l)}$ simply as the bias vectors.
+In the following we may refer to $A^{(l)}$ as $w^{(l)}$ the \textbf{weight matrices} and $b^{(l)}$ simply as the \textbf{bias vectors}.
 
 \begin{remark}
 For a multi-variate function $F(X)$ that is defined and differentiable in a neighbourhood of a point $a$, then $F$ increases in point $a$ fastest in value in the direction of the gradient $\text{grad}(F)(a)$.
@@ -653,7 +653,7 @@ over cost functions $C_{x}$ for individual training examples, x.
 %The cost function is meant to be defined in relation to the score function to ensure, that lower values in the score function correspond to 
 %\end{remark}
 
-Backpropagation is an algorithm to tweak weights of a neural network to minimize the cost function on a training set, containing input vectors and the corresponding desired outputs.  For backpropagation we limit the $\sigma$'s of feedforward neural networks to be differentiable.
+Backpropagation is an algorithm to tweak weights of a neural network to minimize the cost function on a training set, containing input vectors and the corresponding desired outputs. For our theoretical analysis of backpropagation we limit ourselves to the case where the $\sigma$ of feedforward neural networks are all differentiable. For a discussion of the general case of piecewise linear activation functions, we refer the reader to \cite{agostinelli2014learning}.
 
 \begin{definition}(Backpropagation)
 Let $\nu$ be an $L$-layer feedwordward neural network, $\mu \in \mathbb{R}$ a learning rate and $C$ be a cost function over $\nu$ as in \ref{def:cost_fct}. Application of backpropagation to $\nu$ is calculating $\text{grad}_{w^{(i)}}(C)$ the gradient of the weights and $\text{grad}_{b^{(i)}}(C)$ the gradient of the biases of the cost function for $i = 1, \dots , L$ and applying changes to the weights and biases of the neural network $\nu$ as follows:
@@ -705,6 +705,13 @@ This is much faster than calculating the deltas in a forward manner with would h
 \delta^{(L)}_{w} &= \frac{\partial C}{\partial \sigma^{(L)}} \cdot \frac{\partial \sigma^{(L)}}{\partial \rho^{(L)}}.
 \end{align*}
 The recursive way of propagating the neural network backwards is where backpropagation gets its name from. The $\overline{\sigma^{(l)}}$ and $\overline{\rho^{(l)}}$ for $l = 1, \dots , L$ get computed and saved beforehand in a forward propagation run to save computational time.
+
+Now if we have a training set $\mathcal{X}$ of input and desired output pairs. What we want to compute is
+\begin{align*}
+\grad_{w^{(l)}}(C) &= \frac{1}{|\mathcal{X}|}\sum_{x \in \mathcal{X}}\grad_{w^{(l)}}(C_x) \\
+\grad_{b^{(l)}}(C) &= \frac{1}{|\mathcal{X}|}\sum_{x \in \mathcal{X}}\grad_{b^{(l)}}(C_x)
+\end{align*}
+the gradients corresponding to the set. Because gradient decent is biased on iterative application, usually $\mathcal{X}$ is split up in $batches$, these are subsets of $\mathcal{X}$ of a set cardinality. This way the weights and biases get optimized on the batches itteratively. This method gets especially effective on large datapools $\mathcal{X}$.
 \end{remark}
 
 
@@ -713,8 +720,7 @@ The recursive way of propagating the neural network backwards is where backpropa
 %$fraq$
 %\end{remark}
 
-This gives a way to train neural networks on a datapool.
-
+This gives a way to train neural networks on a datapool. There are a number of further topics to understand state of the art training of neural networks, for example stochastic gradient descent or over fitting. In this thesis, when it comes to training a neural network, the goal was to give only a basic overview. The main subject of this thesis is tropical algebra of neural networks.
 \newpage
 
 \section{Tropical algebra of neural networks}\label{sec:trop_netw}
@@ -726,7 +732,7 @@ We will make the following mild assumptions
 on the architecture of our $L$-layer feedforward neural networks:
 \begin{itemize}
 \item[(a)]
-the weight matrices $Aa^{(1)} , \dots , A^{(L)}$ are integer-valued;
+the weight matrices $A^{(1)} , \dots , A^{(L)}$ are integer-valued;
 \item[(b)]
 the bias vectors $b^{(1)} , \dots , b^{(L)}$ are real-valued;
 \item[(c)]
@@ -997,7 +1003,7 @@ A \textbf{polyhedral complex} is a collection of polyhedra satisfying two condit
 Let $\Sigma$ be a polyhedral complex and $d \in \mathbb{N}$, then the \textbf{d-skeleton} of $\Sigma$ is the the conjunction of all faces of $\Sigma$ of dimension $\leq d$.
 \end{definition}
 \begin{definition}\cite{maclagan2015introduction}
-The support $supp(\Sigma)$ of a polyhedral complex $\Sigma$ is the set $\{ x \in \mathbb{R}^{n} \ | \ x \in P \ \text{for some} \ P \in \Sigma \}$
+The support $\text{supp}(\Sigma)$ of a polyhedral complex $\Sigma$ is the set $\{ x \in \mathbb{R}^{n} \ | \ x \in P \ \text{for some} \ P \in \Sigma \}.$
 \end{definition}
 
 
@@ -1009,12 +1015,12 @@ Let $A \subset \mathbb{R}^{n}$ be a real subset with $n \in \mathbb{N}$. Then th
 
 \begin{definition}\cite[p.~3]{zhang2018tropical}
 The \textbf{Newton polygon} of a tropical polynomial $f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$  is the convex hull of $\alpha_1 , \dots , \alpha_r \in \mathbb{N}^{d}$, regarded as points in $\mathbb{R}^{d}$,
-$$ \Delta(f) := \Conv\{\alpha_i \in \mathbb{R}^{d} : c_i \neq -\infty , i = 1, \dots ,r \} $$.
+$$ \Delta(f) := \Conv\{\alpha_i \in \mathbb{R}^{d} : c_i \neq -\infty , i = 1, \dots ,r \}. $$
 \end{definition}
 
 \begin{remark}\cite[p.~3]{zhang2018tropical}
 Let $f = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ be a tropical polynomial. We first, lift each $\alpha_i$ from $\mathbb{R}^d$ into $\mathbb{R}^{d+1}$ by appending $c_i$ as the last coordinate. Denote the convex hull of the lifted $\alpha_1, \dots , \alpha_r$ as
-$$\mathcal{P}(f):= \Conv{(\alpha_i, c_i) \in \mathbb{R}^{d} \times \mathbb{R} : i = 1, \dots , r}. (1)$$
+$$\mathcal{P}(f):= \Conv{(\alpha_i, c_i) \in \mathbb{R}^{d} \times \mathbb{R} : i = 1, \dots , r}.$$
 Next let $UF(\mathcal(P)(f))$ denote the collection of upper faces in $\mathcal{P}(f)$ and $\pi : \mathbb{R}^{d} \times \mathbb{R} \to \mathbb{R}^{d}$ be the projection that drops
 the last coordinate. The dual subdivision determined by $f$
 is then
