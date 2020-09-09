@@ -609,7 +609,7 @@ $$ \nu = \sigma^{(L)} \circ \rho^{(L)} \circ \sigma^{(L-1)} \circ \rho^{(L-1)} \
 The preactivation functions $\rho^{(1)}, \dots , \rho^{(L)}$ are affine transformations to be determined and the activation functions $\sigma^{(1)}, \dots , \sigma^{(L)}$ are chosen and fixed in advanced. \\
 We denote the width, i.e., the number of nodes, of the $l$-th
 layer by $n_l, l = 1, \dots , L-1$. We set $n_0 := d$ and $n_L := p$, respectively the dimensions of the input and output of the network. The output from the $l$-th layer will be denoted by
-$$\nu = \sigma^{(l)} \circ \rho^{(l)} \circ \sigma^{(l-1)} \circ \rho^{(l-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}$$
+$$\nu^{(l)} = \sigma^{(l)} \circ \rho^{(l)} \circ \sigma^{(l-1)} \circ \rho^{(l-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}$$
 i.e., it is a map $\nu^{(l)} : \mathbb{R}^{d} \to \mathbb{R}^{n_l}$. For convenience, we assume $\nu^{(0)}(x) := x$. \\
 The affine function $\nu^{(l)} : \mathbb{R}^{n_{l-1}} \to \mathbb{R}^{n_{l}}$ is given by a weight matrix $A^{(l)} \in \mathbb{Z}^{n_l \times n_{l-1}} $ and a bias vector $b^{(l)} \in \mathbb{R}^{n_l}$:
 $$ \rho^{(l)}(\nu^{(l-1)}) := A^{(l)} \nu{(l-1)} + b^{(l)}. $$
@@ -622,6 +622,7 @@ This way forward propagation corresponds to evaluation of the neural network.
 For a vector input $x \in \mathbb{R}^{n_l}, \sigma^{(l)}(x)$ is understood to be in coordinatewise sense; so $\sigma : \mathbb{R}^{n_l} \to \mathbb{R}^{n_l}$.
 \end{remark}
 \begin{remark}\cite{zhang2018tropical}
+\label{rem:score_fkt}
 We assume the final output of a neural network $\nu(x)$ is fed into a \textbf{score function} $s : \mathbb{R}^{p} \to \mathbb{R}^{m}$ that is application specific. The score function is quite often regarded as the last layer of a neural network but this is purely a matter of convenience and we will not assume this.
 \end{remark}
 
@@ -963,6 +964,22 @@ $$\Gamma(f) := \{ x \in \mathbb{R}^{d} : c_i x^{\alpha_i} = c_j x^{\alpha_j} = f
 i.e., the set of points x at which the value of f at x is attained by two or more monomials in f.
 \end{definition}
 
+\begin{example}\cite[p.~23]{maclagan2015introduction}
+As an example suppose we consider the general quadratic polynomial
+$$p(x, y) = a \odot x^{2} \oplus b \odot xy \oplus c \odot y^{2} \oplus d \odot y \oplus e \oplus f \odot x.$$
+Suppose that the coefficients $a,b,c,d,e,f \in \mathbb{R}$ satisfy the inequalities
+$$2b < a+c, 2d < a + f, 2e < c + f.$$
+Then the graph of $p:\mathbb{R}^{2} \to \mathbb{R}$ is the lower envelope of six planes in $\mathbb{R}^{3}$. This is shown in Figure \ref{fig:quad_trop_var}, where each linear piece of the graph is labelled by the corresponding linear function. Below this "tent" lies the tropical quadratic curve $\Gamma(p) \subset \mathbb{R}^{2}$. This curve has four vertices, three bounded edges and six half-rays (two northern, two eastern and two southwestern).
+\end{example}
+
+\begin{figure}[H]
+\centering
+%\figuretitle{Depiction of a neuron}
+\includegraphics[scale=0.5]{graphics/quad_trop_pol_proj.PNG}
+\caption{The graph and the curve defined by a quadratic polynomial.\cite[p.~22]{maclagan2015introduction}}
+\label{fig:quad_trop_var}
+\end{figure}
+
 To understand the geometry of tropical rational functions, tropical polynomial maps and tropical rational maps better we will show that each are piecewise linear.
 
 
@@ -1163,15 +1180,54 @@ vertices, since the dimension has gone one lower. For any vertex $v \in P$, if $
 \section{Tropical geometry of neural networks}
 \label{sec:tropical_geometry_of_neural_networks}
 
+\begin{remark}\cite{zhang2018tropical}
+As explained in remark \ref{rem:score_fkt}, a neural network $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ together with a choice of score function $s : \mathbb{R}^{p} \to \mathbb{R}$ give us a classifier. If the output value $s(\nu(x))$ exceeds some
+decision threshold $c$, then the neural network predicts $x$ is
+from one class (e.g., $x$ is a CAT image), and otherwise $x$
+is from the other category (e.g., a DOG image). The input
+space is thereby partitioned into two disjoint subsets by the
+\textbf{decision boundary} $\mathcal{B} = \{ x \in \mathbb{R}^{d}: \nu(x)=s(c)^{-1} \}$. Connected regions with value above the threshold and connected
+regions with value below the threshold will be called the
+\textbf{positive regions} and \textbf{negative regions} respectively.
+\end{remark}
+
 \begin{proposition}\cite{zhang2018tropical}(Tropical geometry of decision boundary).
-Let $v : \mathbb{R}^{d} \to \mathbb{R}$ be an $L$-layer neural network satisfying assumptions (a)–(c) with $t^{L}=-\infty$. Let the score function $s: \mathbb{R} \to \mathbb{R}$ be injective with decision threshold $c$ in its range. If $v : f \oslash g$ where $f$ and $g$ are tropical polynomials, then \\
-(i) its decision boundary $\mathcal{B}=\{ x \in \mathbb{R}^{d} : v(x) = s^{-1}\}$ divides $\mathbb{R}^{d}$ into at most $\mathcal{N} (f)$ connected positive regions and at most $\mathcal{N}(g)$ connected negative regions; \\
-(ii) its decision boundary is contained in the tropical hypersurface of the tropical polynomial $s^{-1}(c) \odot g(x) \oplus f(x) = \max\{f(x), g(x) + s^{-1}(c)\}$, i.e.,
-$$\mathcal{B} \subseteq \tau(s^{-1}(c) \odot g \oplus f).$$
+Let $v : \mathbb{R}^{d} \to \mathbb{R}$ be an $L$-layer neural network satisfying assumptions (a)–(c) with $t^{L}=-\infty$. Let the score function $s: \mathbb{R} \to \mathbb{R}$ be injective with decision threshold $c$ in its range. If $v = f \oslash g$ where $f$ and $g$ are tropical polynomials, then \\
+(i) its decision boundary $\mathcal{B}=\{ x \in \mathbb{R}^{d} : v(x) = s^{-1}(c)\}$ divides $\mathbb{R}^{d}$ into at most $\mathcal{N} (f)$ connected positive regions and at most $\mathcal{N}(g)$ connected negative regions; \\
+(ii) if $c \in \mathbb{R}$ is such that there is no tropical monomial in $f(x)$ that differs from any tropical monomial in $g(x)$ by $c$, then its decision boundary is contained in the tropical hypersurface of the tropical polynomial $s^{-1}(c) \odot g(x) \oplus f(x) = \max\{f(x), g(x) + s^{-1}(c)\}$, i.e.,
+$$\mathcal{B} \subseteq \mathcal{T} (s^{-1}(c) \odot g \oplus f).$$
 \end{proposition}
 \begin{proof}
-
+For the first statement let $s^{-1}(c)=c' \in \mathbb{R}$ and $U_1 , \dots , U_{\mathcal{N}(f)}$ be the regions of $\mathbb{R}^{d}$ on which $f$ is linear. Each of the $U_i$ is convex for $i=1 , \dots , \mathcal{N}(f)$ since if we take two elements from $U_i$, then all elements on the connecting line segment also have to have the same maximal monomial, or else the initial elements would have had different maximal monomials. Because of lemma \ref{lemma:trop_properties} the tropical monomial $-g$ will be concave on $U_i$ for $i = 0 1, \dots , \mathcal{N}(f)$ and with
+\begin{align*}
+(f \oslash g) (\lambda x + (1-\lambda)y)
+&= \lambda f(x) + (1-\lambda) f(y) - g(\lambda x + (1-\lambda)y) \\
+&\geq \lambda (f \oslash g)(x) + (1-\lambda) (f \oslash g) (y)
+\end{align*}
+for all $x, y \in U_i$ and $\lambda \in [0,1] \subset \mathbb{R}$ the tropical rational function $f \oslash g$ will also be concave on $U_i$. Now because $f \oslash g$ are concave on $U_i$, with them selves are convex we can show that the set $\{x \in U_i : f \oslash g(x) \geq c'$ must be convex:
+\begin{align*}
+(f \oslash g) (\lambda x + (1-\lambda)y)
+&= \lambda f(x) + (1-\lambda) f(y) - g(\lambda x + (1-\lambda)y) \\
+&\geq \lambda (f \oslash g)(x) + (1-\lambda) (f \oslash g) (y) \\
+&\geq \lambda c + (1-\lambda)c \\
+&= c.
+\end{align*}
+If there where disjunct connected positive regions then $\{ x \in U_i : (f \oslash g)(x) \geq c' \}$ would not be convex and therefore there can only be one connected positive region on $U_i$ for $i = 1, \dots , \mathcal{N}(f)$. \\
+Now if we divide $\mathbb{R}^{d}$ in to $\mathcal{N}(g)$ convex regions on which $g$ is linear, then $f \oslash g$ is convex on these regions and $\mathcal{N}(g)$ holds as upper bound to the connected negative regions in the save way. \\
+For the second statement we rearange the terms in the decision boundary $\mathcal{B} = \{ x \in \mathbb{R}^{d} : \nu(x) = s^{-1}(c) \} = \{ x \in \mathbb{R}^{d} : f(x) = g(x) + c' \}$ and since $f(x)$ and $g(x) + c'$ are both tropical polynomial, we have
+\begin{align*}
+f(x) &= b_1 x{\alpha_1} \oplus \dots \oplus b_r^{\alpha_r}, \\
+g(x) + c &= c_1 x^{\beta_1} \oplus \dots \oplus c_s x^{\beta_s},
+\end{align*}
+with appropriate multiindices $\alpha_1 , \dots , \alpha_r, \beta_1 , \dots , \beta_s$, and real coefficients $b_1, \dots , b_r, c_1, \dots , c_s$. By the assumption on
+the monomials, we have that $x_0 \in \mathcal{B} $ only if there exist $i, j$ so that $\alpha_i \neq \beta_j$ and $b_i x_0^{\alpha_i}$. This completes the proof since if we combine the monomials of $f{x}$ and $g(x) + c$ by (tropical) summing them into a single tropical polynomial, $\max \{f(x), g(x) + c\}$, the above implies that on the level set, the value of the combined tropical polynomial is attained by at least two monomials and therefore $x_0 \in \mathcal{\max\{f(x), g(x) + c\}}$.
 \end{proof}
+
+\begin{theorem}
+Let $\nu : \mathbb{R}^{d} \to \mathbb{R}$ be an $L$-layer real-valued feedforeard neural network satisfying (a)-(c). Let $t^{(L)}=-\infty$ and $n_{l} \geq d$ for all $l=1, \dots , L-1$. Then $\nu = \nu^{(L)}$ has at most
+$$\displaystyle\prod^{L-1}_{l=1}\displaystyle\sum^{d}_{i=0}\binom{n_l}{i}$$
+linear regions. In particular, if $d \leq n_1, \dots , n_{L-1} \leq n$, the number of linear regions of $\nu$ is bounded by $\mathcal{O}(n^{d(L-1)})$.
+\end{theorem}
 
 \newpage
 

@@ -88,7 +88,7 @@ x - leading to the fact that there will be a necessary logical gap -> komisch fo
 
 Abschnitt 2:
 x - Ich wuerde diesen Abschnitt nach Abschnitt 4 schieben, so dass die zentralen Punkte der Arbeit frueher kommen.
-- Allgemein koennte man hier auch mal ein Bild einer tropischen Hyperflaeche zeichnen, etwa einer Kurve im R^2
+x - Allgemein koennte man hier auch mal ein Bild einer tropischen Hyperflaeche zeichnen, etwa einer Kurve im R^2
 x - with a surface area -> Was soll das heissen? Es gibt doch kein Volumen hier…
 x - We hop right in -> Formaler schreiben…
 x - Def. 2.1: Recall that we write a tropical polynomial as … where \alpha_i\neq\alpha_j
