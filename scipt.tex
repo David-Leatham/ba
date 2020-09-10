@@ -62,6 +62,8 @@
 
 \DeclareMathOperator{\Conv}{Conv}
 \DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\Rat}{Rat}
+\DeclareMathOperator{\Pol}{Pol}
 
 % create a command to easyly add figure titles
 \newcommand*{\figuretitle}[1]{%
@@ -69,6 +71,14 @@
     \textbf{#1}%              braces before \centering and behind \medskip). If you remove
     \par\medskip}%            these braces the whole body of a {figure} env will be centered.
 }
+
+% Another new command (restr{f}{A})
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  % \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
 
 \title{Tropical Geometry of Deep Neural Networks}
 \author{David Leatham}
@@ -151,7 +161,7 @@ x \odot (y \oplus z) = x + \max (y,\ z) &=   \max (x + y,\ x + z) = (x \odot y) 
 holds. Multiplication by $- \infty$ annihilates $- \infty \odot x = - \infty \: \forall x \in  \mathbb{R} \cup \{- \infty \}$ and therefore $\mathbb{T}$ is a semiring.
 \end{proof}
 
-\begin{definition}\cite{olia2020analysis}
+\begin{definition}[\cite{olia2020analysis}]
 A commutative semiring in which every nonzero element is multiplicatively invertible is called a \textbf{semifield}.
 \end{definition}
 
@@ -959,6 +969,7 @@ neural networks satisfying assumptions (a)-(c).
 In this chapter we will start viewing tropical polynomials as geometric figures with a tropical hypersurface that is piecewise linear and boundaries for the number of the linear areas. Recall that we write a tropical polynomial as $c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ where $\alpha_i = (\alpha_{i1}, \dots , \alpha_{id}) \in \mathbb{N}^{d}$ and $c_i \in \mathbb{T}, i=1, \dots , r$ and also $\alpha_i \neq \alpha_j$ for any $i \neq j$. We begin by defining the tropical hypersurface of a tropical polynial. 
  
 \begin{definition}\cite[p.~3]{zhang2018tropical}
+\label{def:trop_hyper}
 The \textbf{tropical hypersurface} of a tropical polynomial $f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ is 
 $$\Gamma(f) := \{ x \in \mathbb{R}^{d} : c_i x^{\alpha_i} = c_j x^{\alpha_j} = f(x) \ \text{for some} \ \alpha_i \neq \alpha_j \}$$
 i.e., the set of points x at which the value of f at x is attained by two or more monomials in f.
@@ -1223,11 +1234,63 @@ with appropriate multiindices $\alpha_1 , \dots , \alpha_r, \beta_1 , \dots , \b
 the monomials, we have that $x_0 \in \mathcal{B} $ only if there exist $i, j$ so that $\alpha_i \neq \beta_j$ and $b_i x_0^{\alpha_i}$. This completes the proof since if we combine the monomials of $f{x}$ and $g(x) + c$ by (tropical) summing them into a single tropical polynomial, $\max \{f(x), g(x) + c\}$, the above implies that on the level set, the value of the combined tropical polynomial is attained by at least two monomials and therefore $x_0 \in \mathcal{\max\{f(x), g(x) + c\}}$.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\cite[p.~8]{zhang2018tropical}
+\label{theo:lin_reg}
 Let $\nu : \mathbb{R}^{d} \to \mathbb{R}$ be an $L$-layer real-valued feedforeard neural network satisfying (a)-(c). Let $t^{(L)}=-\infty$ and $n_{l} \geq d$ for all $l=1, \dots , L-1$. Then $\nu = \nu^{(L)}$ has at most
 $$\displaystyle\prod^{L-1}_{l=1}\displaystyle\sum^{d}_{i=0}\binom{n_l}{i}$$
 linear regions. In particular, if $d \leq n_1, \dots , n_{L-1} \leq n$, the number of linear regions of $\nu$ is bounded by $\mathcal{O}(n^{d(L-1)})$.
 \end{theorem}
+
+The rest of section \ref{sec:tropical_geometry_of_neural_networks} will be devoted the proof of theorem \ref{theo:lin_reg}.
+
+\begin{definition}\cite[p.~15]{zhang2018tropical}
+Given a tropical rational map $F \in \Rat(d, m)$, we define $\mathcal{T}(F)$ to be the boundaries between adjacent linear regions. When $F=(f_1, \dots , f_m) \in \Pol(d, m)$, i.e., a tropical polynomial map, this set is exactly the union of tropical hypersurfaces $\mathcal{T}(f_i), i=1, \dots , m$. Therefore this definition of $\mathcal{T}(F)$ extends Definition \ref{def:trop_hyper}.
+\end{definition}
+
+When restricting a function $f: X \to Y$ on the domain $C \subset X$ we will write $\restr{f}{C}$ for the restriction $\restr{f}{C} : C \to Y$.
+
+\begin{definition}
+The convex degree of a tropical rational map $F \in \Rat(d,n)$ is the minimum division of $\mathbb{R}^{d}$ into convex
+regions over which $F$ is linear, i.e.
+$$\mathcal{N}_{C}(F) := \min\{n:C_1 \cup \dots \cup C_n = \mathbb{R}^{d} \ \text{where} \ C_i \}$$
+\end{definition}
+
+\begin{definition}
+For $m \leq d$, we will denote by $\mathcal{N}_{C}(F \ | \ m)$ the maximum convex degree obtained by restricting $F$ to an $m$-dimensional affine subspace in $\mathbb{R}^{d}$, i.e.,
+$$\mathcal{N}_C(F \ | \ m) := \max \{ \mathcal{N}_C(\restr{F}{\Omega}): \Omega \subseteq \mathbb{R}^{d} \ \text{is an} \ m \text{-dimensional affine space} \}.$$
+\end{definition}
+
+...
+
+\begin{definition}
+$\alpha = (\alpha_1, \dots, \alpha) \in \mathbb{Z}^{n}$ is said to be a general exponent of $F \in \Rat(d, n)$ if the linear regions of $F^{\alpha}$ and the linear regions of $F$ are identical.
+\end{definition}
+
+\begin{lemma}
+Let $F \in \Rat(d, n)$. Then
+\begin{itemize}
+\item[(i)]
+$\mathcal{N}(F^{\alpha}) = \mathcal{N}(F)$ if and only if $\alpha$ is a general exponent;
+\item[(ii)]
+$F$ has a general exponent $\alpha \in \mathbb{N}^{n}$.
+\end{itemize}
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+\begin{theorem}
+Let $F=(f_1, \dots , f_m) \in \Rat(n,m)$ and $G \in \Rat(d, n)$. Define $H = (h_1, \dots , h_m) \in \Rat(d, m)$ by
+$$h_i := f_i \circ G, \ \ i=1, \dots , m.$$
+Then
+$$\mathcal{N}(H) \leq \mathcal{N}_{C}(H) \leq \mathcal{N}_C(F \ | \ d) \cdot \mathcal{N}_C(G).$$
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+\begin{lemma}
+Let
+\end{lemma}
 
 \newpage
 
