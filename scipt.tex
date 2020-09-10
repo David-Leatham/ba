@@ -64,6 +64,7 @@
 \DeclareMathOperator{\grad}{grad}
 \DeclareMathOperator{\Rat}{Rat}
 \DeclareMathOperator{\Pol}{Pol}
+%\DeclareMathOperator{\Im}{Im}
 
 % create a command to easyly add figure titles
 \newcommand*{\figuretitle}[1]{%
@@ -971,7 +972,7 @@ In this chapter we will start viewing tropical polynomials as geometric figures 
 \begin{definition}\cite[p.~3]{zhang2018tropical}
 \label{def:trop_hyper}
 The \textbf{tropical hypersurface} of a tropical polynomial $f(x) = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ is 
-$$\Gamma(f) := \{ x \in \mathbb{R}^{d} : c_i x^{\alpha_i} = c_j x^{\alpha_j} = f(x) \ \text{for some} \ \alpha_i \neq \alpha_j \}$$
+$$\mathcal{T}(f) := \{ x \in \mathbb{R}^{d} : c_i x^{\alpha_i} = c_j x^{\alpha_j} = f(x) \ \text{for some} \ \alpha_i \neq \alpha_j \}$$
 i.e., the set of points x at which the value of f at x is attained by two or more monomials in f.
 \end{definition}
 
@@ -980,7 +981,7 @@ As an example suppose we consider the general quadratic polynomial
 $$p(x, y) = a \odot x^{2} \oplus b \odot xy \oplus c \odot y^{2} \oplus d \odot y \oplus e \oplus f \odot x.$$
 Suppose that the coefficients $a,b,c,d,e,f \in \mathbb{R}$ satisfy the inequalities
 $$2b < a+c, 2d < a + f, 2e < c + f.$$
-Then the graph of $p:\mathbb{R}^{2} \to \mathbb{R}$ is the lower envelope of six planes in $\mathbb{R}^{3}$. This is shown in Figure \ref{fig:quad_trop_var}, where each linear piece of the graph is labelled by the corresponding linear function. Below this "tent" lies the tropical quadratic curve $\Gamma(p) \subset \mathbb{R}^{2}$. This curve has four vertices, three bounded edges and six half-rays (two northern, two eastern and two southwestern).
+Then the graph of $p:\mathbb{R}^{2} \to \mathbb{R}$ is the lower envelope of six planes in $\mathbb{R}^{3}$. This is shown in Figure \ref{fig:quad_trop_var}, where each linear piece of the graph is labelled by the corresponding linear function. Below this "tent" lies the tropical quadratic hypersurface $\mathcal{T}(p) \subset \mathbb{R}^{2}$. This has four vertices, three bounded edges and six half-rays (two northern, two eastern and two southwestern).
 \end{example}
 
 \begin{figure}[H]
@@ -1022,10 +1023,12 @@ holds.
 
 \begin{definition}\cite{maclagan2015introduction}
 A \textbf{polyhedral complex} is a collection of polyhedra satisfying two conditions:
-\begin{enumerate}[i]
-\item if a polyhedron $P$ is in the collection, then so is any face of $P$
-\item if $P$ and $Q$ lie in the collection then $P \cap Q$ is a face of both $P$ and $Q$.
-\end{enumerate}
+\begin{itemize}
+\item[(i)]
+if a polyhedron $P$ is in the collection, then so is any face of $P$
+\item[(ii)]
+if $P$ and $Q$ lie in the collection then $P \cap Q$ is a face of both $P$ and $Q$.
+\end{itemize}
 \end{definition}
 \begin{definition}
 Let $\Sigma$ be a polyhedral complex and $d \in \mathbb{N}$, then the \textbf{d-skeleton} of $\Sigma$ is the the conjunction of all faces of $\Sigma$ of dimension $\leq d$.
@@ -1035,7 +1038,7 @@ The support $\text{supp}(\Sigma)$ of a polyhedral complex $\Sigma$ is the set $\
 \end{definition}
 
 
-The linearity of a tropical polynomial per definition will be broken in its hypersurface and linear everywhere else. Therefore the tropical hypersurface $\Gamma(f)$ of a tropical polynomial $f$ divides the domain of f into convex cells on each of witch f is linear. Tropical hypersurfaces of polynomials in two variables are called \textbf{tropical curves}.\cite[p.~3]{zhang2018tropical}
+The linearity of a tropical polynomial per definition will be broken in its hypersurface and linear everywhere else. Therefore the tropical hypersurface $\mathcal{T}(f)$ of a tropical polynomial $f$ divides the domain of f into convex cells on each of witch f is linear. Tropical hypersurfaces of polynomials in two variables are called \textbf{tropical curves}.\cite[p.~3]{zhang2018tropical}
 
 \begin{definition}
 Let $A \subset \mathbb{R}^{n}$ be a real subset with $n \in \mathbb{N}$. Then the set $\Conv(A) = \{\lambda x + (1- \lambda)y \ | \ x, y \in A \ \text{and} \ \lambda \in [0,1] \subset \mathbb{R}\}$ is called the \textbf{convex hull} of $A$.
@@ -1252,18 +1255,29 @@ When restricting a function $f: X \to Y$ on the domain $C \subset X$ we will wri
 \begin{definition}
 The convex degree of a tropical rational map $F \in \Rat(d,n)$ is the minimum division of $\mathbb{R}^{d}$ into convex
 regions over which $F$ is linear, i.e.
-$$\mathcal{N}_{C}(F) := \min\{n:C_1 \cup \dots \cup C_n = \mathbb{R}^{d} \ \text{where} \ C_i \}$$
+$$\mathcal{N}_{C}(F) := \min\{n:C_1 \cup \dots \cup C_n = \mathbb{R}^{d} \ \text{where} \ C_i \ \text{convex and} \ \restr{F}{C_i} \ \text{linear}\}.$$
 \end{definition}
 
 \begin{definition}
-For $m \leq d$, we will denote by $\mathcal{N}_{C}(F \ | \ m)$ the maximum convex degree obtained by restricting $F$ to an $m$-dimensional affine subspace in $\mathbb{R}^{d}$, i.e.,
+\label{def:conv_deg_restr}
+For $m \leq d$ and $F \in \Rat(d,n)$, we will denote by $\mathcal{N}_{C}(F \ | \ m)$ the maximum convex degree obtained by restricting $F$ to an $m$-dimensional affine subspace in $\mathbb{R}^{d}$, i.e.,
 $$\mathcal{N}_C(F \ | \ m) := \max \{ \mathcal{N}_C(\restr{F}{\Omega}): \Omega \subseteq \mathbb{R}^{d} \ \text{is an} \ m \text{-dimensional affine space} \}.$$
 \end{definition}
 
-...
+We will use the convention, that if $m > d$ and $F$ as in definition \ref{def:conv_deg_restr} then $\mathcal{N}_C(F \ | \ m) = \mathcal{N}_C(F)$.
 
 \begin{definition}
-$\alpha = (\alpha_1, \dots, \alpha) \in \mathbb{Z}^{n}$ is said to be a general exponent of $F \in \Rat(d, n)$ if the linear regions of $F^{\alpha}$ and the linear regions of $F$ are identical.
+Consider a tropical rational map $F=(f_1, \dots , f_n) \in \Rat(d, n)$ and $\alpha = (a_1, \dots , a_n) \in \mathbb{Z}^{d}$. Then we define following notation:
+$$F^{\alpha} := \alpha^{T} F = a_1 f_1 , \dots , a_n f_n = \displaystyle\bigodot_{i=1}^{n} a_i f_i \in \Rat(d, 1).$$
+\end{definition}
+
+\begin{definition}
+Let $f: X \to Y$ be a function. Then the \textbf{Image} of $f$ is the subset $\text{Im}(f) = \{f(x) : x \in X\} \subset Y$.
+\end{definition}
+
+\begin{definition}
+\label{def:gen_exp}
+$\alpha = (a_1, \dots, a_n) \in \mathbb{Z}^{n}$ is said to be a general exponent of $F \in \Rat(d, n)$ if the linear regions of $F^{\alpha}$ and the linear regions of $F$ are identical.
 \end{definition}
 
 \begin{lemma}
@@ -1276,7 +1290,7 @@ $F$ has a general exponent $\alpha \in \mathbb{N}^{n}$.
 \end{itemize}
 \end{lemma}
 \begin{proof}
-
+First we proof (i). From definition \ref{def:gen_exp} follows that $\alpha$ is in general position if the linear regions of $F$ and $F^{\alpha}$ are identical. If the linear regions are identical, the points $x \in \mathbb{R}^{d}$ at which linear regions meat and the functions are not differentiable are identical and therefore $\mathcal{T}(F^{\alpha})=\mathcal{T}(F) \subset \mathbb{R}^{d}$ are identical and in conclusion the number of linear regions $\mathcal{N}(F^{\alpha}) = \mathcal{N}(F)$ must also be identical.
 \end{proof}
 
 \begin{theorem}
@@ -1286,11 +1300,30 @@ Then
 $$\mathcal{N}(H) \leq \mathcal{N}_{C}(H) \leq \mathcal{N}_C(F \ | \ d) \cdot \mathcal{N}_C(G).$$
 \end{theorem}
 \begin{proof}
-
+The first inequality holds because the regions we are counting in $\mathcal{N}_{C}(H)$ have one more restraint than the regions that are counted in $\mathcal{N}(H)$, that they have to be convex, and there fore $\mathcal{N}(H) \leq \mathcal{N}_{C}(H)$. For the second inequality we know by the definition of $\mathcal{N}_C(G)$ that there exist convex sets $C_1, \dots , C_{\mathcal{N}_C(G)}$ whose union is $\mathbb{R}^{d}$ and on each of which $G$ is linear. So $\restr{G}{C_i}$ is some affine function $\rho_i$. Now we want to show for $i = 1, \dots, \mathcal{N}_C(G)$ that $\mathcal{N}_C(F \circ \rho_i) \leq \mathcal{N}_C(F \ | \ d)$ and first remind of the definitions:
+\begin{align*}
+\mathcal{N}_{c}&(F \circ \rho_i) = \min\{n : C_1 \cup \dots \cup C_n = \mathbb{R}^{d} \ \text{where} \ C_i \ \text{convex and} \ \restr{F \circ \rho_i}{C_i} \ \text{linear}\} \\
+&\leq \mathcal{N}_C(F \ | \ d) = \max\{\mathcal{N}_C(\restr{F}{\Omega}) : \Omega \subset \mathbb{R}^{n} \ \text{is an} \ d \ \text{dimensional affine space} \}.
+\end{align*}
+The set $\text{Im}(\rho_i) \subset \mathbb{R}^{n}$ is a linear subspace, which also is an affine space. If $d < n$ then the Image of $\rho$, $\text{Im}(\rho_i) \subset \mathbb{R}^{n}$ is a $d$-, or lower, dimensional affine space and therefore 
+$$\mathcal{N}_C(F \circ \rho_i) \leq \mathcal{N}_C(F \ | \ d).$$ 
+On the other hand if $d \geq n$, then 
+$$\mathcal{N}_C(F \ | \ d) = \mathcal{N}_C(F \ | \ n) = \mathcal{N}_C(F)$$ 
+and $\text{Im}(\rho_i)$ is a linear subspace, combined with the convexity of the $C_i$
+$$\mathcal{N}_C(F \circ \rho_i) \leq \mathcal{N}_C(F \ | \ d).$$
+holds. Since $F \circ G = F \circ \rho_i$ on $C_i$, we have
+$$\mathcal{N}_C(F \circ G) \leq \displaystyle\sum_{i=1}^{k} \mathcal{N}_C(F \circ \rho_i).$$
+Hence
+$$\mathcal{N}_C(F \circ G) \leq \displaystyle\sum_{i=1}^{k} \mathcal{N}_C(F \circ \rho_i) \leq \displaystyle\sum_{i=1}^{k} \mathcal{N}_C(F \ | \ d) = \mathcal{N}_C(F \ | \ d) \cdot \mathcal{N}_C(G).$$
 \end{proof}
 \begin{lemma}
-Let
+Let $\sigma^{(l)} \circ \rho^{(l)}: \mathbb{R}^{n_{l-1}} \to \mathbb{R}^{n_l}$ where $\sigma^{(l)}$ and $\rho^{(l)}$ are affine transformations and activation of the $l$-th layer of a neural network. If $d \leq n_l$, then
+$$\mathcal{N}_C(\sigma^{(l)} \circ \rho^{(l)} \ | \ d) \leq \displaystyle\sum_{i=0}^{d}\binom{n_l}{i}.$$
 \end{lemma}
+
+\begin{theorem}
+Let $\nu : \mathbb{R}^{d} \to \mathbb{R}^{n_L}$ be an $L$-layer neural network satis
+\end{theorem}
 
 \newpage
 
