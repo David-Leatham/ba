@@ -774,8 +774,7 @@ We introduce the first main theorem of the thesis.
 \begin{theorem}\cite{zhang2018tropical}
 \label{teo:trop_char_of_neur_net}
 (Tropical characterization of neural networks). \\
-A feedforward neural network that fulfils the assumptions (a)–(c)
-is a function $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ whose coordinates are tropical rational functions of the input, i.e.,
+A feedforward neural network that fulfils the assumptions (a)–(c) is a function $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ whose coordinates are tropical rational functions of the input, i.e.,
 $$ \nu(x) = F(x) \oslash G(x) = F(x) - G(x) $$
 where $F$ and $G$ are tropical polynomial maps. Thus $\nu$ is a tropical rational map.
 \end{theorem}
@@ -1290,7 +1289,43 @@ $F$ has a general exponent $\alpha \in \mathbb{N}^{n}$.
 \end{itemize}
 \end{lemma}
 \begin{proof}
-First we proof (i). From definition \ref{def:gen_exp} follows that $\alpha$ is in general position if the linear regions of $F$ and $F^{\alpha}$ are identical. If the linear regions are identical, the points $x \in \mathbb{R}^{d}$ at which linear regions meat and the functions are not differentiable are identical and therefore $\mathcal{T}(F^{\alpha})=\mathcal{T}(F) \subset \mathbb{R}^{d}$ are identical and in conclusion the number of linear regions $\mathcal{N}(F^{\alpha}) = \mathcal{N}(F)$ must also be identical.
+First we proof (i). From definition \ref{def:gen_exp} follows that $\alpha$ is in general position if the linear regions of $F$ and $F^{\alpha}$ are identical. If the linear regions are identical, the points $x \in \mathbb{R}^{d}$ at which linear regions meat and therefore where $F$, $F^{\alpha}$ are not differentiable are identical. It directly follows that $\mathcal{T}(F^{\alpha})=\mathcal{T}(F) \subset \mathbb{R}^{d}$ are identical and in conclusion the number of linear regions $\mathcal{N}(F^{\alpha}) = \mathcal{N}(F)$ must also be identical. \\
+For (ii) we need analytical basics, that we will not introduce extensively, but rather refer the reader to \cite{tao2016analysis}. We need to show that there always exists an $\alpha \in \mathbb{N}^{\alpha}$ such that $F^{\alpha}$ divides its domain $\mathcal{R}^{d}$ into the same set of linear regions as $F$. In other words, for every pair of adjacent linear regions of $F$, the faces in $\mathcal{T}(F)$ that separates them is also present in $\mathcal{T}(F^{\alpha})$. \\
+Let $L$, $M$ be adjacent linear regions of $F$. Then $\restr{F}{L}$ and $\restr{F}{M}$ are tropical monomials where for instance $\restr{F}{L}$ has the form
+$$\restr{F}{L}(x) = \begin{bmatrix}
+c_1 \odot x^{\alpha_1} \\ \vdots \\ c_n \odot x^{\alpha_n}
+\end{bmatrix} = \begin{bmatrix}
+c_1 + \alpha_{11} x_1 + \dots + \alpha_{1d}x_d \\
+\vdots \\
+c_n + \alpha_{n1} x_1 + \dots + \alpha_{nd}x_d
+\end{bmatrix}
+$$
+and therefore the differential is of the form:
+$$d\restr{F}{L} = \begin{bmatrix}
+\alpha_{11} & \cdots & \alpha_{1d} \\
+\vdots & \ddots & \vdots \\
+\alpha_{n1} & \cdots & \alpha_{nd}
+\end{bmatrix}.$$
+We see that the differentials of $\restr{F}{L}, \restr{F}{M}$ must have integer coefficients $d\restr{F}{L}, d\restr{F}{M} \in \mathbb{Z}^{nd}$ and also be $d\restr{F}{L} \neq d\restr{F}{M}$ unequal, because otherwise $L$ and $M$ can be merged into a single region. With that in mind it is clear, that $Im(d\restr{F}{L} - d\restr{F}{L}) \neq \{0\}$ and the solutions set $\{\alpha \in \mathbb{N}^{n} : (\restr{F}{L} - d\restr{F}{L})^{T}\alpha = 0\}$ is of dimension $\geq 1$. With the observation that $d\restr{F^{\alpha}}{L} = \alpha^{T}d\restr{F}{L}$:
+$$d\restr{F^{\alpha}}{L} = \begin{bmatrix}
+\alpha_1 a_{11} + \dots + \alpha_n a_{n1} \\
+\vdots \\
+\alpha_1 a_{1d} + \dots + \alpha_n a_{nd}
+\end{bmatrix} = \begin{bmatrix}
+\alpha_1 \\
+\vdots \\
+\alpha_n
+\end{bmatrix}^{T}
+\cdot \begin{bmatrix}
+ a_{11} + \dots + a_{n1} \\
+\vdots \\
+a_{1d} + \dots + a_{nd}
+\end{bmatrix}
+= \alpha^{T}d\restr{F}{L},$$
+and the same holds for $d\restr{F^{\alpha}}{M}$. We set $\mathcal{A}(F)$ to be the collection of all pairs of adjacent linear regions of $F$, this set is finite. Since the set of $\alpha$ that degenerates two adjacent linear regions into a single one, i.e.,
+$$\mathcal{S} := \displaystyle\bigcup_{(L,M) \in \mathcal{A}(F)}\{\alpha \in \mathbb{N}^{n} : (d\restr{F}{L} - d\restr{F}{M})^{T}\alpha=0\},$$
+is contained in a union of a finite number of hyperplanes in $\mathbb{R}^{n}$, $\mathcal{S}$ cannot cover the entire lattice of nonnegative integers $\mathbb{N}^{n}$.
+Therefore the set $\mathbb{N}^{n} \cap (\mathbb{R}^{n} \setminus \mathcal{S})$ is nonempty and any of its element is a general exponent for $F$.
 \end{proof}
 
 \begin{theorem}
@@ -1322,8 +1357,14 @@ $$\mathcal{N}_C(\sigma^{(l)} \circ \rho^{(l)} \ | \ d) \leq \displaystyle\sum_{i
 \end{lemma}
 
 \begin{theorem}
-Let $\nu : \mathbb{R}^{d} \to \mathbb{R}^{n_L}$ be an $L$-layer neural network satis
+Let $\nu : \mathbb{R}^{d} \to \mathbb{R}^{n_L}$ be an $L$-layer neural network satisfying assumptions (a)-(c) with $F^{(l)}$, $G^{(l)}, H^{(l)}$, and $\nu^{(l)}$ as defined in the proof of theorem \ref{teo:trop_char_of_neur_net}. Let $n_l \geq d$ for all $l= 1, \dots , L$. Then
+$$\mathcal{N}_C(\nu^{(1)}) = \mathcal{N}_C(G^{(1)}) = \mathcal{N}_C(H^{(1)}) = 1$$
+and
+$$\mathcal{N}_C(\nu^{(1+1)}) \leq \mathcal{N}_C(\nu^{(1)}) \cdot \displaystyle\sum_{i=0}^{d}\binom{n_{l+1}}{i}.$$
 \end{theorem}
+\begin{proof}
+
+\end{proof}
 
 \newpage
 
