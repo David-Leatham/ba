@@ -88,9 +88,72 @@
 % Start the document
 \begin{document}
 
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\LARGE Goethe Universität}\\[1.5cm] % Name of your university/college
+%\vspace{20mm}
+\textsc{\Large Fachbereich 12}\\[0.5cm] % Major heading such as course name
+%\textsc{\large Assignment 1}\\[0.5cm] % Minor heading such as course title
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Tropical Geometry of Deep Neural Networks}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+David \textsc{Leatham} \textit{(6087632)} \\
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Lecturer:} \\
+Prof. Dr. Martin \textsc{Ulirsch} \\
+\end{flushright}
+\end{minipage}\\[2cm]
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+%\Large \emph{Author:}\\
+%John \textsc{Smith}\\[3cm] % Your name
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+\vspace{15mm}
+{\large \emph{Submission Date}: \ \ Semptember 21, 2020}\\[2cm] % Date, change the \today to a set date if you want to be precise
+
+%----------------------------------------------------------------------------------------
+%	LOGO SECTION
+%----------------------------------------------------------------------------------------
+
+\includegraphics[width=200px, keepaspectratio]{graphics/logo_rug.jpg}\\[1cm] % Include a department/university logo - this will require the graphicx package
+ 
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
 
 %\maketitle
-\input{titlepage}
+%\input{titlepage}
 
 \newpage
   
@@ -104,24 +167,24 @@
 \leavevmode
 \\
 Tropical geometry is a modern branch of mathematics subject to a rise in research throughout the past 30 years. Neural networks have found application in many disciplines and have been used to algorithmically manage complex tasks like self driving cars, face and text recognition or automatically processing hand written checks at banks. Neural networks impact our lives on a daily basis. \\
-In this thesis we describe a new representation of neural networks through tropical geometry, following the recent article "Tropical Geometry of Deep Neural Networks" by Liwen Zhang, Gregory Naitzat and Lek-Heng Lim \cite{maclagan2015introduction}. \\
+In this thesis we describe a new representation of neural networks through tropical geometry, following the recent article "Tropical Geometry of Deep Neural Networks" by Liwen Zhang, Gregory Naitzat and Lek-Heng Lim \cite{zhang2018tropical}. \\
 
 The subject of neural networks was introduced by Warren McCulloch and Walter Pitts in 1943 when they created a computational model for neural networks \cite{mcculloch1943logical}. In the following years one of the next big steps towards today's state of the art neural networks, was the research of the underlying concepts of backpropagation in 1960 by Kelley \cite{kelley1960gradient} and in 1961 by Bryson \cite{bryson1961gradient}. Backpropagation is an algorithm describing a key concept of training neural networks. Starting around $2010$ to this day, neural networks are experiencing a boost in popularity. This is due to hardware improvements especially in GPU's making backpropagation feasible \cite{cirecsan2010deep}, the growing amount of data and the improvement of knowledge on deep neural networks fuelled by articles and works, for example that of Andrew Yan-Tak Ng and Jeff Dean in 2012. They created a network that learned to recognize higher-level concepts, such as cats, only from watching unlabeled images \cite{DBLP:journals/corr/abs-1112-6209}. Nowadays neural networks help solve challenging problems in computer science and software engineering and, in particular, they are key to application areas such as system identification and control, pattern and sequence recognition, social network filtering and e-mail spam filtering. \\
 
 Tropical geometry on the other hand is a field of interest in mathematics, whose underlying analytical ideas have been around some years before $1990$, for example by Victor Pavlovich Maslov \cite{maslov1985new}. But only since then have there been basic efforts to consolidate the basic definitions as research increased and thus, from $2000$ onwards, gained the attention it receives nowadays, carried by successful applications in enumerative tropical algebraic geometry for instance by Grigory Mikhalkin in 2005 \cite{mikhalkin2005enumerative}. 
 Tropical geometry is the study of polynomials under tropical multiplication and addition, where tropical multiplication is usual addition and tropical addition of two elements returns the minimal element. It is used in mathematics itself \cite{krivulin2014tropical}, finance \cite{klemperer2009new} and computer since. For the last topic this thesis is an example, as we describe a fundamental mathematical connection between tropical geometry and deep neural networks. \\
 
-Concerning the structure of the thesis, we start by introducing the reader to the necessary theories of tropical geometry in chapter \ref{sec:trop_algebra} and the theory of neural networks in chapter \ref{sec:neural_networks}, but also extend the exploration of the topics beyond the scope needed for the fundamental Theorems in this thesis, giving a more rounded introduction to these topics themselves when appropriate. Chapter \ref{sec:trop_netw} applies the knowledge of the first two chapters to demonstrate a fundamental link between neural networks and the difference between two tropical polynomials, called tropical rational functions, which is the core insight of the thesis.
-Then, to put this knowledge to use, we formulate statements about decision boundaries of neural networks in chapter \ref{sec:tropical_geometry_of_neural_networks} with tropical geometry, or more concrete, the link between neural networks and tropical rational functions. This needs fundamental 	knowledge of tropical hypersurfaces introduced in chapter \ref{sec:tropical_hypersurfaces}. \\
+Concerning the structure of the thesis, we start by introducing the reader to the necessary theories of tropical geometry in section \ref{sec:trop_algebra} and the theory of neural networks in section \ref{sec:neural_networks}, but also extend the exploration of the topics beyond the scope needed for the fundamental Theorems in this thesis, giving a more rounded introduction to these topics themselves when appropriate. Section \ref{sec:trop_netw} applies the knowledge of the first two Sections to demonstrate a fundamental link between neural networks and the difference between two tropical polynomials, called tropical rational functions, which is the core insight of the thesis.
+Then, to put this knowledge to use, we formulate statements about decision boundaries of neural networks in section \ref{sec:tropical_geometry_of_neural_networks} with tropical geometry, or more concrete, the link between neural networks and tropical rational functions. This needs fundamental 	knowledge of tropical hypersurfaces introduced in section \ref{sec:tropical_hypersurfaces}. \\
 
-This thesis follows the underlying paper "Tropical Geometry of Deep Neural Networks" by Liwen Zhang, Gregory Naitzat and Lek-Heng Lim very closely, in that all main statements may be reordered and rewritten, but come directly out of \cite{maclagan2015introduction} and are cited accordingly.
+This thesis follows the underlying paper "Tropical Geometry of Deep Neural Networks" by Liwen Zhang, Gregory Naitzat and Le	k-Heng Lim very closely, in that all main statements may be reordered and rewritten, but come directly out of \cite{zhang2018tropical} and are cited accordingly.
 
 \newpage
 
 \section{Tropical Algebra}
 \label{sec:trop_algebra}
 
-The remaining chapters will build upon chapter \ref{sec:trop_algebra} without exception, therefore we begin by introducing tropical algebra. The main goal is to establish an intuition and formal understanding of subsets of functions we call tropical and tropical rational functions, if the image is one dimensional, or tropical and tropical rational maps if not.
+The remaining sections will build upon section \ref{sec:trop_algebra} without exception, therefore we begin by introducing tropical algebra. The main goal is to establish an intuition and formal understanding of subsets of functions we call tropical and tropical rational functions, if the image is one dimensional, or tropical and tropical rational maps if not.
 
 Our basic object of study is the semifield $( \mathbb{R} \cup \{- \infty \} , \oplus , \odot )$. As a set this corresponds to the real numbers $ \mathbb{R} $, together with an extra element $- \infty $ which represents minus infinity. In this semifield both operations are defined on two elements $x, y \in \mathbb{R} \cup \{- \infty \}$. The first operation is called the \textbf{tropical sum} and returns the maximum of two elements, while the second operation is called \textbf{tropical product} and returns the usual sum:
 $$ x \oplus y := \max(x,\ y) \quad \text{and} \quad x \odot y := x+y.$$
@@ -150,24 +213,24 @@ The object $( \mathbb{R} \cup \{- \infty \} , \oplus , \odot )$ is a semiring.
 \end{proposition}
 \begin{proof}
 ~\
-The neutral element for the tropical sum is $- \infty$ since for $x \in \mathbb{R} \cup \{- \infty \}, x \oplus \infty = \max(x,\ - \infty) = x$ holds and with $x \odot 0 = x + 0 = x$ for $x \in \mathbb{R}$, $0$ is the neutral element of tropical multiplication. Both tropical addition and multiplication are commutative. This is obvious for $x,y \in \mathbb{R}$, so take $y \in \mathbb{R} \cup \{- \infty \}$ and with the following all cases are shown:
+The neutral element for the tropical sum is $- \infty$ since for $x \in \mathbb{R} \cup \{- \infty \}, x \oplus -\infty = \max(x,\ - \infty) = x$ holds and with $x \odot 0 = x + 0 = x$ for $x \in \mathbb{R}$, $0$ is the neutral element of tropical multiplication. Both tropical addition and multiplication are commutative. This is obvious for $x,y \in \mathbb{R}$, so take $y \in \mathbb{R} \cup \{- \infty \}$ and with the following all cases are shown:
 \begin{align*}
-- \infty \oplus y &= \max (- \infty ,\ y) =   y = \max ( y,\ - \infty ) = y \oplus \infty \\
-\infty \odot y &= \infty +y = \infty = y+ \infty = y \odot \infty.
+- \infty \oplus y &= \max (- \infty ,\ y) =   y = \max ( y,\ - \infty ) = y \oplus -\infty \\
+-\infty \odot y &= -\infty +y = \infty = y+ -\infty = y \odot -\infty.
 \end{align*}
 Tropical multiplication distributes over addition since if we take $x, y, z \in \mathbb{R}$ then
 \begin{align*}
 x \odot (y \oplus z) = x + \max (y,\ z) &=   \max (x + y,\ x + z) = (x \odot y) \oplus (x \odot z) \\
 (y \oplus z) \odot x = \max (y,\ z) + x &=   \max (y + x,\ z + x) = (y \odot x) \oplus (z \odot x)
 \end{align*}
-holds. Multiplication by $- \infty$ annihilates $- \infty \odot x = - \infty \ \forall x \in  \mathbb{R} \cup \{- \infty \}$ and therefore $\mathbb{T}$ is a semiring.
+holds. Multiplication by $- \infty$ annihilates $- \infty \odot x = - \infty \ \forall x \in  \mathbb{R} \cup \{- \infty \}$ and therefore $(\mathbb{R}\cup\{-\infty\},\oplus,\odot)$ is a semiring.
 \end{proof}
 
 \begin{definition}\hspace{1sp}\cite{olia2020analysis}
 A commutative semiring in which every nonzero element is multiplicatively invertible is called a \textbf{semifield}.
 \end{definition}
 
-Tropical multiplication corresponds to usual addition which is commutative and invertible for all $x \in \mathbb{R}$. As shown in \ref{prop:trop_semiring} the elements $-\infty$ represents zero. This shows the following proposition.
+Tropical multiplication corresponds to usual addition which is commutative and invertible for all $x \in \mathbb{R}$. The inverse operation to addition is subtraction denoted as, $\oslash$, \textbf{tropical division}. As shown in \ref{prop:trop_semiring} the elements $-\infty$ represents zero. This shows the following proposition.
 \begin{proposition}
 The object $( \mathbb{R} \cup \{- \infty \} , \oplus , \odot )$ is a semifield.
 \end{proposition}
@@ -179,30 +242,30 @@ We call the semifield $\mathbb{T} := ( \mathbb{R} \cup \{- \infty \} , \oplus , 
 In tropical geometry often infinity instead of minus infinity and $\min$ instead of $\max$ are used. This does not change any of the underlying theories of tropical algebra as the two semirings are tropically isomorph. This means
 \begin{align*}
 ( \mathbb{R} \cup \{- \infty \} , \oplus := \max, \odot ) &\to ( \mathbb{R} \cup \{ \infty \} , \oplus := \min , \odot ), \\
-x &\mapsto \begin{cases} -x & x \in \mathbb{R}\\
-\infty & x = - \infty
+x &\mapsto \begin{cases} -x & \text{for} \ x \in \mathbb{R}\\
+\infty & \text{for} \ x = - \infty
 \end{cases}
 \end{align*}
 is an Isomorphism of semifields. \\
-An essential feature of tropical arithmetics is that there is no subtraction. Take $a, b \in \mathbb{R} \cup \{- \infty \}$ with $a < b$ then the equation $a \oplus x=b$ has no solution x at all. \cite[p.~11]{maclagan2015introduction} \\
+An essential feature of tropical arithmetics is that there is no subtraction. Take $a, b \in \mathbb{R} \cup \{- \infty \}$ with $a > b$ then the equation $a \oplus x=b$ has no solution $x$ at all. \cite[p.~11]{maclagan2015introduction} \\
 
 To get more familiar with the tropical arithmetic, we will have a look at an example before we introduce tropical polynomials.
 \begin{remark}
-We will examine the tropical Pascal’s triangle, whose rows are the coefficients appearing in a binomial expansion \cite{maclagan2015introduction}. This means that the $n$-th layer of the triangle consists of $n+1$ entries corresponding to $p_{0}, \dots , p_{n}$ in:
+We will examine the tropical Pascal’s triangle, whose rows are the coefficients appearing in a binomial expansion \cite{maclagan2015introduction}, which means that the $n$-th layer of the triangle consists of $n+1$ entries corresponding to $p_{0}, \dots , p_{n}$ in:
 $$(a \oplus b)^{n} = (p_{0} \odot a^{n}) \oplus (p_{1} \odot a^{n-1} \odot b) \oplus \dots \oplus (p_{n-1} \odot a \odot b^{n-1}) \oplus (p_{n} \odot b^{n}).$$
-for $a, b \in \mathbb{T}$. Let us calculate the entries for the fourth row and set $a, b \in \mathbb{T}$.
+for $a, b \in \mathbb{T}$. Let us calculate the entries for the fourth row and set $a, b \in \mathbb{T}$:
 \begin{align*}
 (a \oplus b)^{3} &= 3 \max (a , b) \\
 &= \max (3a, 3b) = (a^{3} + b^{3}) \\
 &= \max (0 \odot a^{3} , 0 \odot a^{2} \odot b , 0 \odot a \odot b^{2} , 0 \odot b^{3}) \\
 &= (0 \odot a^{3}) \oplus (0 \odot a^{2}) \odot (b \oplus 0 \odot a) \odot (b^{2} \oplus 0 \odot b^{3}).
 \end{align*}
-You may say the Pascal's coefficients are four zeros. And actually the same applies to all cases.
+You may say the Pascal's coefficients are four zeros. And actually the same applies to all cases:
 \begin{align*}
 (a \oplus b)^{n} &= a^{n} \oplus b^{n} \\
 &= (0 \odot a^{n}) \oplus (0 \odot a^{n-1} \odot b) \oplus \dots \oplus (0 \odot a \odot b^{n-1}) \oplus (0 \odot b^{n}).
 \end{align*}
-And therefore the tropical Pascal’s triangle, whose rows are the coefficients appearing in a binomial expansion take a simple shape. All its coefficients are zero. \\ \\
+Therefore the tropical Pascal’s triangle, whose rows are the coefficients appearing in a binomial expansion take a simple shape. All its coefficients are zero. \\ \\
 
 \begin{tabular}{>{$n=}l<{$\hspace{12pt}}*{13}{c}}
 0 &&&&&&&$0$&&&&&&\\
@@ -238,19 +301,16 @@ c_{i} x^{\alpha_{i}} \ \text{for} \ c_{j} < c_{i}.
 \end{cases}
 \end{align*}
 
-
-
-
 \begin{remark}
-Now we examine tropical polynomials in one variable. Monomials in one variable are of the form $ c \odot x^{a}: \mathbb{T} \to \mathbb{T}$ where $c \in \mathbb{T}$ and $ a \in \mathbb{N} $, which means a tropical polynomial in one variable is of the form $f(x)=c_1x^{\alpha_1} \oplus \dots \oplus c_rx^{\alpha_r} \ \text{which} \ c_i \in \mathbb{T}, a_i \in \mathbb{N} \ for \ i=1, \dots , r$. \\
-For a quadratic tropical polynomial $f(x) = a \oplus bx \oplus cx^{2} \ \text{which} \ \ a,b,c \in \mathbb{T}$ linearity breaks at two points $b-c$ and $a-b$ if the condition $b-c > a$ holds and otherwise only breaks at one point $\frac{a-c}{2}$. Visualising two quadratic tropical functions gives a good intuition of the piecewise-linearity. The black coloured parts of Figures \ref{fig:trop_quad_1} and \ref{fig:trop_quad_2} indicate the graph of the tropical polynomial.
+Now we examine tropical polynomials in one variable. Monomials in one variable are of the form $ c \odot x^{a}: \mathbb{T} \to \mathbb{T}$ where $c \in \mathbb{T}$ and $ a \in \mathbb{N} $, which means a tropical polynomial in one variable is of the form $f(x)=c_1x^{\alpha_1} \oplus \dots \oplus c_rx^{\alpha_r} \ \text{with} \ c_i \in \mathbb{T}, a_i \in \mathbb{N} \ \text{for} \ i=1, \dots , r$. \\
+For a quadratic tropical polynomial $f(x) = a \oplus bx \oplus cx^{2} \ \text{with} \ \ a,b,c \in \mathbb{T}$ linearity breaks at two points $b-c$ and $a-b$ if the condition $b-c > a$ holds and otherwise only breaks at one point $\frac{a-c}{2}$. Visualising two quadratic tropical functions gives a good intuition of the piecewise-linearity. The black coloured parts of figures \ref{fig:trop_quad_1} and \ref{fig:trop_quad_2} indicate the graph of the tropical polynomial.
 
 \begin{figure}[h]
 
 \captionsetup[subfigure]{justification=centering}
 \begin{subfigure}[t]{0.48\textwidth}
 \includegraphics[scale=0.5]{graphics/first_trop_pol.pdf}
-\subcaption{Take $f(x) = 2 \oplus 5x \oplus 4x^{2}$ a quadratic polynomial. The graph equals $max(2, 5+x, 4+2x)$. Until $5-2$, $2$ dominates, from there $5+x$ dominates to the point $4+2x$.}
+\subcaption{Take $f(x) = 2 \oplus 5x \oplus 4x^{2}$ a quadratic polynomial. The graph equals $\max(2, 5+x, 4+2x)$. Until $5-2$, $2$ dominates, from there $5+x$ dominates to the point $4+2x$.}
 \label{fig:trop_quad_1}
 \end{subfigure}\hfill%
 \begin{subfigure}[t]{0.48\textwidth}
@@ -278,17 +338,17 @@ We can see the degree of a tropical polynomial, defined the same as a degree of 
 
 \begin{definition}
 Let $S$ be a set in a real vector space. Then $S$ is \textbf{convex} if for $s_{1}, s_{2} \in S$: 
-$$\lambda s_{1} + (1-\lambda) S_{2} \in S$$
+$$\lambda s_{1} + (1-\lambda) s_{2} \in S$$
 holds for all $\lambda \in [0,1] \subset \mathbb{R}$.
 \end{definition}
 
 \begin{definition}
-Let $X$ be a convex set in a real vector space and let $f:X \to \mathbb{R}$ be a function, then $f$ is called \textbf{convex} if for $x_{1}, x_{2} \in X$ and $\lambda \in [0,1] \subset \mathbb{R}, f(\lambda x_{1} + (1-\lambda)x_{2}) \leq tf(x_{1}) + (1-t)f(x_{2})$ holds.
+Let $X$ be a convex set in a real vector space and let $f:X \to \mathbb{R}$ be a function, then $f$ is called \textbf{convex} if for $x_{1}, x_{2} \in X$ and $\lambda \in [0,1] \subset \mathbb{R}, f(\lambda x_{1} + (1-\lambda)x_{2}) \leq \lambda f(x_{1}) + (1-\lambda)f(x_{2})$ holds.
 \end{definition}
 
 
 \begin{definition}
-A function $f : \mathbb{R}^{m} \to \mathbb{R}^{n}$ with $n, m \in \mathbb{N}$ is \textbf{piecewise linear} if there exist closed sets $(P_{i})_{i \in \mathbb{N}} \subset \mathbb{R}^{m}$ with $f : P_{i} \to K^{n}$ linear and $\cup_{i}P_{i} = K^{m}$.
+A function $f : \mathbb{R}^{m} \to \mathbb{R}^{n}$ with $n, m \in \mathbb{N}$ is \textbf{piecewise linear} if there exist closed sets $(P_{i})_{i \in \mathbb{N}} \subset \mathbb{R}^{m}$ with $f : P_{i} \to \mathbb{R}^{n}$ linear and $\cup_{i}P_{i} = \mathbb{R}^{m}$.
 \end{definition}
 
 In multiple variables we can characterise tropical polynomials as functions from $\mathbb{R}^{n} \to \mathbb{R}$ that satisfy the following three properties.
@@ -310,7 +370,7 @@ $f$ is convex, i.e. $p(\frac{x + y}{2}) \leq \frac{1}{2}(p(x)+p(y)) \forall x,y 
 The minimum of continuous functions is still continuous which proves (1). Every monomial $c_ix^{\alpha_i} = c_i + x_{1}\alpha_{i1} + \dots + x_n \alpha_{in}$ is per definition linear. Because of (1), linearity can only be broken where $c_i x^{\alpha_i} = c_j x^{\alpha_j}$ for $i \leq j$ and $i,j = 1, \dots ,r$. A piece is a single maximal region of $c_ix^{\alpha_i}$ on which linearity is not broken. If we introduce $c_ix^{\alpha_i}$ one after another, then in the $i$-th step not more than $i^2$ new pieces can be created, so there can only be $ \sum_{i=1}^{r} i^2$ or less pieces which proves (2). 
 For (3) let $x, y \in \mathbb{R}^{n}$, then:
 \begin{align*}
-f&(\lambda x + (1-\lambda)y) \\
+&f(\lambda x + (1-\lambda)y) \\
 &= \bigoplus^{r}_{i=1} c_{i}(\lambda x + (1-\lambda) y)^{\alpha_{i}} \\
 &= \text{max}^{r}_{i=1} \{ c_{i} + \sum_{j=1}^{n} \alpha_{ij}(\lambda x_{j} + (1-\lambda) y_{j}) \} \\
 &= \text{max}^{r}_{i=1} \{ \lambda (c_{i} + \sum_{j=1}^{n}\alpha_{ij}x_{j}) + (1-\lambda) (c_{i} + \sum_{j=1}^{n}\alpha_{ij} \ y_{j})\} \\
@@ -321,17 +381,17 @@ f&(\lambda x + (1-\lambda)y) \\
 which ends the prove.
 \end{proof}
 
-The same could be argued for the tropical function $f$ when $c_{i} \in \mathbb{T}$ and $f:\mathbb{T}^{n} \to \mathbb{T}$, but the underlying theories, for example for linearity, change for semifields, which for example becomes clear in\cite{olia2020analysis}. In the rest of the thesis we will refer to tropical polynomials as piecewise-linear in general and only use linearity in the real case.
+The same could be argued for the tropical function $f$ when $c_{i} \in \mathbb{T}$ and $f:\mathbb{T}^{n} \to \mathbb{T}$, but the underlying theories, for example for linearity, change for semifields, which for example becomes clear in\cite{olia2020analysis}. In the rest of the thesis we will refer to tropical polynomials as piecewise-linear in general and only use linearity in the real case. By restricting the domain to real numbers the image must consequently also be real.
 
 \begin{proposition}
-Every function $\mathbb{R}^{n} \to \mathbb{R}$ which satisfies the three properties (1), (2) and (3) from lemma 	\ref{lemma:trop_properties} has a representation as the minimum of a finite set of linear functions. Thus, the tropical polynomials in n variables $x_{1}, \dots x_{n}$ represent the class of piecewise-linear convex functions on $\mathbb{R}^{n}$ with integer coefficients.
+Every function $\mathbb{R}^{n} \to \mathbb{R}$, which satisfies the three properties (1), (2) and (3) from lemma 	\ref{lemma:trop_properties}, has a representation as the minimum of a finite set of linear functions. Thus, the tropical polynomials in n variables $x_{1}, \dots x_{n}$ represent the class of piecewise-linear convex functions on $\mathbb{R}^{n}$ with integer coefficients.
 \end{proposition}
 
 \begin{proof}
 This follows directly from lemma \ref{lemma:trop_properties}.
 \end{proof}
 
-We can now introduce tropical rational functions and the semifields $\mathbb{T}[X_{1} , \dots , X_{d}]$, $\mathbb{T}(X_{1} , \dots , X_{d})$. These are important to understand the core section (section \ref{sec:trop_netw}), in particular the actual connection build between neural networks and tropical geometry in this thesis.
+We are now able to introduce tropical rational functions and the semifields $\mathbb{T}[X_{1} , \dots , X_{d}]$, $\mathbb{T}(X_{1} , \dots , X_{d})$. These are important to understand the core section (section \ref{sec:trop_netw}), in particular the actual connection build between neural networks and tropical geometry in this thesis.
 
 \begin{definition}\hspace{1sp}\cite[p.~3]{zhang2018tropical}
 A \textbf{tropical rational function} is a standard difference, or, equivalently, a tropical quotient of two tropical polynomials $f(x)$ and $g(x)$:
@@ -341,13 +401,13 @@ $$ (f-g)(x) = f(x) - g(x) = f(x) \oslash g(x) = (f \oslash g)(x)$$
 \begin{proposition}\hspace{1sp}\cite[p.~3]{zhang2018tropical}\label{prop:trop_semi_ring_set}
 The sets 
 \begin{align*}
-\mathbb{T}[X_1, \dots , X_d] &:= \{ f: \mathbb{T}^{d} \to \mathbb{T} ; f \ \text{is tropical polynomial} \} \ \ \text{and} \\ 
-\mathbb{T}(X_1, \dots , X_d) &:= \{ f: \mathbb{T}^{d} \to \mathbb{T} ; f \ \text{is tropical rational function} \}
+\mathbb{T}[X_1, \dots , X_d] &:= \{ f: \mathbb{T}^{d} \to \mathbb{T} \ | \ f \ \text{is tropical polynomial} \} \ \ \text{and} \\ 
+\mathbb{T}(X_1, \dots , X_d) &:= \{ f: \mathbb{T}^{d} \to \mathbb{T} \ | \ f \ \text{is tropical rational function} \}
 \end{align*}
  are both semirings.
 \end{proposition}
 \begin{proof}
-First we show, that for two tropical polynomials $f, g \in \mathbb{T}[X_1, \dots , X_r]$ with $f(x) =\oplus_{i=0}^{\alpha} a_{i} x^{\zeta_{i}}$ and $g(x)= \oplus_{i=0}^{\beta} b_{i} x^{\omega_{i}}$ their tropical multiplication is a tropical polynomial $f \odot g \in \mathbb{T}[X_1, \dots , X_r]$.
+First we show, that for two tropical polynomials $f, g \in \mathbb{T}[X_1, \dots , X_r]$ with $f(x) =\oplus_{i=0}^{\alpha} a_{i} x^{\zeta_{i}}$ and $g(x)= \oplus_{i=0}^{\beta} b_{i} x^{\omega_{i}}$ their tropical multiplication is a tropical polynomial $f \odot g \in \mathbb{T}[X_1, \dots , X_r]$,
 \begin{align*} 
 (f \odot g)(x) &= f(x) + g(x) \\
 &=  (\bigoplus_{i=0}^{\alpha} a_{i} x^{\zeta_{i}}) + (\bigoplus_{i=0}^{\beta} b_{i} x^{\omega_{i}}) \\
@@ -363,11 +423,11 @@ First we show, that for two tropical polynomials $f, g \in \mathbb{T}[X_1, \dots
 &= \bigoplus_{\substack{
    i=1, \dots , \alpha \\
    j=1, \dots , \beta
-  }} \ (a_{i} \odot b_{j}) \odot x^{\zeta_{i} + \omega_{i}} \in \mathbb{T}[X_1, \dots X_r]
+  }} \ (a_{i} \odot b_{j}) \odot x^{\zeta_{i} + \omega_{i}} \in \mathbb{T}[X_1, \dots X_r].
 \end{align*}
 That $(f \oplus g) \in \mathbb{T}[X_1, \dots X_r]$ is immediate. We have already shown that $\mathbb{T}$ is a tropical semifield. Therefore, except for the neural elements, all other axioms hold automatically pointwise.
 
-The neutral element for the tropical sum is $- \infty = - \infty \oslash x = x \oslash - \infty \ x \in \mathbb{T}$. Both $0, -\infty \in \mathbb{T}$ are also a tropical function and tropical rational function. Since for $f(x) \in \mathbb{T}(X_1, \dots , X_r)$ or $f(x) \in \mathbb{T}[X_1, \dots , X_r]$, the following hold
+The neutral element for the tropical sum is $- \infty = - \infty \oslash x = x \oslash - \infty \ x \in \mathbb{T}$. Both $0, -\infty \in \mathbb{T}$ are also a tropical function and a tropical rational function. Since for $f(x) \in \mathbb{T}(X_1, \dots , X_r)$ or $f(x) \in \mathbb{T}[X_1, \dots , X_r]$, the following hold
 \begin{align*}
 &f(x) \oplus \infty = \max(f(x),\ - \infty) = f(x) \\
 &f(x) \odot 0 = f(x) + 0 = f(x).
@@ -396,14 +456,13 @@ The tropical product of tropical rational functions is a tropical rational funct
 &= f_1(x) - f_2(x) + g_1(x) - g_2(x) \\
 &= (f_1(x) + g_1(x)) - (f_2(x) + g_2(x)) \in \mathbb{T}(X_1, \dots , X_r)
 \end{align*}
-This concludes the proof.
 \end{proof}
 
 \begin{proposition}
-The set $\mathbb{T}(X_1, \dots , X_d)$ is a semifiled.
+The set $\mathbb{T}(X_1, \dots , X_d)$ is a semifield.
 \end{proposition}
 \begin{proof}
-Because of proposition \ref{prop:trop_semi_ring_set} we only have to show that $f \oslash g \in \mathbb{T}(X_1, \dots , X_d)$ has a multiplicative inverse element. With $(f \oslash g) \odot (g \oslash f) = f - g + g - f = 0$ we have found $(g \oslash f) \in \mathbb{T}(X_1, \dots , X_d)$ the element.
+Because of proposition \ref{prop:trop_semi_ring_set} all we have to show is that $f \oslash g \in \mathbb{T}(X_1, \dots , X_d)$ has a multiplicative inverse element. With $(f \oslash g) \odot (g \oslash f) = f - g + g - f = 0$ we found $(g \oslash f) \in \mathbb{T}(X_1, \dots , X_d)$ the element.
 \end{proof}
 
 We regard a tropical polynomial $f=f \oslash 0$ as a special case of a tropical rational function and thus $\mathbb{T}[X_1, \dots , X_r] \subseteq \mathbb{T}(X_1, \dots , X_r)$. \cite[p.~3]{zhang2018tropical}
@@ -433,24 +492,24 @@ Historically the term "Neural Network" was introduced in attempts to describe th
 \centering
 \figuretitle{Depiction of a neuron}
 \includegraphics[scale=0.75]{graphics/neuron.pdf}
-\caption{A representation of a neuron. The axon terminal attach to dendrite. This way impulses pass from neuron to neuron\cite{neuron2020}.}
+\caption{A representation of a neuron. The axon terminal attach to dendrite of another neuron. This way impulses pass from neuron to neuron\cite{neuron2020}.}
 \label{fig:neuron}
 \end{figure}
 
-Based on a biological neural network, an abstract neuronal network, in the following simply referenced as neural network, is defined. Biological neurons and especially biological neural networks are far more complex than this introduction may make it seem. Because of their vast complexity biological realism would impose entirely unnecessary constraint when building a fast computable model. Boiling a biological neuronal network down to its quintessential features results in a weighted directed graph, where edges and vertices are weighted. Typically a weighted graph only has its edges weighted. To fit our model we introduce them also with weighted vertices.
+Based on a biological neural network, an abstract neuronal network, in the following simply referenced to as neural network, is defined. Biological neurons and especially biological neural networks are far more complex than this introduction may make it seem. Because of its vast complexity, biological realism would impose entirely unnecessary constraint when building a fast computable model. Boiling a biological neuronal network down to its quintessential features results in a weighted directed graph, where edges and vertices are weighted. Typically a weighted graph only has its edges weighted. To fit our model we introduce them also with weighted vertices.
 
 \begin{definition}\hspace{1sp}\cite[p.~148]{bender2010lists}
-A \textbf{finite graph} or simply \textbf{graph} is a pair $G = (V, E)$, where $V$ is a finite set whose elements are called vertices, and $E \subset \{ \{x, y\}|(x,y) \in v^{2} \}$ is a set of two-sets of vertices, whose elements are called edges.
+A \textbf{finite graph} or simply \textbf{graph} is a pair $G = (V, E)$, where $V$ is a finite set whose elements are called vertices, and $E \subset \{ \{x, y\}|(x,y) \in V \times V \}$ is a set of two-sets of vertices, whose elements are called edges.
 \end{definition}
 
 A small tweak to this definition yields the definition of a directed graph.
 
 \begin{definition}
-A \textbf{directed graph} is a pair $G = (V, E)$, where $V$ is a set whose elements are called vertices, and $E \subset \{ (x, y)|(x,y) \in v^{2} \}$ is a set of edges which are ordered pairs of distinct vertices.
+A \textbf{directed graph} is a pair $G = (V, E)$, where $V$ is a set whose elements are called vertices, and $E \subset \{ (x, y)|(x,y) \in V \times V \}$ is a set of edges which are ordered pairs of distinct vertices.
 \end{definition}
 
 \begin{definition}
-Let $\mathbb{K}$ be a field. A \textbf{vertex weighted graph} $G = (V, E, \psi)$ is a graph with a functions $\psi : V \to \mathbb{K}$ that assign a weight $\psi(v)$ to each vertex $v \in V$ and an \textbf{edge weighted graph} $G = (V, E, \omega)$ is a graph $G$ with a function $\omega : E \to \mathbb{K}$ that assigns a weight $\omega(e)$ to each edge $e \in E$. \\
+Let $\mathbb{K}$ be a field. A \textbf{vertex weighted graph} $G = (V, E, \psi)$ is a graph with a function $\psi : V \to \mathbb{K}$ that assigns a weight $\psi(v)$ to each vertex $v \in V$. An \textbf{edge weighted graph} $G = (V, E, \omega)$ is a graph $G$ with a function $\omega : E \to \mathbb{K}$ that assigns a weight $\omega(e)$ to each edge $e \in E$. \\
 A \textbf{weighted graph} $G = (V, E, \psi, \omega)$ or short $G = (V, E)$ is a graph with weighted edges and vertices.
 \end{definition}
 
@@ -458,10 +517,10 @@ A \textbf{weighted graph} $G = (V, E, \psi, \omega)$ or short $G = (V, E)$ is a 
 %Let $G = (V, E)$ be a Graph. We set $n(G) = |V|$ to be the cardinality of vertices and $m(G) = |E|$ the cardinality of edges.
 %\end{definition}
 
-Graphs can represent a multitude of relations between objects. Like road maps of roads connecting cities. Or describe objects themselves like molecules.
+Graphs can represent a multitude of relations between objects, like road maps of roads connecting cities, or describe objects themselves like molecules.
 
 \begin{example}
-For instance the edge weighted directed Graph $G = (V, E, \omega)$ depicted in figure \ref{fig:mindDistGraph} could depict a map of hiking trails with connect huts as nodes. The trails are weighted with the distance between huts and we want to find the minimal walking distance from hut A to any other.\
+For instance, to introduce graphs and demonstrate a connection between tropical geometry and graph theory ,the edge weighted directed Graph $G = (V, E, \omega)$, depicted in figure \ref{fig:mindDistGraph}, could depict a map of hiking trails with connect huts as nodes. The trails are weighted with the distance between huts and the goal is to find the minimal walking distance from hut A to any other.\
 We will use the opportunity to introduce a specific graph formally. Matching figure \ref{fig:mindDistGraph} the graph is fully defined by setting $V=\{\text{A}, \text{B}, \text{C}, \text{D}, \text{E}, \text{F}, \text{G}, \text{H}\}$, $E=\{(\text{A}, \text{B}), (\text{A}, \text{H}), (\text{A}, \text{E}), (\text{B}, \text{D}), \\ (\text{B}, \text{C}), (\text{B}, \text{H}), (\text{C}, \text{D}), (\text{C}, \text{G}), (\text{D}, \text{G}), (\text{E}, \text{H}), (\text{E}, \text{F}), (\text{E}, \text{G}), (\text{F}, \text{C}), (\text{F}, \text{G}), (\text{H}, \text{C}), \\ (\text{H}, \text{F})\}$ and in the same order as we have written the edges of $E$ here, the values of $\omega$ correspond to $5, 8, 9, 15, 12, 4, 3, 11, 9, 5, 4, 20, 1, 13, 7, 6$.
 
 \begin{figure}[H]
@@ -472,12 +531,12 @@ We will use the opportunity to introduce a specific graph formally. Matching fig
 \label{fig:mindDistGraph}
 \end{figure}
 
-To compute an answer we use Dijkstra's algorithm as, for example, introduced in \cite{borg2014script}. At any point in the algorithm simply consider all reachable nodes from nodes that have their shortest path already computed by adding up the computed shortest paths length to the paths length to the reachable node. This way every reachable node by nodes with there longest path already computed get at least one or multiple lengths of paths assigned to them. Pick the shortest path under all of these and repeat until all vertices have a path assigned. If there are multiple shortest paths, pick one of them. At any point, if there are no more reachable nodes, terminate and the nodes that have no distance assigned are not reachable.
+To compute an answer we use Dijkstra's algorithm as, for example, introduced in \cite{borg2014script}. At any point in the algorithm simply consider all reachable nodes from nodes that have their shortest path already computed by adding up the computed shortest paths length to the paths length of the reachable node. This way every reachable node by nodes with there longest path already computed get at least one or multiple lengths of paths assigned to them. Pick the shortest path under all of these and repeat until all vertices have a path assigned. If there are multiple shortest paths, pick one of them. At any point, if there are no more reachable nodes, terminate and the nodes that have no distance assigned are not reachable.
 \begin{proof}
-Let $v_0 \in V$ be our starting vertex and $v_1$ an adjacent vertex with the closest path to $v_0$. Say $\text{dist}(v)$ is the computed shortest distance from node $v_0$ to $v \in V$, then $\text{dist}(v_1) = \omega((v_0, v_1))$. Let $n \in \mathbb{N}$, now say $v_1, \dots , v_n$ are the $n$ nodes with the shortest paths $\text{dist}(v_1), \dots , \text{dist}(v_n)$ and $v_{n+1} \in V \setminus {v_1, \dots , v_n}$ the vertex of closest distance to one of $v_1 \dots v_n$ out of all adjacent vertices. We pick $i \in \{ 1 , \dots , n \}$ so that $v_i$ is the vertex to which $v_{n+1}$ is closest, then $\text{dist}((v_1, v_{n+1}))$ since otherwise $v_{n+1}$ would have been under the first $n$ closest vertices. Also $v_1 , \dots , v_{n+1}$ are the $n+1$  closest vertices to $v_0$
+Let $v_0 \in V$ be the starting vertex and $v_1$ an adjacent vertex with the closest path to $v_0$. Say $\text{dist}(v)$ is the computed shortest distance from node $v_0$ to $v \in V$, then $\text{dist}(v_1) = \omega((v_0, v_1))$. Let $n \in \mathbb{N}$, now say $v_1, \dots , v_n$ are the $n$ nodes with the shortest paths $\text{dist}(v_1), \dots , \text{dist}(v_n)$ and $v_{n+1} \in V \setminus {v_1, \dots , v_n}$ the vertex of closest distance to one of $v_1 \dots v_n$ out of all adjacent vertices. We pick $i \in \{ 1 , \dots , n \}$ so that $v_i$ is the vertex to which $v_{n+1}$ is closest, then $\text{dist}((v_1, v_{n+1}))$ since otherwise $v_{n+1}$ would have been under the first $n$ closest vertices. Also $v_1 , \dots , v_{n+1}$ are the $n+1$  closest vertices to $v_0$
 \end{proof}
 
-This way it is easy to compute, that the shortest distance to from node A to D is $17$ for example. \\
+Using dijkstra's algorithm it is easy to compute the shortest distance from node A to D is $17$ for example. \\
 An interesting link to tropical geometry in this example is, if we write the edges of a graph as a matrix in the following form
 $$M := \left[ \begin{array}{rrrr}
 (v_0, v_0) & (v_0, v_1) & \cdots \\
@@ -487,7 +546,7 @@ $$M := \left[ \begin{array}{rrrr}
 then $(M^{k})_{ij}$ returns the shortest distance from $v_i$ to $v_j$ after $k$ steps.
 \end{example}
 
-Graph theory is a big field, but we are interested in modelling neural networks. In particular in those neural networks that have specific input layers and output layers. Our goal at this point is to get an insight of how to construct a neural network and define weights, so that our output stands in a predefined relation to our input.
+Graph theory is a big field, but we are interested in modelling neural networks. In particular those neural networks that have specific input layers and output layers. Our goal is to get an insight of how to construct a neural network and define weights, so that our output stands in a predefined relation to our input.
 In particular one of the most important neural networks is the L-layer feedforward neural network. \
 We will define and motivate L-layer feedforward neural networks using graphs at first and then abstract again to only their necessary features.
 
@@ -509,7 +568,7 @@ A $L$-layer feedforward neural network $(G, \sigma)$ with $G = (V, E)$ is called
 In a fully connected feedforward neural network every vertex of $V^{(j)}$ is connected though an edge to a vertex of $V^{(j+1)}$ for each $j = 1, \dots , L-1$.
 
 \begin{example}
-We will construct a simple fully connected 4-layer feedforward neural network for the sake of visualisation. Using the same notation as in definition \ref{def:graphFeedForwardNetwork} we set $V^{(1)}=\{v_{11}, v_{12}, v_{13}, v_{14}\}, V^{(2)}=\{v_{21}, v_{22}, v_{23}\}, V^{(3)}=\{v_{31}, v_{32}, v_{33}\}$ and $V^{(4)}=\{v_{41}\}$. The edges are immediately defined when the vertices are defined in a fully connected graph. For example $E^{(3)}=\{(v_{31}, v_{41}), (v_{32}, v_{41}), (v_{33}, v_{41})\}$ is forced. As the use of weights is not introduced jet we set them all to $1$ for example and draw the graph in figure \ref{fig:4LayerNetwork}: 
+We will construct a simple fully connected 4-layer feedforward neural network for the sake of visualisation. Using the same notation as in definition \ref{def:graphFeedForwardNetwork} we set $V^{(1)}=\{v_{11}, v_{12}, v_{13}, v_{14}\}, V^{(2)}=\{v_{21}, v_{22}, v_{23}\}, V^{(3)}=\{v_{31}, v_{32}, v_{33}\}$ and $V^{(4)}=\{v_{41}\}$. The edges are immediately defined when the vertices are defined in a fully connected graph. For example $E^{(3)}=\{(v_{31}, v_{41}), (v_{32}, v_{41}), (v_{33}, v_{41})\}$ is forced. As the use of weights is not introduced yet, we set them all to $1$ for example and depict the graph in figure \ref{fig:4LayerNetwork}: 
 \begin{figure}[H]
 \centering
 \figuretitle{Fully connected 4-layer feedforward neural network}
@@ -520,26 +579,26 @@ We will construct a simple fully connected 4-layer feedforward neural network fo
 
 \end{example}
 
-Inspired by biological neural networks, which are the core building blocks of animal brains, we have abstracted some of the essential features, given an introduction to graphs and used these as a mathematical buildingblock for neural networks.
-With the introduction of feedforward neural networks we have cast a sensible form of neural network with which we will be able to store and also learn complex relations between input data and output data through forward and backward propagation. These will be introduced now.\\
+Inspired by biological neural networks, we have abstracted some of the essential features, given an introduction to graphs and used these as a mathematical buildingblock for neural networks.
+With the introduction of feedforward neural networks we have cast a sensible form of neural network with which we will be able to store and also learn complex relations between input data and output data through forward and backward propagation.\\
 Forward propagation describes the process by which from an input vector the output vector is calculated. First we need to introduce the bias vectors and weight matrices.
 
 \begin{remark}\label{standardGraphLabeling}
-Let $(G, \sigma)$ be a $L$-layer feedforward neural network, with $G=(V,E,\psi,\omega)$, where we name the elements from the sets $V^{(j)} = \{ b_{j1}, \dots ,b_{j|V^{(j)}|} \}$ so that these are ordered. The \textbf{bias vector} of layer j: 
+Let $(G, \sigma)$ be a $L$-layer feedforward neural network, with $G=(V,E,\psi,\omega)$, where we name the elements from the sets $V^{(j)} = \{ b_{j1}, \dots ,b_{j|V^{(j)}|} \}$ so that these are ordered. The \textbf{bias vector} of layer j:
 $$b^{(j)} = (\psi(b_{j1}), \dots ,\psi(b_{j|V^{(j)}|}))^{t},$$ 
 corresponds to the weights of vertices in $V^{(j)}$ for $j = 2, \dots , L$. The \textbf{weights matrix} $W^{(j)}$ with the entries 
 $$W^{(j)}_{nm} = \omega((b_{j-1n}, b_{jm}))$$ 
 corresponds to the matrix of weights of edges connecting layer $j-1$ and $j$ where $j$ is still in range $j = 2, \dots , L$.
 \end{remark}
 
-We will label feedforward neural networks this way until we define feedforward neural networks as functions and are now in a position to define forward propagation.
+We will label feedforward neural networks this way until we define feedforward neural networks as functions and can define forward propagation.
 
 \begin{definition}(Forward Propagation)
 \label{def:forward_propagation}
-Let $(G, \sigma)$ be as in \ref{standardGraphLabeling} a $L$-layer feedforward neural network. Let $a^{(1)} = x \in \mathbb{R}^{|V^{(1)}|}$ be the input vector of the same dimension as the cardinality of the first layer $V^{(1)}$ of the neural network, then recursively we define $z^{(j)} = W^{(j)} a^{(j-1)} + b^{(j)}$ and $a^{(j)} = \sigma(z^{(j)})$, for $j=2, \dots , L$. A \textbf{forward propagation} of our $L$-layer feedforward neural network $(G, \sigma)$ is defined to be the value of $a^{(L)}$.
+Let $(G, \sigma)$ be as in remark \ref{standardGraphLabeling} a $L$-layer feedforward neural network. Let $a^{(1)} = x \in \mathbb{R}^{|V^{(1)}|}$ be the input vector of the same dimension as the cardinality of the first layer $V^{(1)}$ of the neural network, then recursively we define $z^{(j)} = W^{(j)} a^{(j-1)} + b^{(j)}$ and $a^{(j)} = \sigma(z^{(j)})$, for $j=2, \dots , L$. A \textbf{forward propagation} of our $L$-layer feedforward neural network $(G, \sigma)$ is defined to be the value of $a^{(L)}$.
 \end{definition}
 
-For the sake of proving that the feedforward neural networks we have defined are able to be set up, so that for any specific binary input any binary specific output can be obtained, we will view the infrastructure of the weights, bias and the function $\sigma$ together as a circuit. Often binary inputs, as for example black and white pictures, are fed into 
+To prove that the feedforward neural networks we have defined are able to be set up, so that for any specific binary input any binary specific output can be obtained, we will view the infrastructure of the weights, bias and the function $\sigma$ together as a circuit. Often binary inputs, as for example black and white pictures, are fed into 
 \begin{wrapfigure}{r}{0.68\textwidth}
 \centering
 %\figuretitle{Min distance weighted graph}
@@ -547,10 +606,10 @@ For the sake of proving that the feedforward neural networks we have defined are
 \caption{Boolean Gates Truth Tables \cite{booleanGates}}
 \label{fig:bool_gate}
 \end{wrapfigure}
-neural networks and binary outputs, like dogs or cats are expected.
+neural networks and binary outputs, like $0$ if it depicts a dogs or $1$ if it depicts a cat, are expected.
 
 \begin{remark}
-Binary circuits are defined by basic logical gates like AND, OR, and NOT gates and a lot more, that manipulate binary input as shown in figure \ref{fig:bool_gate}. A set of gates is called a \textbf{Universal Logic Gates Set} if with those gates any other logic or boolean function can be created. After \cite{quine1955way} AND, OR and NOT define such a set. This means, if we can reproduce these three gates in form of feedforward neural networks, any boolean logic can be created by these. For that we set $\omega=\mathds{1}$, the weights of edges to one and
+Binary circuits are defined by basic logical gates like AND, OR, and NOT gates and a lot more, that manipulate binary input as shown in figure \ref{fig:bool_gate}. A set of gates is called a \textbf{Universal Logic Gates Set} if any other logic or boolean function can be created with those gates. After \cite{quine1955way} AND, OR and NOT define such a set. This means, if we can reproduce these three gates in form of feedforward neural networks, any boolean logic can be created by these. For that we set $\omega=\mathds{1}$, the weights of edges to one and
 \[ \sigma(x) = 
   \begin{cases}
     1       & \quad \text{if } x > 0\\
@@ -558,7 +617,7 @@ Binary circuits are defined by basic logical gates like AND, OR, and NOT gates a
   \end{cases}
 \]
 %Then again NAND and NOR both can make a AND, OR and NOT gait, so ether of them are so called minimal universal logic gates, meaning they can make any other logic of Boolean function on their own.
-Usually the output of a neural network is non binary, but is trained so that the higher the output value is the higher the probabillity of the specific outcome and the lower the output the lower the probability, with zero being neutral. To fit this interpretation $\sigma$ is defined to immediately produce a binary output. Now we will define three different $2$-layer feedforward neural nets with this sigma.
+Usually the output of a neural network is non binary, but is trained so that the higher the output value is, the higher the probabillity of the specific outcome and the lower the output, the lower the probability, with zero being neutral. To fit this interpretation $\sigma$ is defined to immediately produce a binary output. Now we will define three different $2$-layer feedforward neural networks with this sigma.
 
 
 \begin{figure}[H]
@@ -583,9 +642,9 @@ Usually the output of a neural network is non binary, but is trained so that the
     \end{subfigure}
     \caption{Neural Logical Gates}\label{fig:neural_logic_gates}
 \end{figure}
-Each network takes a real vector $x$ as input and returns $y$. The weights of each layer are attached to the edges and the biases are labelled with "b". The first gate, shown in figure \ref{fig:neural_logic_gates} (a), defines our AND gate. It is defined with the graph $G=(E, V)$, $V=\{ b_{11}, b_{12}, b_{21}, b_{31} \}$, $E=\{ (b_{11}, b_{21}), (b_{12}, b_{21}), (b_{21}, b_{31})\}$ a fully connected neural network with weights 
-$$\psi(b_{11})=\psi(b_{12})=\psi(b_{31})=0, \ \psi(b_{21})=-1 \ and \ W^{(1)}=\begin{pmatrix}1\\1\end{pmatrix}, \ W^{(2)}=\begin{pmatrix}1\end{pmatrix}.$$
-The first index of every bias corresponds to the layer. Lets compare the boolean output with the truth table. Inputs $\{(x, y)|x, y \in \{0, 1\}\}$ with
+Each network takes a real vector $x$ as input and returns $y$. The weights of each layer are attached to the edges and the biases are labeled with "b". The first gate, shown in figure \ref{fig:neural_logic_gates} (a), defines the AND gate. It is defined with the graph $G=(E, V)$, $V=\{ b_{11}, b_{12}, b_{21}, b_{31} \}$, $E=\{ (b_{11}, b_{21}), (b_{12}, b_{21}), (b_{21}, b_{31})\}$ being a fully connected neural network with weights 
+$$\psi(b_{11})=\psi(b_{12})=\psi(b_{31})=0, \ \psi(b_{21})=-1 \ \text{and} \ W^{(1)}=\begin{pmatrix}1\\1\end{pmatrix}, \ W^{(2)}=\begin{pmatrix}1\end{pmatrix}.$$
+The first index of every bias corresponds to the layer. Lets compare the boolean output with the truth table. Inputs $\{(x, y) \ | \ x, y \in \{0, 1\}\}$ with
 $$z^{(1)}=(1, 1)\begin{pmatrix}x\\y\end{pmatrix}-1 \ \to \ z^{(2)} = (1)(\sigma(x+y-1))+0 = \sigma(x+y-1)$$
 \begin{align*}
 \text{for} \ (0, 0) \ \text{yield} \ z^{(2)}&=\sigma(-1)=0, \\
@@ -601,31 +660,31 @@ $$z^{(1)}=(2, 2)\begin{pmatrix}x\\y\end{pmatrix}-1 \ \to \ z^{(2)} = (1)(\sigma(
 \text{for} \ (1, 0), (0, 1) \ \text{yield} \ z^{(2)}&=\sigma(2)=1 \ \text{and} \\
 \text{for} \ (1, 1) \ \text{yield} \ z^{(2)}&=\sigma(4)=1.
 \end{align*}
-And last but not least the graph of the NOT gate is different in that it only has one input. Therefore the graph also changes to $G=(E, V)$, $V=\{ b_{11}, b_{21}, b_{31} \}$, $E=\{ (b_{11}, b_{21}), (b_{21}, b_{31})\}$ also a fully connected $2$ feedforward neural network. With weights
-$$\psi(b_{11})=\psi(b_{31})=0, \ \psi(b_{21})=1 \ and \ W^{(1)}=(-1), \ W^{(2)}=(1)$$
+The graph of the NOT gate is different in that it only has one input. Therefore the graph also changes to $G=(E, V)$, $V=\{ b_{11}, b_{21}, b_{31} \}$, $E=\{ (b_{11}, b_{21}), (b_{21}, b_{31})\}$ also a fully connected $2$ feedforward neural network. With weights
+$$\psi(b_{11})=\psi(b_{31})=0, \ \psi(b_{21})=1 \ \text{and} \ W^{(1)}=(-1), \ W^{(2)}=(1)$$
 that define a NOT gate:
 \begin{align*}
-\text{for} \ (0) \ yield \ z^{(2)}&= z^{(1)} = 1 \ \text{and} \\
-\text{for} \ (1) \ yield \ z^{(2)}&= z^{(1)} = 0.
+\text{for} \ (0) \ \text{yield} \ z^{(2)}&= z^{(1)} = 1 \ \text{and} \\
+\text{for} \ (1) \ \text{yield} \ z^{(2)}&= z^{(1)} = 0.
 \end{align*}
 
-We have proven that any binary input can create any binary output. This also means that by scaling the input and output weights it is possible from any specific input to create any specific output.
+We have proven that any binary input can create any binary output. This also means that by scaling the input and output weights it is possible to create any specific output from any specific input.
 
 \end{remark}
 
-The last abstraction level of feedforward neural networks is to define them as a function, which enables to us to compare feedforward neural networks to tropical polynomials in Chapter $4$.
+The last abstraction level of feedforward neural networks is to define them as a function, which enables us to compare feedforward neural networks to tropical polynomials in section $4$.
 
 \begin{definition}\hspace{1sp}\cite{zhang2018tropical}\label{def:nur_net_fkt}
 Viewed abstractly, an \textbf{L-layer feedforward neural network} is a map $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ given by a composition of functions
-$$ \nu = \sigma^{(L)} \circ \rho^{(L)} \circ \sigma^{(L-1)} \circ \rho^{(L-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}$$
+$$ \nu := \sigma^{(L)} \circ \rho^{(L)} \circ \sigma^{(L-1)} \circ \rho^{(L-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}.$$
 The preactivation functions $\rho^{(1)}, \dots , \rho^{(L)}$ are affine transformations to be determined and the activation functions $\sigma^{(1)}, \dots , \sigma^{(L)}$ are chosen and fixed in advance. \\
-We denote the width, i.e., the number of nodes, of the $l$-th
+We denote the width, i.e. the number of nodes, of the $l$-th
 layer by $n_l, l = 1, \dots , L-1$. We set $n_0 := d$ and $n_L := p$, respectively the dimensions of the input and output of the network. The output from the $l$-th layer will be denoted by
-$$\nu^{(l)} = \sigma^{(l)} \circ \rho^{(l)} \circ \sigma^{(l-1)} \circ \rho^{(l-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}$$
-i.e., it is a map $\nu^{(l)} : \mathbb{R}^{d} \to \mathbb{R}^{n_l}$. For convenience, we assume $\nu^{(0)}(x) := x$. \\
+$$\nu^{(l)} = \sigma^{(l)} \circ \rho^{(l)} \circ \sigma^{(l-1)} \circ \rho^{(l-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)},$$
+i.e. it is a map $\nu^{(l)} : \mathbb{R}^{d} \to \mathbb{R}^{n_l}$. For convenience, we assume $\nu^{(0)}(x) := x$. \\
 The affine function $\nu^{(l)} : \mathbb{R}^{n_{l-1}} \to \mathbb{R}^{n_{l}}$ is given by a weight matrix $A^{(l)} \in \mathbb{Z}^{n_l \times n_{l-1}} $ and a bias vector $b^{(l)} \in \mathbb{R}^{n_l}$:
 $$ \rho^{(l)}(\nu^{(l-1)}) := A^{(l)} \nu{(l-1)} + b^{(l)}. $$
-The $(i, j)$th coordinate of $A^{(l)}$ will be denoted $a^{(l)}_{ij}$ and the $i$th coordinate of $b^{(l)}$ by $b^{(l)}_{i}$. Collectively they form the parameters of the $l$-th layer
+The $(i, j)$-th coordinate of $A^{(l)}$ will be denoted $a^{(l)}_{ij}$ and the $i$-th coordinate of $b^{(l)}$ by $b^{(l)}_{i}$. Collectively they form the parameters of the $l$-th layer.
 \end{definition}
 
 This way forward propagation corresponds to evaluation of the neural network.
@@ -637,8 +696,8 @@ For a vector input $x \in \mathbb{R}^{n_l}, \sigma^{(l)}(x)$ is understood to be
 \label{rem:score_fkt}
 We assume the final output of a neural network $\nu(x)$ is fed into a \textbf{score function} $s : \mathbb{R}^{p} \to \mathbb{R}^{m}$ that is application specific. The score function is quite often regarded as the last layer of a neural network but this is purely a matter of convenience and we will not assume this.
 \end{remark}
-The next chapter will be devoted to giving a brief introduction to backpropagation of neural networks. It is key to the understanding of modern applications of feedforward neural networks. The underlying analytics for the small section of backpropagation will not be carried out in detail, rather it will be required as prerequisite knowledge from the reader. \\
-Backpropagation is best explained by viewing a feedforward neural network as a function or a concatenation of functions, as in definition \ref{def:nur_net_fkt}, which we can extend to a Cost function and perform gradient descent on.
+The next part of the section will be devoted to giving a brief introduction to backpropagation of neural networks. It is key to the understanding of modern applications of feedforward neural networks. The underlying analytics for the small section of backpropagation will not be carried out in detail, rather it will be required as prerequisite knowledge from the reader. \\
+Backpropagation is best explained by viewing a feedforward neural network as a function or a concatenation of functions, as in definition \ref{def:nur_net_fkt}, which we can extend to a cost function and perform gradient descent on.
 In the following we may refer to $A^{(l)}$ as $w^{(l)}$ the \textbf{weight matrices} and $b^{(l)}$ simply as the \textbf{bias vectors}.
 
 \begin{remark}
@@ -649,7 +708,7 @@ This motivates the following definition.
 \begin{definition}(Gradient descent)
 It follows from remark \ref{rem:gradient} that for a differentiable function $F: \mathbb{R} \to \mathbb{R}$, if 
 $$a_{n+1}=a_{n}-\epsilon \cdot \text{grad}(F)(a_{n})$$
-for $\epsilon \in \mathbb{R}_{+}$ small enough and $a_{n} \in \mathbb{R}$, that $F(a_{n}) \geq F(a_{n+1})$. With this observation in mind, one starts with a guess $x_{0} \in \mathbb{R}$ for a local minimum of $F$, defines the sequence $(x_{n})_{n\in\mathbb{N}}$ as above ($c_{n+1}=c_{n}-\epsilon \cdot \text{grad}(F)(x_{n})$) and with epsilon small enough $x_{n}$ will eventually end up close to a local minimum. Setting up and calculating the sequence $x_{n}$ to step towards local minima is called gradient descent.
+for $\epsilon \in \mathbb{R}_{+}$ small enough and $a_{n} \in \mathbb{R}$ that $F(a_{n}) \geq F(a_{n+1})$. With this observation in mind, one starts with a guess $x_{0} \in \mathbb{R}$ for a local minimum of $F$, defines the sequence $(x_{n})_{n\in\mathbb{N}}$ as above ($c_{n+1}=c_{n}-\epsilon \cdot \text{grad}(F)(x_{n})$) and with epsilon small enough $x_{n}$ will eventually end up close to a local minimum. Setting up and calculating the sequence $x_{n}$ to step towards local minima is called gradient descent.
 \end{definition}
 
 We will use gradient descent with a cost function that we want to optimize the neural network on. To optimize a feedforward neural network to give sensible outputs relative to the inputs, we define the cost function.
@@ -679,30 +738,26 @@ Repeated application of backpropagation is a gradient descent algorithm and ther
 
 \begin{remark}
 \label{com:back_prop_madness}
-Essentially, backpropagation evaluates the expression for the derivative of the cost function as a product of derivatives between each layer from left to right – "backwards" – with the gradient of $\sigma$'s between each layer being a simple modification of the partial products (the "backwards propagated error").
-Given an input–output pair $(x,y)$, the loss is:
+In essence backpropagation evaluates the expression for the derivative of the cost function as a product of derivatives between each layer. This happens from left to right, in a "backward" manner, where the gradient of $\sigma$'s between each layer is a simple modification of the partial products (the "backwards propagated error")\cite{nielsen2017backpropagation}. For an input–output pair $(x,y)$, the loss is:
 $$C_{x}(\sigma^{(L)} \circ \rho^{(L)} \circ \sigma^{(L-1)} \circ \rho^{(L-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}(x), y).$$
 
 
-The gradient $\text{grad}$ is the transpose of the derivative of the output in terms of the input.
-
-To understand how the algorithm of gradient descet operates, we first interpret the constant $x$ as a variable and $b^{(l)}, w^{(l)}$ as constants again. Then with the chain rule the following holds:
+The gradient $\text{grad}$ is the transpose of the derivative of the output in terms of the input. To understand how the algorithm of gradient descent operates, we first interpret the constant $x$ as a variable and $b^{(l)}, w^{(l)}$ as constants again. Then with the chain rule the the gradient in $x$ is the following product:
 \begin{align*}
 \frac{\mathrm \partial C_{x}}{\mathrm \partial x} &= \frac{\mathrm \partial C_{x}}{\mathrm \partial \sigma^{(L)}} \cdot \frac{\mathrm \partial \sigma^{(L)}}{\mathrm \partial \rho^{(L)}} \cdot \frac{\partial \rho^{(L)}}{\partial \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{\partial \rho^{(1)}} \cdot \frac{\partial \rho^{(1)}}{\partial x}\\
  &= C_{x}'(\overline{\sigma^{(L)}}(x)) \cdot (\sigma^{(L)})'(\overline{\rho^{(L)}}(x)) \cdot \dots \cdot (\sigma^{(1)})'(\overline{\rho^{(1)}}(x)) \cdot (\rho^{(1)})'(x) \\
 \text{grad}_{x} (C_{x}) &= \left(\frac{\partial C}{\partial x}\right)^{t}.
 \end{align*}
-Here sigma and rho bar are defined as follows:
+Where sigma and rho bar are defined as:
 \begin{align*}
-\overline{\sigma^{(l)}} &= \sigma^{(l)} \circ \rho^{(l)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)} \\
+\overline{\sigma^{(l)}} &= \sigma^{(l)} \circ \rho^{(l)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)} \ \text{and} \\
 \overline{\rho^{(l)}} &= \rho^{(l)} \circ \sigma^{(l-1)} \circ \dots \circ \sigma^{(1)} \circ \rho^{(1)}.
 \end{align*}
-The affine linear functions $\rho^{(l)}$ for $l=L, \dots , 1$ can be written unambiguously as it's weight matrix $w^{(l)}$ and bias vector $b^{(l)}, \rho^{(l)} = x^{(l)} x + b^{(l)}$. 
-With this form in mind we set $x$ constant again and in the $l$-th step view $w^{(l)}$ and $b^{(l)}$ as variable again. Then
+We can use the property that the derivative of the cost function is the product of derivatives between each layer and the fact, that $\overline{\sigma^{(l)}}$ and $\overline{\rho^{(l)}}$ get calculated in and my be saved in a forward propagation, which is needed to calculate $x$ before backpropagating. The affine linear functions $\rho^{(l)}$ for $l=L, \dots , 1$ can be written unambiguously as it's weight matrix $w^{(l)}$ and bias vector $b^{(l)}, \rho^{(l)} = x^{(l)} x + b^{(l)}$. With this in mind we set $x$ constant again and in the $l$-th step view $w^{(l)}$ and $b^{(l)}$ as variable again. Then we set
 
 \begin{align*}
-\delta^{(L)} &= \frac{\partial C}{\partial \sigma^{(L)}} \cdot \frac{\partial \sigma^{(L)}}{\partial \rho^{(L)}} \\
-\delta^{(l-1)} &= \delta^{(l)} \frac{\partial \rho^{(l)}}{\partial \sigma^{(l-1)}} \cdot \frac{\partial \sigma^{(l-1)}}{\partial \rho^{(l-1)}}, \\
+\delta^{(L)} &:= \frac{\partial C}{\partial \sigma^{(L)}} \cdot \frac{\partial \sigma^{(L)}}{\partial \rho^{(L)}} \\
+\delta^{(l-1)} &:= \delta^{(l)} \frac{\partial \rho^{(l)}}{\partial \sigma^{(l-1)}} \cdot \frac{\partial \sigma^{(l-1)}}{\partial \rho^{(l-1)}}, \\
 \end{align*}
 for $l=L-1, \dots, 1$.
 This, depending on the choice of sigma, gives an easy to calculate algorithm for the gradients:
@@ -710,7 +765,7 @@ This, depending on the choice of sigma, gives an easy to calculate algorithm for
 \grad_{w^{(l)}}(C_x) &= \left[\delta^{(l)} \cdot \frac{\partial \rho^{(l)}}{\partial w^{(l)}}\right]^{T} \\
 \grad_{b^{(l)}}(C_x) &= \left[\delta^{(l)} \cdot \frac{\partial \rho^{(l)}}{\partial b^{(l)}}\right]^{T}.
 \end{align*}
-This is much faster than calculating the deltas in a forward manner with would have the following form:
+This is much faster than calculating the deltas in a forward manner which would have the following form:
 \begin{align*}
 \delta^{(1)} &= \frac{\mathrm \partial C_{x}}{\mathrm \partial \sigma^{(L)}} \cdot \frac{\mathrm \partial \sigma^{(L)}}{\mathrm \partial \rho^{(L)}} \cdot \frac{\partial \rho^{(L)}}{\partial \sigma^{(L-1)}} \cdot \ \ldots \ \cdot \frac{d \sigma^{(1)}}{\partial \rho^{(1)}} \\
 &\vdots \\
@@ -718,7 +773,7 @@ This is much faster than calculating the deltas in a forward manner with would h
 \end{align*}
 The recursive way of propagating the neural network backwards is where backpropagation gets its name from. The $\overline{\sigma^{(l)}}$ and $\overline{\rho^{(l)}}$ for $l = 1, \dots , L$ get computed and saved beforehand in a forward propagation run to save computational time.
 
-Now if we have a training set $\mathcal{X}$ of input and desired output pairs. What we want to compute is
+Now if we have a training set $\mathcal{X}$ of input and desired output pairs, what we want to compute is
 \begin{align*}
 \grad_{w^{(l)}}(C) &= \frac{1}{|\mathcal{X}|}\sum_{x \in \mathcal{X}}\grad_{w^{(l)}}(C_x) \\
 \grad_{b^{(l)}}(C) &= \frac{1}{|\mathcal{X}|}\sum_{x \in \mathcal{X}}\grad_{b^{(l)}}(C_x)
@@ -732,12 +787,12 @@ the gradients corresponding to the set. Because gradient decent is based on iter
 %$fraq$
 %\end{remark}
 
-This gives a way to train neural networks on a datapool. There are a number of further topics to understand state of the art training of neural networks, for example stochastic gradient descent or over fitting. In this thesis, when it comes to training a neural network, the goal was to give only a basic overview. The main subject of this thesis is tropical algebra of neural networks.
+This gives a way to train neural networks on a datapool. There are a number of further topics to understand state of the art training of neural networks, for example stochastic gradient descent or over fitting\cite{bishop2006pattern}.
 \newpage
 
 \section{Tropical algebra of neural networks}\label{sec:trop_netw}
 
-This chapter proves the key theorems of the thesis, an equivalence of neural networks and tropical rational functions, which allows studies on tropical rational functions in return to enforce statements on neural networks. For a tropical characterisation of neural networks we will need to restrict the neural networks in the following ways.
+This section proves the key theorems of the thesis, an equivalence of neural networks and tropical rational functions, which allows studies on tropical rational functions in return to enforce statements on neural networks. For a tropical characterisation of neural networks we will need to restrict the neural networks in the following ways.
 
 \begin{convention}\hspace{1sp}\cite{zhang2018tropical}
 We will make the following mild assumptions
@@ -749,10 +804,10 @@ the weight matrices $A^{(1)} , \dots , A^{(L)}$ are integer-valued;
 the bias vectors $b^{(1)} , \dots , b^{(L)}$ are real-valued;
 \item[(c)]
 the activation functions $\sigma^{(1)} , \dots , \sigma^{(L)}$ take the form
-$$\sigma^{(l)}(x) := \max\{x, t^{(l)}\},$$
+$$\sigma^{(l)}(x) := \max\{x, t^{(l)}\}$$
 where $t^{(l)} \in (\mathbb{R} \cup \{-\infty \})^{n_l}$ is called a threshold vector.
 \end{itemize}
-Keep in mind, that x is a vector here and therefore may be multidimensional. The activation function, here $\max$, is meant to be applied element wise:
+Since x is a vector here and therefore may be multidimensional. The activation function, here $\max$, is meant to be applied element wise:
 $$\max\{x, t^{(l)}\}=\begin{pmatrix}\max\{x_1, t^{(l)}_1 \}\\ \vdots \\ \max\{x_{n_l}, t^{(l)}_{n_l} \}\end{pmatrix}.$$
 \end{convention}
 
@@ -797,7 +852,7 @@ and
 \end{align*}
 we see that every coordinate of one-layer neural network
 is a difference of two tropical polynomials, which means the first layer of a neural network can be described through a tropical rational map. \\
-Now let $A^{(l+1)} \in \mathbb{Z}^{m \times n}, b^{(l+1)} \in \mathbb{R}^{m}$ be the parameters of the $(l+1)$th layer, and let $t \in (\mathbb{R} \cup {- \infty})^{m}$ be the threshold vector in the $(l+1)$th layer. If the nodes of the $l$th layer are given by a tropical rational map,
+Now let $A^{(l+1)} \in \mathbb{Z}^{m \times n}, b^{(l+1)} \in \mathbb{R}^{m}$ be the parameters of the $(l+1)$th layer, and let $t \in (\mathbb{R} \cup {- \infty})^{m}$ be the threshold vector in the $(l+1)$th layer. If the nodes of the $l$th layer are given by a tropical rational map
 $$ \nu^{(l)}(x) = F^{(l)}(x) \oslash G^{(l)}(x) = F^{(l)}(x)-G^{(l)}(x),$$
 i.e., each coordinate of $f^{(l)}$ and $G^{(l)}$ is a tropical polynomial in $x$. We want to show, that then $\nu^{(l+1)}$ is also a rational map. We begin by calculating
 \begin{align*}
@@ -813,10 +868,10 @@ with
 H^{(l+1)}(x) &:= A_{+}^{(l+1)}F^{(l)}(x) + A_{-}^{(l+1)}G^{(l)}(x) + b^{(l+1)}, \\
 G^{(l+1)}(x) &:= A_{x}^{(l+1)}G^{(l)}(x) + A_{-}^{(l+1)}F^{(l)}(x).
 \end{align*}
-is a rational map, since when we write $g_{i}^{(l)}$ and $h_{i}^{(l)}$ for the $i$th coordinate of $G^{(l)}$ and $H^{(l)}$ respectively. In tropical arithmetic, the recurrence above takes the form
+is a rational map since when we write $g_{i}^{(l)}$ and $h_{i}^{(l)}$ for the $i$th coordinate of $G^{(l)}$ and $H^{(l)}$ respectively. In tropical arithmetic, the recurrence above takes the form
 \begin{align*}
 g_{i}^{(l+1)} &= [\odot^{n}_{j=1}(g_j^{(l)})^{a_{ij}^{+}}] \odot [\odot^{n}_{j=1}(f_j^{(l)})^{a_{ij}^{-}}] \in \mathbb{T}(x), \\
-h_{i}^{(l+1)} &= [\odot^{n}_{j=1}(f_j^{(l)})^{a_{ij}^{+}}] \odot [\odot^{n}_{j=1}(g_j^{(l)})^{a_{ij}^{-}}] \odot b_{i} \in \mathbb{T}(x),
+h_{i}^{(l+1)} &= [\odot^{n}_{j=1}(f_j^{(l)})^{a_{ij}^{+}}] \odot [\odot^{n}_{j=1}(g_j^{(l)})^{a_{ij}^{-}}] \odot b_{i} \in \mathbb{T}(x).
 \end{align*}
 On this basis it is easy to show that $\nu$
 \begin{align*}
@@ -829,8 +884,8 @@ On this basis it is easy to show that $\nu$
 \end{align*}
 with
 $$F^{(l+1)}(x) := \max\{ H^{(l+1)}(x), t + G^{(l+1)}(x)\}$$
-is a tropical rational map considering, with $f_{i}$ denoting the $i$th coordinate of $F^{(l)}$
-$$f_{i}^{(l+1)} = h_{i}^{(l+1)} \oplus (g_{i}^{(l+1)} \odot t_{i}) \in \mathbb{T}(x)$$
+is a tropical rational map considering, with $f_{i}$ denoting the $i$th coordinate of $F^{(l)}$ and
+$$f_{i}^{(l+1)} = h_{i}^{(l+1)} \oplus (g_{i}^{(l+1)} \odot t_{i}) \in \mathbb{T}(x),$$
 $f_{i}^{(l+1)}$ is a tropical rational function.
 
 Through induction this ends the proof.
@@ -868,14 +923,14 @@ where $r_f$ and $r_g$ are the number of monomials in the tropical polynomials $f
 \end{itemize}
 \end{theorem}
 \begin{proof}
-That a feedforward neural network under assumptions (a)-(c) is a tropical polynomial map has been shown in theorem \ref{teo:trop_char_of_neur_net}. Now if the neural network has ReLU activations we want to show the opposite implication. As in theorem \ref{teo:trop_char_of_neur_net}, we will show this by induction. Let $\nu=c_1x^{\alpha_1} \oplus \dots \oplus c_rx^{\alpha_r}$ as in definition \ref{def:tropPolyn} with $\nu: \mathbb{R}^{d} \to \mathbb{R}$. Setting $\sigma_{t} := \max \{ x, t\}$, our base case is $\nu (x) = c x^{\alpha}$ a tropical tropical monomial. Considering
+That a feedforward neural network under assumptions (a)-(c) is a tropical polynomial map has been shown in theorem \ref{teo:trop_char_of_neur_net}. Now if the neural network has ReLU activations, we want to show the opposite implication, as in theorem \ref{teo:trop_char_of_neur_net}, we will show this by induction. Let $\nu=c_1x^{\alpha_1} \oplus \dots \oplus c_rx^{\alpha_r}$ as in definition \ref{def:tropPolyn} with $\nu: \mathbb{R}^{d} \to \mathbb{R}$. Setting $\sigma_{t} := \max \{ x, t\}$, our base case is $\nu (x) = c x^{\alpha}$ a tropical monomial. Considering
 $$\nu(x) = cx^{\alpha} = \max \{ \alpha^{t}x + c, -\infty \} = (\sigma_{- \infty} \circ \rho)(x),$$
-where $\max$ is applied coordinate wise and $\rho(x) = a^{t}x + b$ is a real affine linear function, $\nu$ is a feedforward neural network under assumtions (a)-(c). As induction step we observe two tropical polynomials $p$ and $q$ which are represented as neural networks with $l_{p}$ and $l_{q}$ layers respectively,
+where $\max$ is applied coordinate wise and $\rho(x) = a^{t}x + b$ is a real affine linear function, $\nu$ is a feedforward neural network under assumtions (a)-(c). As induction step, we observe two tropical polynomials $p$ and $q$ which are represented as neural networks with $l_{p}$ and $l_{q}$ layers respectively,
 \begin{align*}
 p(x) &= (\sigma_{- \infty} \circ \ \rho_{p}^{(l_{p})} \circ \sigma_{0} \circ \dots \circ \sigma_{0} \circ \rho_{p}^{(1)})(x), \\
 q(x) &= (\sigma_{- \infty} \circ \ \rho_{q}^{(l_{q})} \circ \sigma_{0} \circ \dots \circ \sigma_{0} \circ \rho_{q}^{(1)})(x).
 \end{align*}
-Here all sigma are set to $\sigma_{0}$ except the last one to $\sigma_{- \infty}$ as prerequisite by the ReLU activation. We will write $p \oplus q$ as a neural network.
+Here all sigma are set to $\sigma_{0}$ except the last one to $\sigma_{- \infty}$ as prerequisite by the ReLU activation. We will write $p \oplus q$ as a neural network:
 \begin{align*}
 (p \oplus q)(x) 
 &= \min \{ p(x), q(x) \} \\
@@ -888,7 +943,7 @@ $$\rho_{1}(y)=y_{1}-y_{2}, \ \rho_{2}(y)=y_{2}, \ \rho_{3}(y)= -y_{2}.$$
 The function $y(x)$ is a $\max \{ l_{p}, l_{q} \}$ layer feedforward neural network. This is easily seen by extending the shorter neural network $p$ or $q$ with identity $\rho$'s, say w.l.o.g. $l_{p} < l_{q}$, then $\rho^{(i)}_{p} = id$ for $i = l_{p} + 1, \dots , l_{q}$. Then $y(x)=(\sigma_{- \infty} \circ \ \rho^{(l_{p})} \circ \sigma_{0} \circ \dots \circ \sigma_{0} \circ \rho^{(1)})(x)$ with $\rho^{(i)}(x) = (\rho_{p}^{(i)}(x), \rho_{q}^{(i)}(x))$.
 By removing the last irrelevant sigma $\sigma_{- \infty}$ off of $p$ and $q$ and since composition of affine linear functions are affine linear, $(p\oplus q)$ is a neural network with $\max \{ l_{p}, l_{q} \} + 1$ layers. Thus, by induction, any tropical polynomial can be written as a neural network with ReLU activation. \\
 Observe also that if a tropical polynomial is the tropical sum of $r$ monomials, then it can be written as a neural network with no more than
-$\lceil \log_{2} r \rceil + 1$ layers. Now one more time we will write $p \oslash q$, where $p$ and $q$ are tropical polynomials as a neural network. Under the same assumptions as above and with
+$\lceil \log_{2} r \rceil + 1$ layers. Now once more we write $p \oslash q$, where $p$ and $q$ are tropical polynomials as a neural network. Under the same assumptions as above and with
 \begin{align*}
 (p \oslash q)(x)
 &= \sigma_{0}(p(x)) - \sigma_{0}(-p(x)) + \sigma_{0}(-q(x)) - \sigma_{0}(q(x)) \\
@@ -928,14 +983,14 @@ neural networks satisfying assumptions (a)-(c).
 \end{itemize}
 \end{remark}
 
-We have thus introduced the key insight of this thesis, the equivalence of remark \ref{rem:key_rem} allows for knowledge in tropical algebra to be applied to neural networks. The following chapters will be centred around exactly that. In particular the goal is to find an upper bound on the number of linear regions, defined in chapter \ref{sec:tropical_hypersurfaces}, of a real-valued feedforward neural network satisfying (a)-(c), presented in theorem \ref{theo:lin_reg}.
+We have thus introduced the key insight of this thesis, the equivalence of remark \ref{rem:key_rem} allows for knowledge in tropical algebra to be applied to neural networks. The following sections will be centred around exactly that. In particular the goal is to find an upper bound on the number of linear regions, defined in section \ref{sec:tropical_hypersurfaces}, of a real-valued feedforward neural network satisfying (a)-(c), presented in theorem \ref{theo:lin_reg}.
 
 \newpage
 
 \section{Tropical hypersurfaces}
 \label{sec:tropical_hypersurfaces}
 
-In this chapter we will start viewing tropical polynomials as geometric figures with a tropical hypersurface that is piecewise linear and boundaries for the number of the linear areas. Recall that we write a tropical polynomial as $c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ where $\alpha_i = (\alpha_{i1}, \dots , \alpha_{id}) \in \mathbb{N}^{d}$ and $c_i \in \mathbb{T}, i=1, \dots , r$ and also $\alpha_i \neq \alpha_j$ for any $i \neq j$. We begin by defining the tropical hypersurface of a tropical polynial. 
+In this section we will start viewing tropical polynomials as geometric figures with a tropical hypersurface that is piecewise linear and boundaries for the number of the linear areas. Recall that we write a tropical polynomial as $c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ where $\alpha_i = (\alpha_{i1}, \dots , \alpha_{id}) \in \mathbb{N}^{d}$ and $c_i \in \mathbb{T}, i=1, \dots , r$ and also $\alpha_i \neq \alpha_j$ for any $i \neq j$. We begin by defining the tropical hypersurface of a tropical polynial. 
  
 \begin{definition}\hspace{1sp}\cite[p.~3]{zhang2018tropical}
 \label{def:trop_hyper}
@@ -967,7 +1022,7 @@ To understand the geometry of tropical rational functions, tropical polynomial m
 Tropical rational functions are piecewise linear functions. Tropical polynomial maps and tropical rational maps are piecewise linear maps.
 \end{lemma}
 \begin{proof}
-Because of lemma \ref{lemma:trop_properties} tropical polynomials are piecewise linear. Tropical division, $\oslash$, is a linear transformation, therefore tropical rational maps are piecewise linear two. Now this means that tropical rational maps and tropical polynomial maps are also piecewise linear and the notion of linear regions applies.
+Because of lemma \ref{lemma:trop_properties} tropical polynomials are piecewise linear. Tropical division, $\oslash$, is a linear transformation, therefore tropical rational maps are piecewise linear too. Now this means that tropical rational maps and tropical polynomial maps are also piecewise linear and the notion of linear regions applies.
 \end{proof}
 
 To understand remark \ref{rem:subdivision} we need to introduce a succession of definitions.
@@ -985,7 +1040,7 @@ A \textbf{linear region} of $F \in Rat(d, m)$ is a, with respect to inclusion, m
 A linear region as in \ref{def:lin_reg_of} is a polyhedron.
 \begin{definition}
 A \textbf{face} of a polyhedron $P \subset \mathbb{R}^{n}$ is a subset of the form
-$$F= P \cap \{x \in \mathbb{R}^{n} \ | \ c^{t}x = b_0 \}$$
+$$F= P \cap \{x \in \mathbb{R}^{n} \ | \ c^{t}x = b_0 \},$$
 where $c \in \mathbb{R}^{n}$ and $b_0 \in \mathbb{R}$ are picked picked so that
 $$P \subset \{ x \in \mathbb{R} \ | \ c^{t}x \leq b_0 \}$$
 holds.
@@ -1001,14 +1056,14 @@ if $P$ and $Q$ lie in the collection then $P \cap Q$ is a face of both $P$ and $
 \end{itemize}
 \end{definition}
 \begin{definition}
-Let $\Sigma$ be a polyhedral complex and $d \in \mathbb{N}$, then the \textbf{d-skeleton} of $\Sigma$ is the the conjunction of all faces of $\Sigma$ of dimension $\leq d$.
+Let $\Sigma$ be a polyhedral complex and $d \in \mathbb{N}$, then the \textbf{d-skeleton} of $\Sigma$ is the conjunction of all faces of $\Sigma$ of dimension $\leq d$.
 \end{definition}
 \begin{definition}\hspace{1sp}\cite{maclagan2015introduction}
 The \textbf{support} $\text{supp}(\Sigma)$ of a polyhedral complex $\Sigma$ is the set $\{ x \in \mathbb{R}^{n} \ | \ x \in P \ \text{for some} \ P \in \Sigma \}.$
 \end{definition}
 
 
-The linearity of a tropical polynomial per definition will be broken in its hypersurface and linear everywhere else. Therefore the tropical hypersurface $\mathcal{T}(f)$ of a tropical polynomial $f$ divides the domain of f into convex cells on each of witch f is linear. Tropical hypersurfaces of polynomials in two variables are called \textbf{tropical curves}.\cite[p.~3]{zhang2018tropical}
+The linearity of a tropical polynomial per definition will be broken in its hypersurface and will be linear everywhere else. Therefore the tropical hypersurface $\mathcal{T}(f)$ of a tropical polynomial $f$ divides the domain of f into convex cells on each of which f is linear. Tropical hypersurfaces of polynomials in two variables are called \textbf{tropical curves}.\cite[p.~3]{zhang2018tropical}
 
 \begin{definition}
 Let $A \subset \mathbb{R}^{n}$ be a real subset with $n \in \mathbb{N}$. Then the set $\Conv(A) = \{\lambda x + (1- \lambda)y \ | \ x, y \in A \ \text{and} \ \lambda \in [0,1] \subset \mathbb{R}\}$ is called the \textbf{convex hull} of $A$.
@@ -1021,7 +1076,7 @@ $$ \Delta(f) := \Conv\{\alpha_i \in \mathbb{R}^{d} : c_i \neq -\infty , i = 1, \
 
 \begin{remark}\hspace{1sp}\cite[p.~3]{zhang2018tropical}
 \label{rem:subdivision}
-Let $f = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ be a tropical polynomial. We first, lift each $\alpha_i$ from $\mathbb{R}^d$ into $\mathbb{R}^{d+1}$ by appending $c_i$ as the last coordinate. Denote the convex hull of the lifted $\alpha_1, \dots , \alpha_r$ as
+Let $f = c_1 x^{\alpha_1} \oplus \dots \oplus c_r x^{\alpha_r}$ be a tropical polynomial. First we lift each $\alpha_i$ from $\mathbb{R}^d$ into $\mathbb{R}^{d+1}$ by appending $c_i$ as the last coordinate. Denote the convex hull of the lifted $\alpha_1, \dots , \alpha_r$ as
 $$\mathcal{P}(f):= \Conv{(\alpha_i, c_i) \in \mathbb{R}^{d} \times \mathbb{R} : i = 1, \dots , r}.$$
 Next let $UF(\mathcal(P)(f))$ denote the collection of upper faces in $\mathcal{P}(f)$ and $\pi : \mathbb{R}^{d} \times \mathbb{R} \to \mathbb{R}^{d}$ be the projection that drops
 the last coordinate. The dual subdivision determined by $f$
@@ -1030,7 +1085,7 @@ $$\delta(f) := {\pi(p) \subset \mathbb{R}^{d} : p \in UF( \mathcal{P}(f))}.$$
 $\delta (f)$ forms a polyhedral complex with support $\delta (f)$. By \cite[Proposition 3.1.6.]{maclagan2015introduction}, the tropical hypersurface $\mathcal{T}(f)$ is the $(d - 1)$-skeleton of the polyhedral complex dual to $ \delta(f)$. This means that each vertex in $ \delta(f)$ corresponds to one "cell" in $R^{d}$ where the function f is linear. Thus, the number of vertices in $\mathcal{P}(f)$ provides an upper bound on the number of linear regions of $f$.
 \end{remark}
 
-Our analysis of neural networks will require figuring out
+Our analysis of neural networks requires figuring out
 how the polytope $\mathcal{P}(f)$ transforms under tropical power,
 sum, and product.
 
@@ -1049,7 +1104,7 @@ f^{a} &= (c_{1}x^{\alpha_{1}} \oplus \dots \oplus c_{r} x^{\alpha_{r}})^{a} \\
 &= (a \cdot c_{1})x^{a \cdot \alpha_{1}} \oplus \dots \oplus (a \cdot c_{r}) x^{a \cdot \alpha_{r}}
 \end{align*}
 and therefore
-$$\mathcal{P}(f^{a}) = \Conv\{(a \cdot \alpha_{i}, a \cdot c_{i}) \in \mathbb{R}^{d} \times \mathbb{R}, i = 1, \dots, r \ \text{and} \ c_{i} \neq - \infty \} = a\mathcal{P}(f)$$.
+$$\mathcal{P}(f^{a}) = \Conv\{(a \cdot \alpha_{i}, a \cdot c_{i}) \in \mathbb{R}^{d} \times \mathbb{R}, i = 1, \dots, r \ \text{and} \ c_{i} \neq - \infty \} = a\mathcal{P}(f).$$
 \end{proof}
 
 A generalisation of normal summation, now on sets, is the Minkowski sum.
@@ -1058,7 +1113,7 @@ A generalisation of normal summation, now on sets, is the Minkowski sum.
 The \textbf{Minkowski sum} of two sets $P_1$ and $P_2$ in $\mathbb{R}^{d}$ is the set
 $$ P_1 + P_2 := \{x_1 + x_2 \in \mathbb{R}^{d} : x_1 \in P_1 ,x_2 \in P_2 \};$$
 and for $\lambda_1 , \lambda_2 \geq 0$, their weighted Minkowski sum is
-$$ \lambda_1 P_1 + \lambda_2 P_2 := \{ \lambda_1 x_1 + \lambda_2 x_2 \in \mathbb{R}^{d} : x_1 \in P_1 , x_2 \in P_2 \} $$.
+$$ \lambda_1 P_1 + \lambda_2 P_2 := \{ \lambda_1 x_1 + \lambda_2 x_2 \in \mathbb{R}^{d} : x_1 \in P_1 , x_2 \in P_2 \}.$$
 \end{definition}
 
 One important example for an Minkowski sum is a zonotope. For that we need a notion of a line segment.
@@ -1072,21 +1127,21 @@ The Minkowski sum of line segments is called a \textbf{zonotope}.
 
 \begin{definition}
 \label{def:point_sym}
-Let $A \subset \mathbb{R}^{n}$ be a set. A is point symmetric around $b \in A$ if for $a \in A$ follows $a + 2(b-a)=2b-a \in A$
+Let $A \subset \mathbb{R}^{n}$ be a set. A is point symmetric around $b \in A$ if for $a \in A$ follows $a + 2(b-a)=2b-a \in A$.
 \end{definition}
 
-Obviously for $A$ and $b$ as in definition \ref{def:point_sym} and if $A$ is convex, then $b \in A$ the symmetry point must lie in $A$. We build an intuition of zonotopes by proving the following statement.
+For $A$ and $b$ as in definition \ref{def:point_sym} and if $A$ is convex, then it is clear that $b \in A$ the symmetry point must lie in $A$. We build an intuition of zonotopes by proving the following statement:
 
 \begin{lemma}
 \label{lem:zon_sym_conv}
 A zonotope over $\mathbb{R}^{n}$ is point symmetric and convex.
 \end{lemma}
 \begin{proof}
-We proof a zonotope is point symmetric and convex by induction. As base case let $P \subset \mathbb{R}^{n}$ be a line segment in between $x, y \in \mathbb{R}^{n}$ then $P$ is obviously point symmetric around $b=0.5(x+y) \in \mathbb{R}^{n}$ and convex per definition. For the induction step let $A \subset \mathbb{R}^{n}$ be a convex set and point symmetric around $b \in \mathbb{R}^{n}$ and also let $P = \{ \lambda x + (1- \lambda) y | \lambda \in [0,1] \subset \mathbb{R}^{n} \}$ for $x, y \in \mathbb{R}^{n}$. Then the Minkowski sum of the two sets is
+We prove a zonotope is point symmetric and convex by induction. As base case let $P \subset \mathbb{R}^{n}$ be a line segment in between $x, y \in \mathbb{R}^{n}$ then $P$ is obviously point symmetric around $b=0.5(x+y) \in \mathbb{R}^{n}$ and convex per definition. For the induction step let $A \subset \mathbb{R}^{n}$ be a convex set and point symmetric around $b \in \mathbb{R}^{n}$ and also let $P = \{ \lambda x + (1- \lambda) y | \lambda \in [0,1] \subset \mathbb{R}^{n} \}$ for $x, y \in \mathbb{R}^{n}$. Then the Minkowski sum of the two sets is
 \begin{align*}
 A + P 
 &= \{ a + p \ | \ a \in A \ \text{and} \ p \in P \} \\
-&= \{ a + \lambda x + (1- \lambda) y \ | \ a \in A \ \text{and} \ \lambda \in [0,1] \}
+&= \{ a + \lambda x + (1- \lambda) y \ | \ a \in A \ \text{and} \ \lambda \in [0,1] \}.
 \end{align*}
 It follows that $a_{A+P} \in A+P$ has the form $a_{A+P}=a + \lambda x + (1- \lambda)y$ for $a\in A$ and $\lambda \in [0,1]$. We set $b_{A+P}=(0.5)(x+y) + b$. Then
 \begin{align*}
@@ -1135,7 +1190,9 @@ $$\sum_{j=0}^{d-1} \binom{m-1}{j}.$$
 The upper bound is attained if all $P_i$'s are zonotopes and all their generating line segments are in general positions.
 \end{theorem}
 
-And now we come to the main corollary of this chapter, core to chapter \ref{sec:tropical_geometry_of_neural_networks}.
+The analysis of neural
+
+And now we come to the main corollary of this section which is important to understand section \ref{sec:tropical_geometry_of_neural_networks}.
 
 \begin{corollary}\hspace{1sp}\cite[p.~4]{zhang2018tropical}
 \label{cor:zon_lines}
@@ -1144,15 +1201,15 @@ Let $\mathcal{P} \in \mathbb{R}^{d+1}$ be a zonotope generated by m line segment
 \item[(i)]
 the generating line segments are in general positions;
 \item[(ii)]
-the set of projected vertices $\{ \pi(v) : v \in \mathcal{V}(\mathcal{P}) \} \subseteq \mathbb{R}^{d}$ are in generalposition.
+the set of projected vertices $\{ \pi(v) : v \in \mathcal{V}(\mathcal{P}) \} \subseteq \mathbb{R}^{d}$ are in general position.
 \end{itemize}
 Then $P$ has
 $$ \sum_{j=0}^{d} \binom{m}{j} $$
 vertices on its upper faces. If either (i) or (ii) is violated, then this becomes an upper bound.
 \end{corollary}
 \begin{proof}
-Let $V_{1}$ be the vertices of the upper and $V_{2}$ the vertices of the lower face of P in relation to the projection $\pi$. As a consequence of (i), $P_{1}, \dots , P_{k}$ are nonparallel and with \ref{theo:gritzmann_sturmfels} follows the number of vertices of $\mathcal{P}$ is 
-$$n_{1} = 2 \sum^{d}_{j=0} \binom{m-1}{j}.$$ 
+Let $V_{1}$ be the vertices of the upper and $V_{2}$ the vertices of the lower face of P in relation to the projection $\pi$. As a consequence of (i), $P_{1}, \dots , P_{k}$ are nonparallel and from \ref{theo:gritzmann_sturmfels} it follows the number of vertices of $\mathcal{P}$ is 
+$$n_{1} = 2 \sum^{d}_{j=0} \binom{m-1}{j}.$$
 Because a zonotope is convex \ref{lem:zon_sym_conv} the upper and lower faces of P must already be all faces and $|V_{1} \cup V_{2}| = n_{1}$ holds. Also because of \ref{lem:zon_sym_conv}, zonotopes are symmetric and therefore $|V_{1}| = |V_{2}|$ the upper and lower faces are of same cardinality. Let $P' := \pi (P)$ be the projection of $P$ in $\mathbb{R}^{d}$. (ii) would not hold if $\pi(P_{1}), \dots , \pi(P_{2})$ where not in general position and therefore $P'$ is generated by m line segments and $P'$ has 
 $$n_{2}=2 \sum^{d-1}_{j=0} \binom{m-1}{j}$$
 vertices, since the dimension has gone one lower. For any vertex $v \in P$, if $v \in V_{1} \setminus V_{2} \cup V_{2} \setminus V_{1}$ then $v$ can not be a vertex of $P'$ since all of these get dropped by the projection. On the other hand $v \in (V_{1} \cup V_{2}) \setminus (V_{1} \setminus V_{2} \cup V_{2} \setminus V_{1}) = V_{1} \cap v_{2}$ can not get dropped by the projection of $P$ and therefore the number of vertices on $P'$ equals $|V_{1} \cap V_{2}|$, thus $n_{2} = |V_{1} \cap V_{2}|$ and we can calculate the number of vertices on the upper face of $P$:
@@ -1172,7 +1229,7 @@ vertices, since the dimension has gone one lower. For any vertex $v \in P$, if $
 \section{Tropical geometry of neural networks}
 \label{sec:tropical_geometry_of_neural_networks}
 
-This is the last chapter of the thesis which will provide mainly two statements about feedforward neural networks satisfying (a)-(c), proposition \ref{prop:geom_of_dec_boundary} and theorem \ref{theo:lin_reg}. Both statements give bounds on the number of linear regions. For the first, proposition \ref{prop:geom_of_dec_boundary}, we remind of the score function from remark \ref{rem:score_fkt}. A neural network $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ together with a choice of score function $s : \mathbb{R}^{p} \to \mathbb{R}$ give a classifier. An input $x$ is supposed to be classified as one of two categories, where the output value of $s(\nu(x))$ with a decision threshold $c$ determine how $x$ gets classified. Say $s(\nu(x))>c$, then the neural network predicts $x$ is from one category and if $s(\nu(x))$, then from the other. As an example the input could be a picture of a MRI scanner and the categories could be cancer or no cancer.
+This is the last section of the thesis which will provide mainly two statements about feedforward neural networks satisfying (a)-(c), proposition \ref{prop:geom_of_dec_boundary} and theorem \ref{theo:lin_reg}. Both statements give bounds on the number of linear regions. For the first, proposition \ref{prop:geom_of_dec_boundary}, we remind of the score function from remark \ref{rem:score_fkt}. A neural network $\nu : \mathbb{R}^{d} \to \mathbb{R}^{p}$ together with a choice of score function $s : \mathbb{R}^{p} \to \mathbb{R}$ give a classifier. An input $x$ is supposed to be classified as one of two categories, where the output value of $s(\nu(x))$ with a decision threshold $c$ determine how $x$ gets classified. Say $s(\nu(x))>c$, then the neural network predicts $x$ is from one category and if $s(\nu(x))$, then from the other. As an example the input could be a picture of a MRI scanner and the categories could be cancer or no cancer.
 
 \begin{definition}\hspace{1sp}\cite{zhang2018tropical}
 This way the input space is partitioned into two disjoint subsets by the
@@ -1187,7 +1244,7 @@ Now we will give an upper limit on the number of positive and negative regions.
 \label{prop:geom_of_dec_boundary}
 Let $v : \mathbb{R}^{d} \to \mathbb{R}$ be an $L$-layer neural network satisfying assumptions (a)–(c) with $t^{L}=-\infty$. Let the score function $s: \mathbb{R} \to \mathbb{R}$ be injective with decision threshold $c$ in its range. If $v = f \oslash g$ where $f$ and $g$ are tropical polynomials, then \\
 (i) its decision boundary $\mathcal{B}=\{ x \in \mathbb{R}^{d} : v(x) = s^{-1}(c)\}$ divides $\mathbb{R}^{d}$ into at most $\mathcal{N} (f)$ connected positive regions and at most $\mathcal{N}(g)$ connected negative regions; \\
-(ii) if $c \in \mathbb{R}$ is such that there is no tropical monomial in $f(x)$ that differs from any tropical monomial in $g(x)$ by $c$, then its decision boundary is contained in the tropical hypersurface of the tropical polynomial $s^{-1}(c) \odot g(x) \oplus f(x) = \max\{f(x), g(x) + s^{-1}(c)\}$, i.e.,
+(ii) if $c \in \mathbb{R}$ is such that there is no tropical monomial in $f(x)$ that differs from any tropical monomial in $g(x)$ by $c$, then its decision boundary is contained in the tropical hypersurface of the tropical polynomial $s^{-1}(c) \odot g(x) \oplus f(x) = \max\{f(x), g(x) + s^{-1}(c)\}$, i.e.
 $$\mathcal{B} \subseteq \mathcal{T} (s^{-1}(c) \odot g \oplus f).$$
 \end{proposition}
 \begin{proof}
@@ -1197,7 +1254,7 @@ For the first statement let $s^{-1}(c)=c' \in \mathbb{R}$ and $U_1 , \dots , U_{
 &= \lambda f(x) + (1-\lambda) f(y) - g(\lambda x + (1-\lambda)y) \\
 &\geq \lambda (f \oslash g)(x) + (1-\lambda) (f \oslash g) (y)
 \end{align*}
-for all $x, y \in U_i$ and $\lambda \in [0,1] \subset \mathbb{R}$ the tropical rational function $f \oslash g$ will also be concave on $U_i$. Now because $f \oslash g$ are concave on $U_i$, which them selves are convex, we can show that the set $\{x \in U_i : f \oslash g(x) \geq c'\}$ must be convex:
+for all $x, y \in U_i$ and $\lambda \in [0,1] \subset \mathbb{R}$ the tropical rational function $f \oslash g$ will also be concave on $U_i$. Now because $f \oslash g$ are concave on $U_i$, which themselves are convex, we can show that the set $\{x \in U_i : f \oslash g(x) \geq c'\}$ must be convex:
 \begin{align*}
 (f \oslash g) (\lambda x + (1-\lambda)y)
 &= \lambda f(x) + (1-\lambda) f(y) - g(\lambda x + (1-\lambda)y) \\
@@ -1205,9 +1262,9 @@ for all $x, y \in U_i$ and $\lambda \in [0,1] \subset \mathbb{R}$ the tropical r
 &\geq \lambda c + (1-\lambda)c \\
 &= c.
 \end{align*}
-If there where disjunct connected positive regions then $\{ x \in U_i : (f \oslash g)(x) \geq c' \}$ would not be convex and therefore there can only be one connected positive region on $U_i$ for $i = 1, \dots , \mathcal{N}(f)$. \\
-Now if we divide $\mathbb{R}^{d}$ in to $\mathcal{N}(g)$ convex regions on which $g$ is linear, then $f \oslash g$ is convex on these regions and $\mathcal{N}(g)$ holds as upper bound to the connected negative regions in the save way. \\
-For the second statement we rearange the terms in the decision boundary $\mathcal{B} = \{ x \in \mathbb{R}^{d} : \nu(x) = s^{-1}(c) \} = \{ x \in \mathbb{R}^{d} : f(x) = g(x) + c' \}$ and since $f(x)$ and $g(x) + c'$ are both tropical polynomial, we have
+If there were disjunct connected positive regions, then $\{ x \in U_i : (f \oslash g)(x) \geq c' \}$ would not be convex and therefore there can only be one connected positive region on $U_i$ for $i = 1, \dots , \mathcal{N}(f)$. \\
+Now if we divide $\mathbb{R}^{d}$ into $\mathcal{N}(g)$ convex regions on which $g$ is linear, then $f \oslash g$ is convex on these regions and $\mathcal{N}(g)$ holds as upper bound to the connected negative regions in the same way. \\
+For the second statement we rearrange the terms in the decision boundary $\mathcal{B} = \{ x \in \mathbb{R}^{d} : \nu(x) = s^{-1}(c) \} = \{ x \in \mathbb{R}^{d} : f(x) = g(x) + c' \}$ and since $f(x)$ and $g(x) + c'$ are both tropical polynomial, we have
 \begin{align*}
 f(x) &= b_1 x{\alpha_1} \oplus \dots \oplus b_r^{\alpha_r}, \\
 g(x) + c' &= c_1 x^{\beta_1} \oplus \dots \oplus c_s x^{\beta_s},
@@ -1215,18 +1272,18 @@ g(x) + c' &= c_1 x^{\beta_1} \oplus \dots \oplus c_s x^{\beta_s},
 with appropriate multiindices $\alpha_1 , \dots , \alpha_r, \beta_1 , \dots , \beta_s$, and real coefficients $b_1, \dots , b_r, c_1, \dots , c_s$. By the assumption on
 the monomials, we have that $x_0 \in \mathcal{B} $ only if there exist $i, j$ so that $\alpha_i \neq \beta_j$ and $b_i x_0^{\alpha_i}$. This completes the proof since if we combine the monomials of $f(x)$ and $g(x) + c'$ by (tropical) summing them into a single tropical polynomial, $\max \{f(x), g(x) + c'\}$, the above implies that on the level set, the value of the combined tropical polynomial is attained by at least two monomials and therefore $x_0 \in \mathcal{T}(\max\{f(x), g(x) + c'\}) = \mathcal{T} (s^{-1}(c) \odot g \oplus f)$.
 \end{proof}
-The following core theorem of this chapter gives a general upper bound on the number of linear regions of a feedforward neural network.
+The following core theorem of this section gives a general upper bound on the number of linear regions of a feedforward neural network.
 \begin{theorem}\hspace{1sp}\cite[p.~8]{zhang2018tropical}
 \label{theo:lin_reg}
-Let $\nu : \mathbb{R}^{d} \to \mathbb{R}$ be an $L$-layer real-valued feedforeard neural network satisfying (a)-(c). Let $t^{(L)}=-\infty$ and $n_{l} \geq d$ for all $l=1, \dots , L-1$. Then $\nu = \nu^{(L)}$ has at most
+Let $\nu : \mathbb{R}^{d} \to \mathbb{R}$ be an $L$-layer real-valued feedforward neural network satisfying (a)-(c). Let $t^{(L)}=-\infty$ and $n_{l} \geq d$ for all $l=1, \dots , L-1$. Then $\nu = \nu^{(L)}$ has at most
 $$\displaystyle\prod^{L-1}_{l=1}\displaystyle\sum^{d}_{i=0}\binom{n_l}{i}$$
 linear regions. In particular, if $d \leq n_1, \dots , n_{L-1} \leq n$, the number of linear regions of $\nu$ is bounded by $\mathcal{O}(n^{d(L-1)})$.
 \end{theorem}
 
-The rest of section \ref{sec:tropical_geometry_of_neural_networks} will be devoted to the proof of theorem \ref{theo:lin_reg}. First we extend the definition of the graph of a tropical polynomial to tropical rational maps, for which linear regions do not have to be convex.
+The rest of section \ref{sec:tropical_geometry_of_neural_networks} will be devoted to the proof of theorem \ref{theo:lin_reg}. At first, we extend the definition of the graph of a tropical polynomial to tropical rational maps, for which linear regions do not have to be convex.
 
 \begin{definition}\hspace{1sp}\cite[p.~15]{zhang2018tropical}
-Given a tropical rational map $F \in \Rat(d, m)$, we define $\mathcal{T}(F)$ to be the boundaries between adjacent linear regions. When $F=(f_1, \dots , f_m) \in \Pol(d, m)$, i.e., a tropical polynomial map, this set is exactly the union of tropical hypersurfaces $\mathcal{T}(f_i), i=1, \dots , m$. Therefore this definition of $\mathcal{T}(F)$ extends Definition \ref{def:trop_hyper}.
+Given a tropical rational map $F \in \Rat(d, m)$, we define $\mathcal{T}(F)$ to be the boundaries between adjacent linear regions. When $F=(f_1, \dots , f_m) \in \Pol(d, m)$, i.e., a tropical polynomial map, this set is exactly the union of tropical hypersurfaces $\mathcal{T}(f_i), i=1, \dots , m$. Therefore this definition of $\mathcal{T}(F)$ extends definition \ref{def:trop_hyper}.
 \end{definition}
 
 When restricting a function $f: X \to Y$ on the domain $C \subset X$ we will write $\restr{f}{C}$ for the restriction $\restr{f}{C} : C \to Y$.
@@ -1237,14 +1294,14 @@ regions over which $F$ is linear, i.e.
 $$\mathcal{N}_{C}(F) := \min\{n:C_1 \cup \dots \cup C_n = \mathbb{R}^{d} \ \text{where} \ C_i \ \text{convex and} \ \restr{F}{C_i} \ \text{linear}\}.$$
 \end{definition}
 
-\begin{definition}\hspace{1sp}\cite{maclagan2015introduction}\label{def:conv_deg_restr}
+\begin{definition}\hspace{1sp}\cite{zhang2018tropical}\label{def:conv_deg_restr}
 For $m \leq d$ and $F \in \Rat(d,n)$, we will denote by $\mathcal{N}_{C}(F \ | \ m)$ the \textbf{maximum convex degree} obtained by restricting $F$ to an $m$-dimensional affine subspace in $\mathbb{R}^{d}$, i.e.,
 $$\mathcal{N}_C(F \ | \ m) := \max \{ \mathcal{N}_C(\restr{F}{\Omega}): \Omega \subseteq \mathbb{R}^{d} \ \text{is an} \ m \text{-dimensional affine space} \}.$$
 \end{definition}
 
-We will use the convention, that if $m > d$ and $F$ as in definition \ref{def:conv_deg_restr} then $\mathcal{N}_C(F \ | \ m) = \mathcal{N}_C(F)$.
+We will use the convention, that if $m > d$ and $F$ is defined as in definition \ref{def:conv_deg_restr} then $\mathcal{N}_C(F \ | \ m) = \mathcal{N}_C(F)$.
 
-\begin{definition}\hspace{1sp}\cite{maclagan2015introduction}
+\begin{definition}\hspace{1sp}\cite{zhang2018tropical}
 Consider a tropical rational map $F=(f_1, \dots , f_n) \in \Rat(d, n)$ and $\alpha = (a_1, \dots , a_n) \in \mathbb{Z}^{d}$. Then we define following notation:
 $$F^{\alpha} := \alpha^{T} F = a_1 f_1 , \dots , a_n f_n = \displaystyle\bigodot_{i=1}^{n} a_i f_i \in \Rat(d, 1).$$
 \end{definition}
@@ -1255,11 +1312,11 @@ We want to introduce notation for the image of a function.
 Let $f: X \to Y$ be a function. Then the \textbf{Image} of $f$ is the subset $\text{Im}(f) = \{f(x) : x \in X\} \subset Y$.
 \end{definition}
 
-\begin{definition}\hspace{1sp}\cite{maclagan2015introduction}\label{def:gen_exp}
+\begin{definition}\hspace{1sp}\cite{zhang2018tropical}\label{def:gen_exp}
 The exponent $\alpha = (a_1, \dots, a_n) \in \mathbb{Z}^{n}$ is said to be a \textbf{general exponent} of $F \in \Rat(d, n)$ if the linear regions of $F^{\alpha}$ and the linear regions of $F$ are identical.
 \end{definition}
-First we need to know if general exponents exist.
-\begin{lemma}\hspace{1sp}\cite{maclagan2015introduction}
+Firstly we need to know if general exponents exist.
+\begin{lemma}\hspace{1sp}\cite{zhang2018tropical}
 Let $F \in \Rat(d, n)$. Then
 \begin{itemize}
 \item[(i)]
@@ -1269,8 +1326,8 @@ $F$ has a general exponent $\alpha \in \mathbb{N}^{n}$.
 \end{itemize}
 \end{lemma}
 \begin{proof}
-First we proof (i). From definition \ref{def:gen_exp} follows that $\alpha$ is in general position if the linear regions of $F$ and $F^{\alpha}$ are identical. If the linear regions are identical, the points $x \in \mathbb{R}^{d}$ at which linear regions meat and therefore where $F$, $F^{\alpha}$ are not differentiable are identical. It directly follows that $\mathcal{T}(F^{\alpha})=\mathcal{T}(F) \subset \mathbb{R}^{d}$ are identical and in conclusion the number of linear regions $\mathcal{N}(F^{\alpha}) = \mathcal{N}(F)$ must also be identical. \\
-For (ii) we need analytical basics, that we will not introduce extensively, but rather refer the reader to \cite{tao2016analysis}. We need to show that there always exists an $\alpha \in \mathbb{N}^{\alpha}$ such that $F^{\alpha}$ divides its domain $\mathbb{R}^{d}$ into the same set of linear regions as $F$. In other words, for every pair of adjacent linear regions of $F$, the faces in $\mathcal{T}(F)$ that separate them are also present in $\mathcal{T}(F^{\alpha})$. \\
+At first, we prove (i). From definition \ref{def:gen_exp} follows that $\alpha$ is in general position if the linear regions of $F$ and $F^{\alpha}$ are identical. If the linear regions are identical, the points $x \in \mathbb{R}^{d}$ at which linear regions meet, and therefore where $F$, $F^{\alpha}$ are not differentiable, are identical. It directly follows that $\mathcal{T}(F^{\alpha})=\mathcal{T}(F) \subset \mathbb{R}^{d}$ are identical and in conclusion the number of linear regions $\mathcal{N}(F^{\alpha}) = \mathcal{N}(F)$ must also be identical. \\
+For (ii) we need analytical basics that we will not introduce extensively, but rather refer the reader to \cite{tao2016analysis}. We need to show that there always exists an $\alpha \in \mathbb{N}^{\alpha}$ such that $F^{\alpha}$ divides its domain $\mathbb{R}^{d}$ into the same set of linear regions as $F$. In other words, for every pair of adjacent linear regions of $F$, the faces in $\mathcal{T}(F)$ that separate them are also present in $\mathcal{T}(F^{\alpha})$. \\
 Let $L$, $M$ be adjacent linear regions of $F$. Then $\restr{F}{L}$ and $\restr{F}{M}$ are tropical monomials where for instance $\restr{F}{L}$ has the form
 $$\restr{F}{L}(x) = \begin{bmatrix}
 c_1 \odot x^{\alpha_1} \\ \vdots \\ c_n \odot x^{\alpha_n}
@@ -1286,7 +1343,7 @@ $$d\restr{F}{L} = \begin{bmatrix}
 \vdots & \ddots & \vdots \\
 \alpha_{n1} & \cdots & \alpha_{nd}
 \end{bmatrix}.$$
-We see that the differentials of $\restr{F}{L}, \restr{F}{M}$ must have integer coefficients $d\restr{F}{L}, d\restr{F}{M} \in \mathbb{Z}^{nd}$ and also be $d\restr{F}{L} \neq d\restr{F}{M}$ unequal, because otherwise $L$ and $M$ can be merged into a single region. With that in mind it is clear, that $Im(d\restr{F}{L} - d\restr{F}{L}) \neq \{0\}$ and the solutions set $\{\alpha \in \mathbb{N}^{n} : (\restr{F}{L} - d\restr{F}{L})^{T}\alpha = 0\}$ is of dimension $\geq 1$. With the observation that $d\restr{F^{\alpha}}{L} = \alpha^{T}d\restr{F}{L}$:
+We see that the differentials of $\restr{F}{L}, \restr{F}{M}$ must have integer coefficients $d\restr{F}{L}, d\restr{F}{M} \in \mathbb{Z}^{nd}$ and also must be unequal, $d\restr{F}{L} \neq d\restr{F}{M}$, because otherwise $L$ and $M$ can be merged into a single region. With that in mind it is clear, that $Im(d\restr{F}{L} - d\restr{F}{L}) \neq \{0\}$ and the solutions set $\{\alpha \in \mathbb{N}^{n} : (\restr{F}{L} - d\restr{F}{L})^{T}\alpha = 0\}$ is of dimension $\geq 1$. With the observation that $d\restr{F^{\alpha}}{L} = \alpha^{T}d\restr{F}{L}$:
 $$d\restr{F^{\alpha}}{L} = \begin{bmatrix}
 \alpha_1 a_{11} + \dots + \alpha_n a_{n1} \\
 \vdots \\
@@ -1301,37 +1358,37 @@ $$d\restr{F^{\alpha}}{L} = \begin{bmatrix}
 \vdots \\
 a_{1d} + \dots + a_{nd}
 \end{bmatrix}
-= \alpha^{T}d\restr{F}{L},$$
-and the same holds for $d\restr{F^{\alpha}}{M}$. We set $\mathcal{A}(F)$ to be the collection of all pairs of adjacent linear regions of $F$, this set is finite. Since the set of $\alpha$ that degenerates two adjacent linear regions into a single one, i.e.,
+= \alpha^{T}d\restr{F}{L}.$$
+The same holds for $d\restr{F^{\alpha}}{M}$. We set $\mathcal{A}(F)$ to be the collection of all pairs of adjacent linear regions of $F$, this set is finite. Since the set of $\alpha$ that degenerates two adjacent linear regions into a single one, i.e.,
 $$\mathcal{S} := \displaystyle\bigcup_{(L,M) \in \mathcal{A}(F)}\{\alpha \in \mathbb{N}^{n} : (d\restr{F}{L} - d\restr{F}{M})^{T}\alpha=0\},$$
 is contained in a union of a finite number of hyperplanes in $\mathbb{R}^{n}$, $\mathcal{S}$ cannot cover the entire lattice of nonnegative integers $\mathbb{N}^{n}$.
-Therefore the set $\mathbb{N}^{n} \cap (\mathbb{R}^{n} \setminus \mathcal{S})$ is nonempty and any of its element is a general exponent for $F$.
+Therefore the set $\mathbb{N}^{n} \cap (\mathbb{R}^{n} \setminus \mathcal{S})$ is non-empty and any of its element is a general exponent for $F$.
 \end{proof}
 
-\begin{theorem}\hspace{1sp}\cite{maclagan2015introduction}\label{theo:inequal}
+\begin{theorem}\hspace{1sp}\cite{zhang2018tropical}\label{theo:inequal}
 Let $F=(f_1, \dots , f_m) \in \Rat(n,m)$ and $G \in \Rat(d, n)$. Define $H = (h_1, \dots , h_m) \in \Rat(d, m)$ by
 $$h_i := f_i \circ G, \ \ i=1, \dots , m.$$
 Then
 $$\mathcal{N}(H) \leq \mathcal{N}_{C}(H) \leq \mathcal{N}_C(F \ | \ d) \cdot \mathcal{N}_C(G).$$
 \end{theorem}
 \begin{proof}
-The first inequality holds because the regions we are counting in $\mathcal{N}_{C}(H)$ have one more restraint than the regions that are counted in $\mathcal{N}(H)$, that they have to be convex, and there fore $\mathcal{N}(H) \leq \mathcal{N}_{C}(H)$. For the second inequality we know by the definition of $\mathcal{N}_C(G)$ that there exist convex sets $C_1, \dots , C_{\mathcal{N}_C(G)}$ whose union is $\mathbb{R}^{d}$ and on each of which $G$ is linear. So $\restr{G}{C_i}$ is some affine function $\rho_i$. Now we want to show for $i = 1, \dots, \mathcal{N}_C(G)$ that $\mathcal{N}_C(F \circ \rho_i) \leq \mathcal{N}_C(F \ | \ d)$ and first remind of the definitions:
+The first inequality holds, because the regions we are counting in $\mathcal{N}_{C}(H)$ have one more restraint than the regions that are counted in $\mathcal{N}(H)$, that they have to be convex, and therefore $\mathcal{N}(H) \leq \mathcal{N}_{C}(H)$. For the second inequality we know by the definition of $\mathcal{N}_C(G)$ that there exist convex sets $C_1, \dots , C_{\mathcal{N}_C(G)}$ whose union is $\mathbb{R}^{d}$ and where $G$ is linear on each set. So $\restr{G}{C_i}$ is some affine function $\rho_i$. Now we want to show for $i = 1, \dots, \mathcal{N}_C(G)$ that $\mathcal{N}_C(F \circ \rho_i) \leq \mathcal{N}_C(F \ | \ d)$ and first remind of the definitions:
 \begin{align*}
 \mathcal{N}_{c}&(F \circ \rho_i) = \min\{n : C_1 \cup \dots \cup C_n = \mathbb{R}^{d} \ \text{where} \ C_i \ \text{convex and} \ \restr{F \circ \rho_i}{C_i} \ \text{linear}\} \\
 &\leq \mathcal{N}_C(F \ | \ d) = \max\{\mathcal{N}_C(\restr{F}{\Omega}) : \Omega \subset \mathbb{R}^{n} \ \text{is an} \ d \ \text{dimensional affine space} \}.
 \end{align*}
-The set $\text{Im}(\rho_i) \subset \mathbb{R}^{n}$ is a linear subspace, which also is an affine space. If $d < n$ then the Image of $\rho$, $\text{Im}(\rho_i) \subset \mathbb{R}^{n}$ is a $d$-, or lower, dimensional affine space and therefore 
+The set $\text{Im}(\rho_i) \subset \mathbb{R}^{n}$ is a linear subspace, which also is an affine space. If $d < n$, then the image of $\rho$, $\text{Im}(\rho_i) \subset \mathbb{R}^{n}$ is a $d$-, or lower, dimensional affine space and therefore 
 $$\mathcal{N}_C(F \circ \rho_i) \leq \mathcal{N}_C(F \ | \ d).$$ 
 On the other hand if $d \geq n$, then 
 $$\mathcal{N}_C(F \ | \ d) = \mathcal{N}_C(F \ | \ n) = \mathcal{N}_C(F)$$ 
-and $\text{Im}(\rho_i)$ is a linear subspace, combined with the convexity of the $C_i$
-$$\mathcal{N}_C(F \circ \rho_i) \leq \mathcal{N}_C(F \ | \ d).$$
+and $\text{Im}(\rho_i)$ is a linear subspace, combined with the convexity of the sets $C_i$
+$$\mathcal{N}_C(F \circ \rho_i) \leq \mathcal{N}_C(F \ | \ d)$$
 holds. Since $F \circ G = F \circ \rho_i$ on $C_i$, we have
 $$\mathcal{N}_C(F \circ G) \leq \displaystyle\sum_{i=1}^{k} \mathcal{N}_C(F \circ \rho_i).$$
 Hence
 $$\mathcal{N}_C(F \circ G) \leq \displaystyle\sum_{i=1}^{k} \mathcal{N}_C(F \circ \rho_i) \leq \displaystyle\sum_{i=1}^{k} \mathcal{N}_C(F \ | \ d) = \mathcal{N}_C(F \ | \ d) \cdot \mathcal{N}_C(G).$$
 \end{proof}
-\begin{lemma}\hspace{1sp}\cite{maclagan2015introduction}\label{lem:bound}
+\begin{lemma}\hspace{1sp}\cite{zhang2018tropical}\label{lem:bound}
 Let $\sigma^{(l)} \circ \rho^{(l)}: \mathbb{R}^{n_{l-1}} \to \mathbb{R}^{n_l}$ where $\sigma^{(l)}$ and $\rho^{(l)}$ are affine transformations and activation of the $l$-th layer of a neural network. If $d \leq n_l$, then
 $$\mathcal{N}_C(\sigma^{(l)} \circ \rho^{(l)} \ | \ d) \leq \displaystyle\sum_{i=0}^{d}\binom{n_l}{i}.$$
 \end{lemma}
@@ -1357,7 +1414,7 @@ The last term is linear in $x$, we may drop it without affecting the convex degr
 \end{align*}
 where
 $$f_j(x)=\displaystyle\odot^{d}_{i=1}b_i \odot x^{a_{ij}^{+}} \ \ \text{and} \ \ g_j(x)= \left( \displaystyle\odot^{d}_{i=1} x^{a_{ji}^{-}} \right) \odot t_j.$$
-For the monomials $f_j, g_j$, the sets $\mathcal{P}(f_j)$ and $\mathcal{P}(g_j)$ are are points in $\mathbb{R}^{d+1}$ and $\Conv(\mathcal{V}(\mathcal{P}(f_j)) \cup \mathcal{V}(\mathcal{P}(g_j))$ is a line in $\mathbb{R}^{d+1}$. Hence $g$ is a Minkowski sum of $n_l$ line segments in $\mathbb{R}^{d+1}$. The generating line segments are not nessesarely in general position thus corollary \ref{cor:zon_lines} only gives an uppper bound:
+For the monomials $f_j, g_j$, the sets $\mathcal{P}(f_j)$ and $\mathcal{P}(g_j)$ are points in $\mathbb{R}^{d+1}$ and $\Conv(\mathcal{V}(\mathcal{P}(f_j)) \cup \mathcal{V}(\mathcal{P}(g_j))$ is a line in $\mathbb{R}^{d+1}$. Hence $g$ is a Minkowski sum of $n_l$ line segments in $\mathbb{R}^{d+1}$. The generating line segments are not necessarily in general position thus corollary \ref{cor:zon_lines} only gives an upper bound:
 $$\mathcal{P}(g) \leq \displaystyle\sum^{d}_{i=0} \binom{n_l}{i}.$$
 This means, that
 $$\mathcal{N}_{C}(\restr{\sigma^{(l)} \circ \rho^{(l)}}{\Omega}) \leq \displaystyle\sum^{d}_{i=0} \binom{n_l}{i}$$
@@ -1369,7 +1426,7 @@ for all $\Omega \subset \mathbb{R}^{d}$ and so
 \end{align*}
 \end{proof}
 
-\begin{theorem}\hspace{1sp}\cite{maclagan2015introduction}\label{theo:end_theo_proof}
+\begin{theorem}\hspace{1sp}\cite{zhang2018tropical}\label{theo:end_theo_proof}
 Let $\nu : \mathbb{R}^{d} \to \mathbb{R}^{n_L}$ be an $L$-layer neural network satisfying assumptions (a)-(c) with $F^{(l)}$, $G^{(l)}, H^{(l)}$, and $\nu^{(l)}$ as defined in the proof of theorem \ref{teo:trop_char_of_neur_net}. Let $n_l \geq d$ for all $l= 1, \dots , L$. Then
 $$\mathcal{N}_C(\nu^{(1)}) = \mathcal{N}_C(G^{(1)}) = \mathcal{N}_C(H^{(1)}) = 1$$
 and
@@ -1380,15 +1437,19 @@ For $l=1$ the functions $G^{(1)}(x) = A^{(1)}_{-}x$ and $H^{(1)}(x)=A^{(1)}_{+}x
 \end{proof}
 
 Theorem \ref{theo:lin_reg} follows by induction from theorem \ref{theo:end_theo_proof}. Also if $d \leq n_1, \dots , n_{L-1} \leq n$, then
-$$\displaystyle\prod_{l=1}^{L-1}\displaystyle\sum_{i=0}^{d}\binom{n}{i} \leq \displaystyle\prod_{l=1}^{L-1} n^{d} = n^{d(L-1)}$$. With the lower bound $\Omega((n/d)^{(L-1)d}n^{d})$,from \cite[corollary 5]{montufar2014number} cited in \cite{maclagan2015introduction}, we can suspect that the number of linear regions of a feedforward neural network grows polynomially with the width $n$ and exponentially with the number of layers $L$.
+$$\displaystyle\prod_{l=1}^{L-1}\displaystyle\sum_{i=0}^{d}\binom{n}{i} \leq \displaystyle\prod_{l=1}^{L-1} n^{d} = n^{d(L-1)}.$$ With the lower bound $\Omega((n/d)^{(L-1)d}n^{d})$,from \cite[corollary 5]{montufar2014number} cited in \cite{maclagan2015introduction}, we can suspect that the number of linear regions of a feedforward neural network grows polynomially with the width $n$ and exponentially with the number of layers $L$.
 
 \newpage
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-We have linked feedforward neural networks under assumptions (a)-(c) to tropical rational maps in chapter \ref{sec:trop_netw}, theorem \ref{teo:trop_char_of_neur_net}, then further restricted both to a single output, which led to remark \ref{rem:key_rem}, the equivalence between tropical rational functions, continuous piecewise linear functions with integer coefficients and neural networks satisfying assumptions (a)-(c). For that, in chapter \ref{sec:trop_algebra} and \ref{sec:neural_networks}, we introduced the basic concepts by extending the knowledge of \cite{maclagan2015introduction} and adding examples. In the last two chapters, chapter \ref{sec:tropical_hypersurfaces} and \ref{sec:tropical_geometry_of_neural_networks}, we then proved  upper bounds on the linear regions of neural networks satisfying assumptions (a)-(c). \\
-Thus we have successfully linked and used the link, between neural networks and tropical geometry, to find upper limits to the number of regions of a feedforward neural network and formulated the suspection, that the number of linear regions of a feedforward neural network grows polynomially with the with and exponentially with the number of Layers. This may be subject to further research. 
+In section \ref{sec:trop_algebra} and \ref{sec:neural_networks}, we introduced basic concepts of tropical algebra and neural networks by extending the knowledge of \cite{zhang2018tropical} and adding examples.
+Then we successfully linked feedforward neural networks under assumptions (a)-(c) to tropical rational maps in section \ref{sec:trop_netw}, theorem \ref{teo:trop_char_of_neur_net}, then further restricted both to a single output, which led to the equivalence between tropical rational functions, continuous piecewise linear functions with integer coefficients and neural networks satisfying assumptions (a)-(c).
+%, remark \ref{rem:key_rem}
+In the last two sections, section \ref{sec:tropical_hypersurfaces} and \ref{sec:tropical_geometry_of_neural_networks}, we then proved  upper bounds on the linear regions of neural networks satisfying assumptions (a)-(c). \\
+Thus we have successfully proven an equivalence between feedforward neural networks and tropical rational functions and used the knowledge to find upper limits to the number of regions of a neural network. On the basis of the estimates we have then phrased a conjecture where the number of linear regions of a feedforward neural network grows polynomially with the width and exponentially with the number of Layers. This is not subject to this thesis and may be further researched. \\
+This thesis has followed the paper \cite{zhang2018tropical} that introduces basic knowledge for a new field of research and from which new insights to neural networks may follow.
 
 \newpage
 
@@ -1454,7 +1515,16 @@ Thus we have successfully linked and used the link, between neural networks and 
 \bibliographystyle{amsalpha}
 \bibliography{references}
 
-\newpage ~\ \\
-Ich habe die Arbeit selbstständig verfasst, keine anderen als die angegebenen Quellen und Hilfsmittel benutzt und bisher keiner anderen Prüfungsbehörde vorgelegt.
+\newpage %~\ \\
+\hfil Eidesstattliche Erklärung
+\\ ~\ \\ ~\ \\ ~\ \\
+Ich versichere an Eides statt durch meine eigene Unterschrift, dass ich die vorstehende Arbeit selbständig und ohne fremde Hilfe angefertigt und alle Stellen, die aus Veröffentlichungen genommen sind, als solche kenntlich gemacht habe. Die Versicherung bezieht sich auch auf in der Arbeit gelieferte Zeichnungen, Skizzen, bildliche Darstellungen und dergleichen. 
+
+\vspace{4cm}
+
+\hspace{2cm} Ort, Datum \hfill Unterschrift \hspace{2cm}
+
+%\newpage ~\ \\
+%Ich habe die Arbeit selbstständig verfasst, keine anderen als die angegebenen Quellen und Hilfsmittel benutzt und bisher keiner anderen Prüfungsbehörde vorgelegt.
 
 \end{document}
